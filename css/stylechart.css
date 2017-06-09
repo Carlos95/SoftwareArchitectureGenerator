@@ -1,0 +1,85 @@
+html,body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333333;
+}
+
+#chart-container {
+  position: relative;
+  display: inline-block;
+  top: 10px;
+  left: 10px;
+  height: 420px;
+  width: calc(100% - 24px);
+  border: 2px dashed #aaa;
+  border-radius: 2px;
+  overflow: auto;
+  text-align: center;
+}
+
+
+
+@keyframes jump {
+    0% {top: 0px;}
+    50% {top: -6px;}
+    100% {top: 6px;}
+}
+
+@-webkit-keyframes jump {
+    0% {top: 0px;}
+    50% {top: -6px;}
+    100% {top: 6px;}
+}
+
+
+.orgchart .second-menu-icon {
+    transition: opacity .5s;
+    opacity: 0;
+    right: -5px;
+    top: -5px;
+    z-index: 2;
+    color: rgba(68, 157, 68, 0.5);
+    font-size: 18px;
+    position: absolute;
+}
+.orgchart .second-menu-icon:hover {
+  color: #449d44;
+}
+.orgchart .node:hover .second-menu-icon {
+  opacity: 1;
+}
+.orgchart .node .second-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -70px;
+  border-radius: 35px;
+  box-shadow: 0 0 10px 1px #999;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.orgchart .node .second-menu .requirements {
+  width: 200px;
+  height: 60px;
+  border-radius: 30px;
+  float: left;
+  margin: 10px;
+  
+}
+
+.orgchart .node .title{
+	background-color: #0000ff;
+}
+
+.orgchart .node .content{
+	border-color: #0000ff;
+}

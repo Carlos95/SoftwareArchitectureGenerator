@@ -1,0 +1,17 @@
+/*==========================================================================
+=            
+
+Color Name - Red;
+Color Code - #f25454
+
+            =
+==========================================================================*/
+
+.section-heading h4,.left-about-heading  h4,.quote-icon, .single-faq h5, .colored-color, .feature-icon {
+	color: #f25454;
+}
+
+.standard-button, .about-list-icon, .section-bg-color-second, .border-from-bottom::before, .boder-from-left::before {
+  background-color: #f25454;
+}
+
