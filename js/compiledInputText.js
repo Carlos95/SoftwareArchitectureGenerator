@@ -14,9 +14,13 @@ class TodoApp extends React.Component {
         { onSubmit: this.handleSubmit },
         React.createElement('input', { onChange: this.handleChange, value: this.state.text, required: true }),
         React.createElement(
-          'button',
-          null,
-          'Add Requirement number ' + (this.state.items.length + 1)
+          'div',
+          { 'class': 'input-button' },
+          React.createElement(
+            'button',
+            null,
+            'Add Requirement number ' + (this.state.items.length + 1)
+          )
         )
       );
     } else {

@@ -12,7 +12,9 @@ class TodoApp extends React.Component {
 	 if (this.state.items.length < this.state.isLimit){
 		 handleSubmit= <form onSubmit={this.handleSubmit}>
 		 			   <input onChange={this.handleChange} value={this.state.text}required />
-		 			   	<button>{'Add Requirement number ' + (this.state.items.length + 1)}</button>
+		 			   <div class="input-button">	
+		 			   <button>{'Add Requirement number ' + (this.state.items.length + 1)}</button>
+		 			   </div>
 		 			   	</form>;
 	 }
 	 else {
