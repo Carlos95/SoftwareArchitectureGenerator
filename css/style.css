@@ -951,7 +951,6 @@ h6 {
 	margin-left: 240px;
 }
 .top-part {
-	width: 1600px;
 	height: 447px;
 	font-family: Arial;
 	font-size: 10.0pt;
@@ -983,7 +982,6 @@ h6 {
 }
 
 .output-top-part {
-	width: 1600px;
 	height: 447px;
 	font-family: Arial;
 	font-size: 10.0pt;
@@ -1014,7 +1012,6 @@ footer:hover .hover-grow-shadow{
   top: 10px;
   left: 10px;
   height: 420px;
-  width: calc(100% - 24px);
   border: 2px dashed #aaa;
   border-radius: 2px;
   overflow: auto;
