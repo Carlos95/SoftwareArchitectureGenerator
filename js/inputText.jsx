@@ -1,14 +1,16 @@
+
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {items: [], text: '',isLimit: '5'};
+    this.state = {items: [], text: '',isLimit: '2'};
   }
 
   
  render() {
 	 let handleSubmit=null;
+	 let handleExport=null;
 	 if (this.state.items.length < this.state.isLimit){
 		 handleSubmit= <form onSubmit={this.handleSubmit}>
 		 			   <input onChange={this.handleChange} value={this.state.text}required />
@@ -18,13 +20,16 @@ class TodoApp extends React.Component {
 		 			   	</form>;
 	 }
 	 else {
-		 handleSubmit = <h3>Maximum amount of requirements inputed</h3>;
+		 handleSubmit = <h3>Maximum amount of requirements inputed</h3>
+		 handleExport = <ExportList items={this.state.items} />;
+			 			
 	 }
 	 return (
       <div>
         <h1>Please Input The Requirements One By One</h1>
         <TodoList items={this.state.items} />
         {handleSubmit} 
+        {handleExport}
       </div>
     );
   }
@@ -47,12 +52,31 @@ class TodoApp extends React.Component {
     }));
     
   }
-  	
 
 }
 
+class ExportList extends React.Component {
+	
+	render() {
+		var keyword_extractor = require("keyword-extractor");
+		return (
+			      <ul>
+			        {this.props.items.map((item) => keyword_extractor.extract(item.text,{
+                        language:"english",
+                        remove_digits: true,
+                        return_changed_case:true,
+                        remove_duplicates: false
+
+                   }))}
+			      </ul>
+			      
+			    );
+		
+	}
+}
+
 class TodoList extends React.Component {
-  render() {
+	render() {
     return (
       <ul>
         {this.props.items.map(item => (
@@ -64,7 +88,9 @@ class TodoList extends React.Component {
   }
 }
 
+
+
 ReactDOM.render(
-		<TodoApp />, 
+		<TodoApp />,
 		document.getElementById('search')
 );

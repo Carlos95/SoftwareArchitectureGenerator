@@ -4,8 +4,8 @@
   "description": "Thesis",
   "main": "index.js",
   "scripts": {
-  	"build": "webpack",
-  	"start": "webpack-dev-server"
+    "build": "webpack",
+    "start": "webpack-dev-server"
   },
   "author": "Carlos Acosta",
   "license": "ISC",
@@ -17,8 +17,13 @@
     "babel-cli": "^6.24.0",
     "babel-preset-env": "^1.2.2",
     "babel-preset-react": "^6.23.0"
-  }
-
-
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carlos95/SoftwareArchitectureGenerator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Carlos95/SoftwareArchitectureGenerator/issues"
+  },
+  "homepage": "https://github.com/Carlos95/SoftwareArchitectureGenerator#readme"
 }
-
