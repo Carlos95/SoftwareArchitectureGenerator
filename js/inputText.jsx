@@ -238,7 +238,7 @@ export default class Output extends React.Component{
 		}
 
 		// Collect Data 
-		else if (acquisitionService == true && fieldLab == true && instrumentController == true){
+		else if (fieldLab == true && acquisitionService == true || instrumentController == true ){
 			
 			window.init({ "class": "go.GraphLinksModel",
 			    	  "copiesArrays": true,
