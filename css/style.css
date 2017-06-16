@@ -526,6 +526,7 @@ body .btn-bg.link .btn-group .codepen button:hover .skeleton {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+  	
   }
 }
 .btn {
@@ -533,7 +534,7 @@ body .btn-bg.link .btn-group .codepen button:hover .skeleton {
   display: block;
 }
 .btn-info {
-  margin-bottom: 50px;
+  margin-top: 50px;
   text-align: center;
   font-family: 'Lato';
   text-transform: uppercase;
@@ -543,7 +544,7 @@ body .btn-bg.link .btn-group .codepen button:hover .skeleton {
   color: #fff;
 }
 .btn-mention {
-  margin-bottom: 270px;
+  margin: 90px;
   text-align: center;
   font-family: 'Lato';
   letter-spacing: 0.1em;
@@ -991,6 +992,12 @@ h6 {
 	color: #333333;
 	background-color: #88ff88;
 	border: 2px solid #404040;
+}
+
+.myOutput {
+	width:600px; 
+	height:300px; 
+	border:1px solid black ;
 }
 
 /*========== 4.4 FOOTER SECTION STYLES  ==========*/
