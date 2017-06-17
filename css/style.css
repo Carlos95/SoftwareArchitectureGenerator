@@ -157,6 +157,10 @@ li {
   background: rgba(222, 222, 222, 0.24) none repeat scroll 0 0;
 }
 
+.section-3-color {
+	background-color: #808080;
+}
+
 #section-2,
 #section-3,
 #section-9,
@@ -184,6 +188,7 @@ li {
   padding-bottom:60px;
   
 }
+
 
 
 /*========== 3.2 BORDER FROM BOTTOM EFFECT  ==========*/
@@ -524,7 +529,7 @@ body .btn-bg.link .btn-group .codepen button:hover .skeleton {
   .btn-group {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
   	
   }
@@ -735,7 +740,12 @@ h6 {
 	font-weight: 700;
 }
 
-
+h7 {
+	font-size: 1.5rem;
+	line-height: 2.375rem;
+	font-weight: 600;
+	color: #FFFAF0;
+}
 
 /*==================================================
 =            4. SECTION SPECIFIC STYLES            =
@@ -945,11 +955,32 @@ h6 {
   
 }
 
+.submit-feature-content{
+  color: #FFFAF0;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.submit-feature-icon {
+  border: 2px solid;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 65px;
+  padding: 20px;
+  color: #9ACD32;
+}
 
 /*========== 4.3 CONTAINER STYLES  ==========*/
 
+.row2 {
+	margin-left: 350px;
+	text-align:center;
+	position:relative;
+}
+
 .mybox {
-	margin-left: 240px;
+	
+	padding-left: 370px;
 }
 .top-part {
 	height: 447px;
@@ -1037,49 +1068,4 @@ footer:hover .hover-grow-shadow{
     0% {top: 0px;}
     50% {top: -6px;}
     100% {top: 6px;}
-}
-
-
-.orgchart .second-menu-icon {
-    transition: opacity .5s;
-    opacity: 0;
-    right: -5px;
-    top: -5px;
-    z-index: 2;
-    color: rgba(68, 157, 68, 0.5);
-    font-size: 18px;
-    position: absolute;
-}
-.orgchart .second-menu-icon:hover {
-  color: #449d44;
-}
-.orgchart .node:hover .second-menu-icon {
-  opacity: 1;
-}
-.orgchart .node .second-menu {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: -70px;
-  border-radius: 35px;
-  box-shadow: 0 0 10px 1px #999;
-  background-color: #fff;
-  z-index: 1;
-}
-
-.orgchart .node .second-menu .requirements {
-  width: 200px;
-  height: 60px;
-  border-radius: 30px;
-  float: left;
-  margin: 10px;
-  
-}
-
-.orgchart .node .title{
-	background-color: #0000ff;
-}
-
-.orgchart .node .content{
-	border-color: #0000ff;
 }
