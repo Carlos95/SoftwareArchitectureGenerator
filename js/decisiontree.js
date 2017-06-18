@@ -278,6 +278,50 @@ $(function() {
     for(var i = 0; i < items.length; i++) {
       var item = items[i];
       $list.append('<li><a href="#" data-choice="' + item.id + '">' + item.name + '</a></li>');
+      //////////////////////
+      if (item.name == 'Data Curation: PRESERVATION'){
+    	  window.init({ "class": "go.GraphLinksModel",
+	    	  "copiesArrays": true,
+	    	  "copiesArrayObjects": true,
+	    	  "linkFromPortIdProperty": "fromPort",
+	    	  "linkToPortIdProperty": "toPort",
+	    	  "nodeDataArray": [
+	    	{"key":1, "name":"Catalogue Service", "loc":"300 104",
+	    	 "leftArray":[ {"portColor":"#425e5c", "portId":"left0"} ],
+	    	 "topArray":[  ],
+	    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+	    	 "rightArray":[  ] },
+	    	{"key":2, "name":"Data Transporter", "loc":"080 180",
+	    	 "leftArray":[  ],
+	    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+	    	 "bottomArray":[ {"portColor":"#dd45c7", "portId":"bottom0"},{"portColor":"#995aa6", "portId":"bottom1"} ],
+	    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+	    	{"key":3, "name":"Data Store Controller", "loc":"300 200",
+	    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"},{"portColor":"#c14617", "portId":"left1"} ],
+	    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+	    	 "bottomArray":[  ],
+	    	 "rightArray":[  ] },
+	    	 {"key":4, "name":"Data Transfer Service", "loc":"050 070",
+		    	 "leftArray":[  ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+		    	 "rightArray":[  ] },
+	    	 {"key":5, "name":"PID", "loc":"030 280",
+	    	 "leftArray":[  ],
+	    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+	    	 "bottomArray":[  ],
+	    	 "rightArray":[  ] }
+	    	 ],
+	    	  "linkDataArray": [
+	    	{"from":1, "to":2, "fromPort":"left0", "toPort":"right0"},
+	    	{"from":1, "to":3, "fromPort":"bottom0", "toPort":"top0"},
+	    	{"from":2, "to":3, "fromPort":"bottom1", "toPort":"left1"},
+	    	{"from":5, "to":2, "fromPort":"top0", "toPort":"bottom0"},
+	    	{"from":3, "to":2, "fromPort":"left0", "toPort":"right1"},
+	    	{"from":4, "to":2, "fromPort":"bottom0", "toPort":"top0"}
+	    	 ]});
+    	  
+      }
     }
   };
   
