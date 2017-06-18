@@ -140,10 +140,14 @@ strong {
 ul,
 ol {
 	padding-left: 0 !important;
+	font-size: x-large;
+	
 }
 
 li {
 	list-style: none;
+	padding: 10px;
+	font-color: rgb(0,0,0);
 } 
 
 
@@ -1068,4 +1072,9 @@ footer:hover .hover-grow-shadow{
     0% {top: 0px;}
     50% {top: -6px;}
     100% {top: 6px;}
+}
+
+.choices {
+	font-size:larger;
+	
 }
