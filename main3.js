@@ -1,0 +1,1 @@
+import role from './js/role.jsx';

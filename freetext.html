@@ -61,17 +61,17 @@
 	 		<p id="demo"></p>
 	 		<div class="search" id="search">
 	 		
-	 	    <script type="text/javascript" src="bundle.js"></script>
+	 	    <script type="text/javascript" src="importText.entry.js"></script>
 	 		
 	 		
 	 		
 	 		
 	 		</div>	
 	 		<div class="generate" id="generate">
-  			<script type="text/javascript" src="bundle.js"></script>
+  			<script type="text/javascript" src="importText.entry.js"></script>
     		</div> 	 
 	 		<div class="test" id="test">
-  			<script type="text/javascript" src="bundle.js"></script>
+  			<script type="text/javascript" src="importText.entry.js"></script>
     		</div>
 	 			
 	 	</div>
@@ -216,50 +216,33 @@
 	 		        )  // end Horizontal Panel
 	 		      );  // end Node
 
-	 		    // an orthogonal link template, reshapable and relinkable
+	 		    
 	 		    myDiagram.linkTemplate =
-	 		      $(CustomLink,  // defined below
-	 		        {
-	 		          routing: go.Link.AvoidsNodes,
-	 		          corner: 4,
-	 		          curve: go.Link.JumpGap,
-	 		          reshapable: true,
-	 		          resegmentable: true,
-	 		          relinkableFrom: true,
-	 		          relinkableTo: true
-	 		        },
-	 		        new go.Binding("points").makeTwoWay(),
-	 		        $(go.Shape, { stroke: "#2F4F4F", strokeWidth: 2 })
-	 		      );
-
-	 		   
-
+	 		      $(go.Link,  // the whole link panel
+	 		        $(go.Shape,  // the link shape
+	 		          { stroke: "black" }),
+	 		        $(go.Shape,  // the arrowhead
+	 		          { toArrow: "standard", stroke: null }),
+	 		        $(go.Panel, "Auto",
+	 		          $(go.Shape,  // the label background, which becomes transparent around the edges
+	 		            { fill: $(go.Brush, "Radial", { 0: "rgb(240, 240, 240)", 0.3: "rgb(240, 240, 240)", 1: "rgba(240, 240, 240, 0)" }),
+	 		              stroke: null }),
+	 		          $(go.TextBlock,  // the label text
+	 		            { textAlign: "center",
+	 		              font: "10pt helvetica, arial, sans-serif",
+	 		              stroke: "#555555",
+	 		              margin: 4 },
+	 		            new go.Binding("text", "text"))
+	 		        )
+	 		      )
 
 	 		    // load the diagram from JSON data
 	 		    load(fu);
 	 		  }
 
 
-	 		  // This custom-routing Link class tries to separate parallel links from each other.
-	 		  // This assumes that ports are lined up in a row/column on a side of the node.
-	 		  function CustomLink() {
-	 		    go.Link.call(this);
-	 		  };
-	 		  go.Diagram.inherit(CustomLink, go.Link);
-
-	 		  CustomLink.prototype.findSidePortIndexAndCount = function(node, port) {
-	 		    var nodedata = node.data;
-	 		    if (nodedata !== null) {
-	 		      var portdata = port.data;
-	 		      var side = port._side;
-	 		      var arr = nodedata[side + "Array"];
-	 		      var len = arr.length;
-	 		      for (var i = 0; i < len; i++) {
-	 		        if (arr[i] === portdata) return [i, len];
-	 		      }
-	 		    }
-	 		    return [-1, len];
-	 		  };
+	 		  
+	 		  
 
 	 		  function load(fu) {
 	 		    myDiagram.model = go.Model.fromJson(fu);

@@ -1,261 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<!--
+	Radius by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="description" content="Software Architecture Generator">
-		<meta name="author" content="Carlos Acosta">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-		<!-- SITE TITLE -->
-		<title>SAG</title>
-		<!-- =========================
-		     FAV AND TOUCH ICON  AREA     
-		============================== -->
-		<link rel="icon" href="images/logo.png">
-		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-		<!-- =========================
-		     STYLESHEETS  AREA     
-		============================== -->
-		<!-- BOOTSTRAP -->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<!-- FONT ICON (FONT-AWESOME) -->
-		<link rel="stylesheet"  href="assets/font-awesome/css/font-awesome.min.css">
-
-		<!-- OWL-CAROUSEL -->
-		<link rel="stylesheet"  href="assets/owl-carousel/owl.carousel.css">
-		<link rel="stylesheet"  href="assets/owl-carousel/owl-carousel/owl.theme.css">
-
-
-		<!-- WODRY TEXT SLIDING  -->
-		<link rel="stylesheet"  href="css/wodry.css">
-
-		<!-- CUSTOM STYLES -->
-		<link rel="stylesheet"  href="css/style.css">
-
-
-		<!-- COLORS -->
-		<link rel="stylesheet"  href="css/colors/red.css"> 
-		
-
-		<!-- RESPONSIVE FIXES -->
-		<link rel="stylesheet"  href="css/responsive.css">
-		<!--[if lt IE 9]>
-				<script src="js/html5shiv.js"></script>
-				<script src="js/respond.min.js"></script>
-	<![endif]-->
-
-	<!-- ****************
-	      After neccessary customization/modification, Please minify HTML/CSS according to http://browserdiet.com/en/ for better performance
-	     **************** -->
-	
-	 <script src="https://unpkg.com/react@15/dist/react.js"></script>
-     <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
-	
-	<!-- Hotjar Tracking Code for https://carlos95.github.io/SoftwareArchitectureGen -->
-	<script>
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:541997,hjsv:5};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
-	</script>
-	
-	
+		<title>Radius by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="engineers/assets/css/engineerstyle.css" />
+		<link rel="stylesheet" href="assets/dialogBox/css/jquery.dialogbox.css">
 	</head>
-	<body>
-		<!-- =========================
-		     PRE-LOADER  AREA     
-		============================== -->
-	<div class="preloader">
-			<div class="status">&nbsp;</div>
-	</div>
- 	<!-- =========================
- 	     HEADER  AREA     
- 	============================== -->
- 	<section id="section-1" class="header-section">
- 		<div class="color-overlay">
-	 		<div class="container">
-	 			<div class="header-logo">
-	 				<img src="./images/logo.png" alt="Logo">
-	 			</div> <!-- HEADER LOGO -->
-	 			
-	 			<div class="header-text">
-	 				<H1><span class=wodry>Generate Instant Architectures|
-	 				Understanding Made Easy|
-	 				Input Your Requirements|
-	 				Easy To Use!
-	 				</span> </H1>			
-	 				
-	 			</div> <!-- HEADER-TEXT --> 
-	 		<!-- Button to open the modal -->
-<button onclick="document.getElementById('id01').style.display='block'">Sign Up</button>
+	<body onload="function()">
 
-<!-- The Modal (contains the Sign Up form) -->
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content animate">
-    <div class="container">
-      <label><b>Full Name</b></label>
-      <input type="text" placeholder="Enter Full Name" name="full-name" required>
-
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit" class="signupbtn">Sign Up</button>
-      </div>
-    </div>
-  </form>
-</div>	
-	 		</div>
-	 	</div>	
- 	</section>
-
- 	<!-- =========================
- 	     FEATURE  AREA     
- 	============================== -->
- 	<section id="section-2" class="feature-section">
- 	
- 		<div class="container">
- 			<div class="row">
- 				<div class="section-heading">
- 					<h2>Methods</h2>
- 					<h4>Choose one of the methods to input requirements </h4>
- 				</div>
- 			</div>
- 			
- 			
- 			
- 				<div class="mybox">
- 				<a href="freetext.html" style="color:#696969">
- 				<div class="col-md-3 col-sm-6">
- 					<div class="single-feature border-from-bottom">
- 						<div class="feature-icon">
- 							<i class="fa fa-book"></i>
- 						</div>
- 						<div class="feature-content">
- 							<h3>Free Text</h3>
- 							<p>Input any requirement you want with complete freedom</p>
- 						</div>
- 					</div>
- 				</div>
- 				</a>
- 				 <!-- SINGLE FEATURE -->
- 				<a href="wizard.html" style="color:#696969">
- 				<div class="col-md-3 col-sm-6">
- 					<div class="single-feature border-from-bottom">
- 						<div class="feature-icon">
- 							<i class="fa fa-file"></i>
- 						</div>
- 						<div class="feature-content">
- 							<h3>Wizard</h3>
- 							<p>Wizard that helps you generate the desired architecture </p>
- 						</div>
- 					
- 					</div>
- 				</div>	
- 				</a>
- 				</div>
- 			</div>
- 	  	
- 	</section>
-	<section id= "section-3" class="section-3-color">
-	
-	<div class="container">
-			<div class ="row">
-			<a href="survey.html" style="color:#696969">
- 				
- 					<div class="single-feature border-from-bottom">
- 						<div class="submit-feature-icon">
- 							<i class="fa fa-envelope-o"></i>
- 						</div>
- 						<div class="submit-feature-content">
- 							<h7>Form</h7>
- 							<p>Please fill in this form once you finish using the application </p>
- 						</div>
- 					</div>
- 				
- 				</a>
-			</div>
+		<!-- Header -->
+			<header id="header">
+				
+				<div class="inner">
+					<div class="content">
+						<h1>Welcome To The Software Architecture Generator</h1>
+						<h2>This portal will provide you with several tools.</h2>
+						<a href="#" class="button big alt"><span>Let's Go</span></a>
+					</div>
+					<a href="#" class="button hidden"><span>Let's Go</span></a>
+				</div>
+			</header>
 			
-		</div>
-	</section>
+		<!-- Main -->
+			<div id="main">
+				<div id="btn-dialogBox"></div>
+				<div class="inner">
+					<div class="columns">
+
+						
+							<div class="image fit">
+								<a href="engineers/behaviour.html"><img src="engineers/images/behaviour.jpg" alt="" /></a>
+							</div>
+							<div class="image fit">
+								<a href="engineers/role.html"><img src="engineers/images/roles.jpg" alt="" /></a>
+							</div>
+							<div class="image fit">
+								<a href="survey.html"><img src="engineers/images/inputform.png" alt="" /></a>
+							</div>
+							<div class="image fit">
+								<a href="#"><img src="engineers/images/communities.jpg" alt="" /></a>
+							</div>
+							<div class="image fit">
+								<a href="engineers/freetext.html"><img src="engineers/images/freetext.jpg" alt="" /></a>
+							</div>
+							<div class="image fit">
+								<a href="engineers/dependencies.html"><img src="engineers/images/dependencies.jpg" alt="" /></a>
+							</div>
+							
+
+						
+
+					</div>
+				</div>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<a href="#" class="info fa fa-info-circle"><span>About</span></a>
+				<div class="inner">
+					<div class="content">
+						<h3>Choose a tool from the shown above</h3>
+						<p>This portal will aid with the manipulation and extraction of data from the RM.</p>
+					</div>
+					<div class="copyright">
+						&copy; SAG 2017.
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="engineers/assets/js/jquery.min.js"></script>
+			<script src="engineers/assets/js/skel.min.js"></script>
+			<script src="engineers/assets/js/util.js"></script>
+			<script src="engineers/assets/js/main.js"></script>
+			<script src="js/jquery-1.11.2.min.js"></script>
+			<script src="assets/dialogBox/js/jquery.dialogBox.js"></script>
+			<script>
+			$(function(){
+				$('#btn-dialogBox').dialogBox({
+						hasClose: false,
+						hasBtn: true,
+						confirmValue: 'Yes',
+						confirm: function(){
+							window.location.href = "https://carlos95.github.io/SoftwareArchitectureGenerator/indexexpert.html";
+						},
+						cancelValue: 'No',
+						title: 'Are you familiar with the ENVRI RM?',
+						content: ''
+					});
+				
+			})
 	
-
-
- 	
-
-		<!-- =========================
-		   FOOTER  AREA     
-		============================== -->
-		<footer id="section-9" class="section-bg-color">
-			<div class="container">
-				<div class="footer-logo hover-grow-shadow">
-					<img src="./images/logo.png" width="120" height="100" alt="Logo">
-				</div> <!-- FOOTER LOGO -->
-
-				<div class="copyright-text">
-					<p>&copy;2017 - SAG</p>
-				</div> <!-- COPYRIGHT TEXT -->
-
-			</div> <!-- CONTAINER CLOSE HERE -->
-		</footer>
-		<!-- =========================
-		     SCRIPTS   AREA     
-		============================== -->
-		<!-- JQUERY LATEST -->
-		<script src="js/jquery-1.11.2.min.js"></script> <!-- You can use CDN version -->
-
-		<script>
-		/* =================================
-		   PRE-LOADER ACTIVE SRCIPT                    
-		=================================== */
-		// makes sure the whole site is loaded
-		jQuery(window).load(function() {
-			"use strict";
-		        // will first fade out the loading animation
-			jQuery(".status").fadeOut();
-		        // will fade out the whole DIV that covers the website.
-			jQuery(".preloader").delay(1000).fadeOut("slow");
-		})
-
-		</script>
-
-		<script>
-			// Get the modal
-			var modal = document.getElementById('id01');
-
-			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function(event) {
-    			if (event.target == modal) {
-        			modal.style.display = "none";
-    			}
-			}
-		</script>
-		
-		<!-- BOOTSTRAP SCRIPT -->
-		<script src="js/bootstrap.min.js"></script>
-
-		<!-- WODRY TEXT SLIDING EFFECT -->
-		<script src="js/wodry.min.js"></script>
-
-		<!-- SMOOTH SCROLLING FOR EVERY BROWSER -->
-		<script src="js/SmoothScroll.js"></script>
-
-		<!-- RETINA READY FOR DEVICES -->
-		<script src="js/retina.min.js"></script>
-
-		<!-- RESPONSIVE VIDEO -->
-		<script src="js/jquery.fitvids.js"></script>
-
-		<!-- OWL-CAROUSEL -->
-		<script src="assets/owl-carousel/owl.carousel.min.js"></script>
-
-		<!-- ALL CUSTOM INI AND MODIFATION -->
-		<script src="js/custom.js"></script>
+			</script>
 
 	</body>
 </html>

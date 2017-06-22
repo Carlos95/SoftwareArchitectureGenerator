@@ -1,3 +1,4 @@
+
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
@@ -228,17 +229,17 @@ export default class Output extends React.Component{
 			    	 "rightArray":[  ] }
 			    	 ],
 			    	  "linkDataArray": [
-			    	{"from":1, "to":2, "fromPort":"left0", "toPort":"right0"},
-			    	{"from":1, "to":3, "fromPort":"bottom0", "toPort":"top0"},
-			    	{"from":2, "to":3, "fromPort":"bottom1", "toPort":"left1"},
-			    	{"from":5, "to":2, "fromPort":"top0", "toPort":"bottom0"},
-			    	{"from":3, "to":2, "fromPort":"left0", "toPort":"right1"},
-			    	{"from":4, "to":2, "fromPort":"bottom0", "toPort":"top0"}
+			    	{"from":1, "to":2, "fromPort":"left0", "toPort":"right0", text: "Update Catalogues"},
+			    	{"from":1, "to":3, "fromPort":"bottom0", "toPort":"top0", text: "Query Resources"},
+			    	{"from":2, "to":3, "fromPort":"bottom1", "toPort":"left1", text: "Import Data for Curation"},
+			    	{"from":5, "to":2, "fromPort":"top0", "toPort":"bottom0", text: "Acquire Identifier"},
+			    	{"from":3, "to":2, "fromPort":"left0", "toPort":"right1", text: "Update Records"},
+			    	{"from":4, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "New Transporter"}
 			    	 ]});
 		}
 
-		// Collect Data 
-		else if (fieldLab == true && acquisitionService == true || instrumentController == true ){
+		// Collect Data fieldLab == true && acquisitionService == true || instrumentController == true 
+		else if ( fieldLab == true && acquisitionService == true || instrumentController == true ){
 			
 			window.init({ "class": "go.GraphLinksModel",
 			    	  "copiesArrays": true,
@@ -273,17 +274,50 @@ export default class Output extends React.Component{
 			    	 "rightArray":[  ] }
 			    	 ],
 			    	  "linkDataArray": [
-			    	{"from":1, "to":3, "fromPort":"top0", "toPort":"top0"},
-			    	{"from":1, "to":2, "fromPort":"bottom0", "toPort":"top0"},
-			    	{"from":1, "to":3, "fromPort":"right0", "toPort":"left0"},
-			    	{"from":2, "to":3, "fromPort":"right0", "toPort":"bottom0"},
-			    	{"from":2, "to":5, "fromPort":"right1", "toPort":"left0"},
-			    	{"from":3, "to":4, "fromPort":"right1", "toPort":"left1"},
-			    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0"},
-			    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0"}
+			    	{"from":1, "to":3, "fromPort":"top0", "toPort":"top0", text: "Calibrate Instrument"},
+			    	{"from":1, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "Update Registry"},
+			    	{"from":1, "to":3, "fromPort":"right0", "toPort":"left0", text: "New Controller"},
+			    	{"from":2, "to":3, "fromPort":"right0", "toPort":"bottom0", text: "Configure Controller"},
+			    	{"from":2, "to":5, "fromPort":"right1", "toPort":"left0", text: "Prep. Data Transfer"},
+			    	{"from":3, "to":4, "fromPort":"right1", "toPort":"left1", text: "Deliver Data"},
+			    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0", text: "Retrieve Data"},
+			    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0", text: "New Transporter"}
 			    	 ]});
 		}
 		
+		else if (fieldLab == true){
+			window.init({ "class": "go.GraphLinksModel",
+		    	  "copiesArrays": true,
+		    	  "copiesArrayObjects": true,
+		    	  "linkFromPortIdProperty": "fromPort",
+		    	  "linkToPortIdProperty": "toPort",
+		    	  "nodeDataArray": [
+		    	{"key":1, "name":"Field Laboratory", "loc":"030 050",
+		    	 "leftArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[  ],
+		    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"} ] }
+		    	 ],
+		    	  "linkDataArray": []});
+			
+		}
+		
+		else if (experimentalLab == true){
+			window.init({ "class": "go.GraphLinksModel",
+		    	  "copiesArrays": true,
+		    	  "copiesArrayObjects": true,
+		    	  "linkFromPortIdProperty": "fromPort",
+		    	  "linkToPortIdProperty": "toPort",
+		    	  "nodeDataArray": [
+		    	{"key":1, "name":"Experimental Laboratory", "loc":"030 050",
+		    	 "leftArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[  ],
+		    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"}, {"portColor":"#425e5c", "portId":"right1"} ] }
+		    	 ],
+		    	  "linkDataArray": []});
+			
+		}
 		
 		
 		else{

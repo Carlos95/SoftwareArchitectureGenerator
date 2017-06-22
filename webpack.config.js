@@ -2,8 +2,12 @@ var path = require('path');
 var webpack = require('webpack');
  
 module.exports = {
-  entry: './main.js',
-  output: { path: __dirname, filename: 'bundle.js' },
+		entry: {
+	        importText: "./main.js",
+	        behavioural: "./main2.js",
+	        role: "./main3.js"
+	    },
+  output: { path: __dirname, filename: '[name].entry.js' },
   module: {
     loaders: [
       {
