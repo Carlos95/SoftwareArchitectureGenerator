@@ -319,6 +319,23 @@ export default class Output extends React.Component{
 			
 		}
 		
+		else if (AAAI == true){
+			window.init({ "class": "go.GraphLinksModel",
+		    	  "copiesArrays": true,
+		    	  "copiesArrayObjects": true,
+		    	  "linkFromPortIdProperty": "fromPort",
+		    	  "linkToPortIdProperty": "toPort",
+		    	  "nodeDataArray": [
+		    	{"key":1, "name":"AAAI", "loc":"030 050",
+		    	 "leftArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[  ],
+		    	 "rightArray":[ ] }
+		    	 ],
+		    	  "linkDataArray": []});
+			
+		}
+		
 		
 		else{
 			window.alert("No Output Generated, please try with other requirements");
