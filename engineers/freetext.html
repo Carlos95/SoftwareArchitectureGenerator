@@ -290,7 +290,7 @@
 	  			
 	  		}
 			filters=filters.join("");
-			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc. "+filters+"?class rdfs:label ?label. OPTIONAL { ?class dc:description ?description}}" ;
+			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc. "+filters+"?class rdfs:label ?label. ?class dc:description ?description}" ;
 			  
 	  	}
 	 	if (any == true){
@@ -300,7 +300,7 @@
 	  			
 	  		}
 			filters=filters.join("");	
-			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc.  FILTER(contains( ?desc, '"+str[0]+"' ) "+filters+"). ?class rdfs:label ?label. OPTIONAL { ?class dc:description ?description}}" ;
+			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc.  FILTER(contains( ?desc, '"+str[0]+"' ) "+filters+"). ?class rdfs:label ?label.  ?class dc:description ?description}" ;
 			  
 	 	}
 	 	
