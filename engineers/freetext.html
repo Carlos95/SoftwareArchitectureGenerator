@@ -21,6 +21,48 @@
         		a.appendChild(r);
     		})(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
 		</script>
+	
+	<script>
+    function sparqlQueryJson(queryStr, endpoint, callback, isDebug) {
+      var querypart = "query=" + encodeURI(queryStr);
+    
+      // Get our HTTP request object.
+      var xmlhttp = null;
+      if(window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+     } else if(window.ActiveXObject) {
+       // Code for older versions of IE, like IE6 and before.
+       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+     } else {
+       alert('Perhaps your browser does not support XMLHttpRequests?');
+     }
+    
+     // Set up a POST with JSON result format.
+     xmlhttp.open('POST', endpoint, true); // GET can have caching probs, so POST
+     xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+     xmlhttp.setRequestHeader("Accept", "application/sparql-results+json");
+    
+     // Set up callback to get the response asynchronously.
+     xmlhttp.onreadystatechange = function() {
+       if(xmlhttp.readyState == 4) {
+         if(xmlhttp.status == 200) {
+        	 //alert("Successful, results will be shown shortly.")
+           // Do something with the results
+           if(isDebug) alert(xmlhttp.responseText);
+           callback(xmlhttp.responseText);
+         } else {
+           // Some kind of error occurred.
+           alert("Sparql query error: " + xmlhttp.status + " "
+               + xmlhttp.responseText);
+         }
+       }
+     };
+     // Send the query to the endpoint.
+     xmlhttp.send(querypart);
+    
+     // Done; now just wait for the callback to be called.
+    };
+    </script>	
 	</head>
 	<body>
 
@@ -31,7 +73,7 @@
 						<h1>Radius</h1>
 						<h2>A fully responsive masonry style portfolio template.</h2>
 					</div>
-					<a href="../indexnonexpert.html" class="button hidden"><span>Let's Go</span></a>
+					<a href="../index.html" class="button hidden"><span>Let's Go</span></a>
 				</div>
 			</header>
 
@@ -43,11 +85,25 @@
 							<h2>Free Text</h2>
 						</header>
 						<div class="wrap">
+						<p>In this section you can input any number of requirements you want and it will output the recommended components from the science viewpoint that you should use.</p>
+						<p>Please choose one of the following options first</p>
+						<button id="and">All Requirements Reflected on Output</button>
+						<button id="any">Any Requirement Reflected on Output</button>
+						<br><br><br>
 						<div class="search" id="search">
 						</div>
+						
+	<header>
+	<h2>Output</h2>
+	</header>
 	<!-- OUTPUT CODE -->
+ 	<h3>These are the recommended objects from the requirements you input</h3>
+ 	<div id='map_holder2'></div>
+			    
+ 	
  	<div id="myOutput" class="myOutput"></div>
-	 		<script type="text/javascript">
+ 	<hr>
+	 		<!-- <script type="text/javascript">
 	 		function init(fu) {
 	 		    var $ = go.GraphObject.make;  //for conciseness in defining node templates
 
@@ -205,10 +261,178 @@
 	 		  function load(fu) {
 	 		    myDiagram.model = go.Model.fromJson(fu);
 	 		  }</script>
+	 		  -->
+	 
+	 
+	 
+	 
+	 
+	 <script>
+	 // TAKES KEYWORD OBJECT AND OUTPUTS THE COMPONENTS THAT PROVIDES SOMETHING TO IT
+	 var endpoint = "http://oil-e.vlan400.uvalight.net/rm/sparql?";
+	
+	 var keyword;
+	 var keyclass;
+	 var filters =[];
+	 var tmpFilter;
+	 var any = false;
+	 var and = false;
+	 var needsText = "These components needs capabilities from ";
+	 var providesText = "These components provides capabilities to ";	 
+	 
+	 function runProvides(str){	 
+		 
+		 
+		 
+	  	if (and==true){
+	  		for(var i=0;i<str.length;i++){
+	  			tmpFilter = " FILTER(contains( ?desc, '"+ str[i] +"' )). ";
+	  			filters.push(tmpFilter);
+	  			
+	  		}
+			filters=filters.join("");
+			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc. "+filters+"?class rdfs:label ?label. OPTIONAL { ?class dc:description ?description}}" ;
+			  
+	  	}
+	 	if (any == true){
+			for(var i=1;i<str.length;i++){
+				tmpFilter = " || contains( ?desc, '"+ str[i] +"' ) ";
+	  			filters.push(tmpFilter);
+	  			
+	  		}
+			filters=filters.join("");	
+			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc.  FILTER(contains( ?desc, '"+str[0]+"' ) "+filters+"). ?class rdfs:label ?label. OPTIONAL { ?class dc:description ?description}}" ;
+			  
+	 	}
+	 	
+      
+      
+     
+      sparqlQueryJson(query, endpoint, Provides, false);
+		 
+      }
+      
+      // Define a callback function to receive the SPARQL JSON result.
+      function Provides(str) {
+        // Convert result to JSON
+        var jsonObj = eval('(' + str + ')');
+       
+         var i = 0;
+		 displayPic(0); //show the first photo initially
+
+		 $('#prev2').click(function(){
+		     i--;
+		     displayPic(i);
+		 });
+
+		 $('#next2').click(function(){
+		     i++;
+		     displayPic(i);
+		 });
+        
+        
+        
+        function displayPic(i) {        
+		     
+        	 $('#map_holder2').empty();
+		     document.getElementById("titleoutput2").innerHTML = needsText.bold() + jsonObj.results.bindings[i].label.value;
+		     document.getElementById("titleoutput3").innerHTML = providesText.bold() + jsonObj.results.bindings[i].label.value;
+		     keyclass = jsonObj.results.bindings[i].class.value;
+		     if(i == 0) 
+		         $('#prev2').hide();
+		     else  
+		         $('#prev2').show();     
+
+		     if(i == jsonObj.results.bindings.length-1)
+		         $('#next2').hide();
+		     else
+		         $('#next2').show();
+        
+        
+		 
+        
+        
+        // Provides to X objects
+        var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+keyclass+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}LIMIT 6" ;
+	  
+        var result = " <table border='2' cellpadding='9'>" ;
+        for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+          result += " </td><td>" + jsonObj.results.bindings[i].label.value;
+          result += " </td><td>" + jsonObj.results.bindings[i].description.value;
+          result += " </td></tr>"; 
+        } 
+        result += "</table>" ;
+        document.getElementById("myOutput").innerHTML = result;
+        
+        sparqlQueryJson(query, endpoint, Needs, false);
+        }
+     }
+      
+   // Define a callback function to receive the SPARQL JSON result.
+      function Needs(str) {
+        // Convert result to JSON
+        var jsonObj = eval('(' + str + ')');
+        
+        
+        
+        
+        // Needs X objects
+        
+        var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+keyclass+"> rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}LIMIT 6" ;
+        
+        
+        var result = " <table border='2' cellpadding='9'>" ;
+        for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+          result += " </td><td>" + jsonObj.results.bindings[i].olabel.value;
+          result += " </td><td>" + jsonObj.results.bindings[i].clabel.value;
+          result += " </td></tr>"; 
+        } 
+        result += "</table>" ;
+        document.getElementById("myOutput2").innerHTML = result;
+        
+        sparqlQueryJson(query, endpoint, myCallback, false);
+        
+     }
+     
+      function myCallback(str) {
+          // Convert result to JSON
+          var jsonObj = eval('(' + str + ')');
+          
+          var result = " <table border='2' cellpadding='9'>" ;
+          for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+            result += " </td><td>" + jsonObj.results.bindings[i].olabel.value;
+            result += " </td><td>" + jsonObj.results.bindings[i].clabel.value;
+            result += " </td></tr>"; 
+          } 
+          result += "</table>" ;
+          document.getElementById("myOutput3").innerHTML = result;
+      }
+      
+     // Make the query.
+     //sparqlQueryJson(query, endpoint, needsAndProvides, true);
+      
+    </script>
+    		   
+    		  
+	 		  <div id="titleoutput2" class="titleoutput2"></div>
+	 		  <div id="myOutput2" class="myOutput"></div>
+	 		  <hr>
+	 		  
+			  <div id="titleoutput3" class="titleoutput3"></div>
+	 		  <div id="myOutput3" class="myOutput"></div>
 	 		  </div>
-						</div>
-				</div>
-			</div>
+	 		  <button id="prev2">Prev Component</button>
+			  <button id="next2">Next Component</button>
+		
+      
+      
+	 		
+			
+	 		 
+			
+	  </div>
+	  </div>
+	</div>
 
 		<!-- Footer -->
 			<footer id="footer">
@@ -226,10 +450,33 @@
 			</footer>
 
 		<!-- Scripts -->
-			<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		
+      		<script type = "text/javascript" 
+         src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			
+			<script type = "text/javascript">
+   
+         $(document).ready(function() {
+
+            $("#and").click(function(){
+               $("#and").effect( "highlight", {color: 'red'}, 3000 );
+            		and = true;
+            		any = false;
+               
+            });
+        
+            $("#any").click(function(){
+            	$("#any").effect( "highlight", {color: 'red'}, 3000 );
+                	and = false;
+                 	any = true;
+                });
+            });
+			
+      </script>
 			<!-- REACT SCRIPTS -->
   			<script src="https://unpkg.com/react@15/dist/react.js"></script>
     		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>

@@ -74,10 +74,6 @@
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -85,6 +81,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var keyword_extractor = __webpack_require__(54);
+var tmpSplitText = [];
+var splitText = [];
+var extractList = [];
 
 var TodoApp = function (_React$Component) {
 	_inherits(TodoApp, _React$Component);
@@ -96,7 +97,7 @@ var TodoApp = function (_React$Component) {
 
 		_this.handleChange = _this.handleChange.bind(_this);
 		_this.handleSubmit = _this.handleSubmit.bind(_this);
-		_this.state = { items: [], text: '', isLimit: '3' };
+		_this.state = { items: [], text: '', isLimit: '1' };
 		return _this;
 	}
 
@@ -110,14 +111,14 @@ var TodoApp = function (_React$Component) {
 				handleSubmit = React.createElement(
 					'form',
 					{ onSubmit: this.handleSubmit },
-					React.createElement('input', { onChange: this.handleChange, value: this.state.text, required: true }),
+					React.createElement('textarea', { onChange: this.handleChange, value: this.state.text, required: true }),
 					React.createElement(
 						'div',
 						{ 'class': 'input-button' },
 						React.createElement(
 							'button',
 							null,
-							'Add Requirement number ' + (this.state.items.length + 1)
+							'Send Requirements'
 						)
 					)
 				);
@@ -125,10 +126,10 @@ var TodoApp = function (_React$Component) {
 				handleSubmit = React.createElement(
 					'h3',
 					null,
-					'Maximum amount of requirements inputed'
+					'Thank you'
 				);
-				handleExport = React.createElement(ExportList, { items: this.state.items });
-				output = React.createElement(Output, null);
+				//handleExport = <ExportList items={this.state.items} />
+				output = React.createElement(Data, { items: this.state.items });
 			}
 			return React.createElement(
 				'div',
@@ -140,8 +141,6 @@ var TodoApp = function (_React$Component) {
 				),
 				React.createElement(TodoList, { items: this.state.items }),
 				handleSubmit,
-				handleExport,
-				React.createElement(DummyData, { items: this.state.items }),
 				output
 			);
 		}
@@ -154,6 +153,7 @@ var TodoApp = function (_React$Component) {
 	}, {
 		key: 'handleSubmit',
 		value: function handleSubmit(e) {
+
 			e.preventDefault();
 			var newItem = {
 				text: this.state.text,
@@ -165,42 +165,40 @@ var TodoApp = function (_React$Component) {
 					text: ''
 				};
 			});
+
+			tmpSplitText = this.state.text.split(" ");
+			for (var i = 0; i < tmpSplitText.length; i++) {
+				splitText.push(tmpSplitText[i]);
+			}
 		}
 	}]);
 
 	return TodoApp;
 }(React.Component);
+/*
+class ExportList extends React.Component {
+	
+	render() {
+		var keyword_extractor = require("keyword-extractor");
+		
+		return (
+				 		      <ul>
+	
+			        {this.props.items.map((item) => keyword_extractor.extract(item.text,{
+                        language:"english",
+                        remove_digits: true,
+                        return_changed_case:true,
+                        remove_duplicates: false
 
-var ExportList = function (_React$Component2) {
-	_inherits(ExportList, _React$Component2);
-
-	function ExportList() {
-		_classCallCheck(this, ExportList);
-
-		return _possibleConstructorReturn(this, (ExportList.__proto__ || Object.getPrototypeOf(ExportList)).apply(this, arguments));
+			        }))}
+	 			      </ul>
+			      
+			     );
+	}}return(null);
+			    
+		
 	}
-
-	_createClass(ExportList, [{
-		key: 'render',
-		value: function render() {
-			var keyword_extractor = __webpack_require__(54);
-
-			this.props.items.map(function (item) {
-				return keyword_extractor.extract(item.text, {
-					language: "english",
-					remove_digits: true,
-					return_changed_case: true,
-					remove_duplicates: false
-
-				});
-			});
-
-			return null;
-		}
-	}]);
-
-	return ExportList;
-}(React.Component);
+}
 
 ///////////////////////////////////////////////////////////////////
 ///																///
@@ -209,8 +207,6 @@ var ExportList = function (_React$Component2) {
 ///																///
 ///																///
 ///////////////////////////////////////////////////////////////////
-
-
 var fieldLab = false;
 var experimentalLab = false;
 var AAAI = false;
@@ -220,200 +216,274 @@ var dataStoreController = false;
 var instrumentController = false;
 var acquisitionService = false;
 
-function check(item) {
-
+function check(item){
+	
 	// Field Lab
-	if (item.text.includes('calibration') && item.text.includes('instruments') || item.text.includes('calibration') && item.text.includes('sensors') || item.text.includes('arrangement') && item.text.includes('instruments') || item.text.includes('arrangement') && item.text.includes('sensors') || item.text.includes('adjustment') && item.text.includes('instruments') || item.text.includes('adjustment') && item.text.includes('sensors') || item.text.includes('calibrate') && item.text.includes('instruments') || item.text.includes('calibrate') && item.text.includes('sensors') || item.text.includes('arrange') && item.text.includes('instruments') || item.text.includes('arrange') && item.text.includes('sensors') || item.text.includes('adjust') && item.text.includes('instruments') || item.text.includes('adjust') && item.text.includes('sensors')) {
-		//document.getElementById("generate").innerHTML = "Field Lab";
-		fieldLab = true;
+	if ((item.text).includes('calibration') && (item.text).includes('instruments')
+		|| (item.text).includes('calibration') && (item.text).includes('sensors')
+		|| (item.text).includes('arrangement') && (item.text).includes('instruments')
+		|| (item.text).includes('arrangement') && (item.text).includes('sensors')
+		|| (item.text).includes('adjustment') && (item.text).includes('instruments')
+		|| (item.text).includes('adjustment') && (item.text).includes('sensors')
+		|| (item.text).includes('calibrate') && (item.text).includes('instruments')
+		|| (item.text).includes('calibrate') && (item.text).includes('sensors')
+		|| (item.text).includes('arrange') && (item.text).includes('instruments')
+		|| (item.text).includes('arrange') && (item.text).includes('sensors')
+		|| (item.text).includes('adjust') && (item.text).includes('instruments')
+		|| (item.text).includes('adjust') && (item.text).includes('sensors')){
+			//document.getElementById("generate").innerHTML = "Field Lab";
+			fieldLab = true;
 	};
-
+	
 	//Experimental lab
-	if (item.text.includes('processing') && item.text.includes('results') || item.text.includes('acquiring') && item.text.includes('results') || item.text.includes('deployment') && item.text.includes('datasets')) {
-		//document.getElementById("generate").innerHTML = "Experimental lab";
-		experimentalLab = true;
+	if ((item.text).includes('processing') && (item.text).includes('results')
+		|| (item.text).includes('acquiring') && (item.text).includes('results')
+		|| (item.text).includes('deployment') && (item.text).includes('datasets')){
+			//document.getElementById("generate").innerHTML = "Experimental lab";
+			experimentalLab = true;
 	};
-
+	
 	//AAAI Service
-	if (item.text.includes('authentication') || item.text.includes('authorisation') || item.text.includes('tracking') && item.text.includes('user')) {
-		//document.getElementById("generate").innerHTML = "AAAI Service";
-		AAAI = true;
+	if ((item.text).includes('authentication')
+		|| (item.text).includes('authorisation')
+		|| (item.text).includes('tracking') && (item.text).includes('user')){
+			//document.getElementById("generate").innerHTML = "AAAI Service";
+			AAAI = true;
 	};
 	// PID Service
-	if (item.text.includes('identifier') || item.text.includes('identifiers') || item.text.includes('identify') || item.text.includes('identify') && item.text.includes('items') || item.text.includes('identify') && item.text.includes('entities')) {
-		//document.getElementById("generate").innerHTML = "PID Service";
-		PID = true;
+	if ((item.text).includes('identifier')
+		|| (item.text).includes('identifiers')	
+		|| (item.text).includes('identify')
+		|| (item.text).includes('identify') && (item.text).includes('items')
+		|| (item.text).includes('identify') && (item.text).includes('entities')){
+			//document.getElementById("generate").innerHTML = "PID Service";
+			PID = true;
 	};
-
+		
 	// Catalogue Service
-	if (item.text.includes('create') && item.text.includes('dataset') || item.text.includes('export') && item.text.includes('metadata') || item.text.includes('update') && item.text.includes('catalogue')) {
-		//document.getElementById("generate").innerHTML = "Catalogue Service";
-		catalogueService = true;
-	};
+	if ((item.text).includes('create') && (item.text).includes('dataset')
+		|| (item.text).includes('export') && (item.text).includes('metadata')
+		|| (item.text).includes('update') && (item.text).includes('catalogue')){
+			//document.getElementById("generate").innerHTML = "Catalogue Service";
+			catalogueService = true;
+		};	
 	// Data Store Controller
-	if (item.text.includes('stores') || item.text.includes('maintains') || item.text.includes('store') || item.text.includes('maintain') || item.text.includes('stores') && item.text.includes('datasets') || item.text.includes('maintains') && item.text.includes('datasets') || item.text.includes('stores') && item.text.includes('dataset') || item.text.includes('maintains') && item.text.includes('dataset')) {
-		//document.getElementById("generate").innerHTML = "Data Store Controller";
-		dataStoreController = true;
-	};
-
-	// Instrument Controller
-	if (item.text.includes('controls') || item.text.includes('control') || item.text.includes('control') && item.text.includes('instrument') || item.text.includes('control') && item.text.includes('sensor') || item.text.includes('controls') && item.text.includes('instruments') || item.text.includes('constrols') && item.text.includes('sensors')) {
-		//document.getElementById("generate").innerHTML = "Instrument controller";
-		instrumentController = true;
-	};
-
-	// Acquisition service
-	if (item.text.includes('monitor') || item.text.includes('manage') || item.text.includes('monitors') || item.text.includes('manages') || item.text.includes('monitor') && item.text.includes('instrument') || item.text.includes('monitor') && item.text.includes('sensor') || item.text.includes('manage') && item.text.includes('instrument') || item.text.includes('manage') && item.text.includes('sensor') || item.text.includes('monitors') && item.text.includes('instruments') || item.text.includes('monitors') && item.text.includes('sensors') || item.text.includes('manages') && item.text.includes('instruments') || item.text.includes('manages') && item.text.includes('sensors')) {
-		//document.getElementById("generate").innerHTML = "Acquisition Service";
-		acquisitionService = true;
-	};
+		if ((item.text).includes('stores')
+				|| (item.text).includes('maintains')
+				|| (item.text).includes('store')
+				|| (item.text).includes('maintain')
+				|| (item.text).includes('stores') && (item.text).includes('datasets')
+				|| (item.text).includes('maintains') && (item.text).includes('datasets')
+				|| (item.text).includes('stores') && (item.text).includes('dataset')
+				|| (item.text).includes('maintains') && (item.text).includes('dataset')){
+					//document.getElementById("generate").innerHTML = "Data Store Controller";
+					dataStoreController = true;
+		};
+		
+		// Instrument Controller
+		if ((item.text).includes('controls')
+				|| (item.text).includes('control')
+				|| (item.text).includes('control') && (item.text).includes('instrument')
+				|| (item.text).includes('control') && (item.text).includes('sensor')
+				|| (item.text).includes('controls') && (item.text).includes('instruments')
+				|| (item.text).includes('constrols') && (item.text).includes('sensors')){
+					//document.getElementById("generate").innerHTML = "Instrument controller";
+					instrumentController = true;
+		};
+	
+		// Acquisition service
+		if ((item.text).includes('monitor')
+				|| (item.text).includes('manage')
+				|| (item.text).includes('monitors')
+				|| (item.text).includes('manages')
+				|| (item.text).includes('monitor') && (item.text).includes('instrument')
+				|| (item.text).includes('monitor') && (item.text).includes('sensor')
+				|| (item.text).includes('manage') && (item.text).includes('instrument')
+				|| (item.text).includes('manage') && (item.text).includes('sensor')
+				|| (item.text).includes('monitors') && (item.text).includes('instruments')
+				|| (item.text).includes('monitors') && (item.text).includes('sensors')
+				|| (item.text).includes('manages') && (item.text).includes('instruments')
+				|| (item.text).includes('manages') && (item.text).includes('sensors')){
+					//document.getElementById("generate").innerHTML = "Acquisition Service";
+					acquisitionService = true;
+		};
+		
+		
+		
 }
 
-var Output = function (_React$Component3) {
-	_inherits(Output, _React$Component3);
-
-	function Output() {
-		_classCallCheck(this, Output);
-
-		return _possibleConstructorReturn(this, (Output.__proto__ || Object.getPrototypeOf(Output)).apply(this, arguments));
-	}
-
-	_createClass(Output, [{
-		key: 'render',
-		value: function render() {
-			// Data Preservation dataStoreController == true && catalogueService == true && PID == true
-			if (dataStoreController == true && catalogueService == true && PID == true) {
-
-				window.init({ "class": "go.GraphLinksModel",
-					"copiesArrays": true,
-					"copiesArrayObjects": true,
-					"linkFromPortIdProperty": "fromPort",
-					"linkToPortIdProperty": "toPort",
-					"nodeDataArray": [{ "key": 1, "name": "Catalogue Service", "loc": "300 104",
-						"leftArray": [{ "portColor": "#425e5c", "portId": "left0" }],
-						"topArray": [],
-						"bottomArray": [{ "portColor": "#316571", "portId": "bottom0" }],
-						"rightArray": [] }, { "key": 2, "name": "Data Transporter", "loc": "080 180",
-						"leftArray": [],
-						"topArray": [{ "portColor": "#dd45c7", "portId": "top0" }],
-						"bottomArray": [{ "portColor": "#dd45c7", "portId": "bottom0" }, { "portColor": "#995aa6", "portId": "bottom1" }],
-						"rightArray": [{ "portColor": "#dd45c7", "portId": "right0" }, { "portColor": "#995aa6", "portId": "right1" }] }, { "key": 3, "name": "Data Store Controller", "loc": "300 200",
-						"leftArray": [{ "portColor": "#bd8f27", "portId": "left0" }, { "portColor": "#c14617", "portId": "left1" }],
-						"topArray": [{ "portColor": "#d08154", "portId": "top0" }],
-						"bottomArray": [],
-						"rightArray": [] }, { "key": 4, "name": "Data Transfer Service", "loc": "050 070",
-						"leftArray": [],
-						"topArray": [],
-						"bottomArray": [{ "portColor": "#6cafdb", "portId": "bottom0" }],
-						"rightArray": [] }, { "key": 5, "name": "PID", "loc": "030 280",
-						"leftArray": [],
-						"topArray": [{ "portColor": "#77ac1e", "portId": "top0" }],
-						"bottomArray": [],
-						"rightArray": [] }],
-					"linkDataArray": [{ "from": 1, "to": 2, "fromPort": "left0", "toPort": "right0", text: "Update Catalogues" }, { "from": 1, "to": 3, "fromPort": "bottom0", "toPort": "top0", text: "Query Resources" }, { "from": 2, "to": 3, "fromPort": "bottom1", "toPort": "left1", text: "Import Data for Curation" }, { "from": 5, "to": 2, "fromPort": "top0", "toPort": "bottom0", text: "Acquire Identifier" }, { "from": 3, "to": 2, "fromPort": "left0", "toPort": "right1", text: "Update Records" }, { "from": 4, "to": 2, "fromPort": "bottom0", "toPort": "top0", text: "New Transporter" }] });
-			}
-
-			// Collect Data fieldLab == true && acquisitionService == true || instrumentController == true 
-			else if (fieldLab == true && acquisitionService == true || instrumentController == true) {
-
-					window.init({ "class": "go.GraphLinksModel",
-						"copiesArrays": true,
-						"copiesArrayObjects": true,
-						"linkFromPortIdProperty": "fromPort",
-						"linkToPortIdProperty": "toPort",
-						"nodeDataArray": [{ "key": 1, "name": "Field Laboratory", "loc": "030 050",
-							"leftArray": [],
-							"topArray": [{ "portColor": "#425e5c", "portId": "top0" }],
-							"bottomArray": [{ "portColor": "#316571", "portId": "bottom0" }],
-							"rightArray": [{ "portColor": "#425e5c", "portId": "right0" }] }, { "key": 2, "name": "Acquisition Service", "loc": "050 200",
-							"leftArray": [],
-							"topArray": [{ "portColor": "#dd45c7", "portId": "top0" }],
-							"bottomArray": [],
-							"rightArray": [{ "portColor": "#dd45c7", "portId": "right0" }, { "portColor": "#995aa6", "portId": "right1" }] }, { "key": 3, "name": "Instrument Controller", "loc": "170 120",
-							"leftArray": [{ "portColor": "#bd8f27", "portId": "left0" }],
-							"topArray": [{ "portColor": "#d08154", "portId": "top0" }],
-							"bottomArray": [{ "portColor": "#d08154", "portId": "bottom0" }],
-							"rightArray": [{ "portColor": "#bd8f27", "portId": "right0" }, { "portColor": "#c14617", "portId": "right1" }] }, { "key": 4, "name": "Raw Data Collector", "loc": "300 050",
-							"leftArray": [{ "portColor": "#d08154", "portId": "left0" }, { "portColor": "#d08154", "portId": "left1" }],
-							"topArray": [],
-							"bottomArray": [{ "portColor": "#6cafdb", "portId": "bottom0" }],
-							"rightArray": [] }, { "key": 5, "name": "Data Transfer Service", "loc": "300 200",
-							"leftArray": [{ "portColor": "#d08154", "portId": "left0" }],
-							"topArray": [{ "portColor": "#77ac1e", "portId": "top0" }],
-							"bottomArray": [],
-							"rightArray": [] }],
-						"linkDataArray": [{ "from": 1, "to": 3, "fromPort": "top0", "toPort": "top0", text: "Calibrate Instrument" }, { "from": 1, "to": 2, "fromPort": "bottom0", "toPort": "top0", text: "Update Registry" }, { "from": 1, "to": 3, "fromPort": "right0", "toPort": "left0", text: "New Controller" }, { "from": 2, "to": 3, "fromPort": "right0", "toPort": "bottom0", text: "Configure Controller" }, { "from": 2, "to": 5, "fromPort": "right1", "toPort": "left0", text: "Prep. Data Transfer" }, { "from": 3, "to": 4, "fromPort": "right1", "toPort": "left1", text: "Deliver Data" }, { "from": 4, "to": 3, "fromPort": "left0", "toPort": "right0", text: "Retrieve Data" }, { "from": 5, "to": 4, "fromPort": "top0", "toPort": "bottom0", text: "New Transporter" }] });
-				} else if (fieldLab == true) {
-					window.init({ "class": "go.GraphLinksModel",
-						"copiesArrays": true,
-						"copiesArrayObjects": true,
-						"linkFromPortIdProperty": "fromPort",
-						"linkToPortIdProperty": "toPort",
-						"nodeDataArray": [{ "key": 1, "name": "Field Laboratory", "loc": "030 050",
-							"leftArray": [{ "portColor": "#425e5c", "portId": "top0" }],
-							"topArray": [],
-							"bottomArray": [],
-							"rightArray": [{ "portColor": "#425e5c", "portId": "right0" }] }],
-						"linkDataArray": [] });
-				} else if (experimentalLab == true) {
-					window.init({ "class": "go.GraphLinksModel",
-						"copiesArrays": true,
-						"copiesArrayObjects": true,
-						"linkFromPortIdProperty": "fromPort",
-						"linkToPortIdProperty": "toPort",
-						"nodeDataArray": [{ "key": 1, "name": "Experimental Laboratory", "loc": "030 050",
-							"leftArray": [{ "portColor": "#425e5c", "portId": "top0" }],
-							"topArray": [],
-							"bottomArray": [],
-							"rightArray": [{ "portColor": "#425e5c", "portId": "right0" }, { "portColor": "#425e5c", "portId": "right1" }] }],
-						"linkDataArray": [] });
-				} else if (AAAI == true) {
-					window.init({ "class": "go.GraphLinksModel",
-						"copiesArrays": true,
-						"copiesArrayObjects": true,
-						"linkFromPortIdProperty": "fromPort",
-						"linkToPortIdProperty": "toPort",
-						"nodeDataArray": [{ "key": 1, "name": "AAAI", "loc": "030 050",
-							"leftArray": [{ "portColor": "#425e5c", "portId": "top0" }],
-							"topArray": [],
-							"bottomArray": [],
-							"rightArray": [] }],
-						"linkDataArray": [] });
-				} else {
-					window.alert("No Output Generated, please try with other requirements");
-				}
-
-			return null;
+export default class Output extends React.Component{
+	
+	render(){
+		// Data Preservation dataStoreController == true && catalogueService == true && PID == true
+		if (dataStoreController == true && catalogueService == true && PID == true){
+			
+			window.init({ "class": "go.GraphLinksModel",
+			    	  "copiesArrays": true,
+			    	  "copiesArrayObjects": true,
+			    	  "linkFromPortIdProperty": "fromPort",
+			    	  "linkToPortIdProperty": "toPort",
+			    	  "nodeDataArray": [
+			    	{"key":1, "name":"Catalogue Service", "loc":"300 104",
+			    	 "leftArray":[ {"portColor":"#425e5c", "portId":"left0"} ],
+			    	 "topArray":[  ],
+			    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+			    	 "rightArray":[  ] },
+			    	{"key":2, "name":"Data Transporter", "loc":"080 180",
+			    	 "leftArray":[  ],
+			    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+			    	 "bottomArray":[ {"portColor":"#dd45c7", "portId":"bottom0"},{"portColor":"#995aa6", "portId":"bottom1"} ],
+			    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+			    	{"key":3, "name":"Data Store Controller", "loc":"300 200",
+			    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"},{"portColor":"#c14617", "portId":"left1"} ],
+			    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+			    	 "bottomArray":[  ],
+			    	 "rightArray":[  ] },
+			    	 {"key":4, "name":"Data Transfer Service", "loc":"050 070",
+				    	 "leftArray":[  ],
+				    	 "topArray":[  ],
+				    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+				    	 "rightArray":[  ] },
+			    	 {"key":5, "name":"PID", "loc":"030 280",
+			    	 "leftArray":[  ],
+			    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+			    	 "bottomArray":[  ],
+			    	 "rightArray":[  ] }
+			    	 ],
+			    	  "linkDataArray": [
+			    	{"from":1, "to":2, "fromPort":"left0", "toPort":"right0", text: "Update Catalogues"},
+			    	{"from":1, "to":3, "fromPort":"bottom0", "toPort":"top0", text: "Query Resources"},
+			    	{"from":2, "to":3, "fromPort":"bottom1", "toPort":"left1", text: "Import Data for Curation"},
+			    	{"from":5, "to":2, "fromPort":"top0", "toPort":"bottom0", text: "Acquire Identifier"},
+			    	{"from":3, "to":2, "fromPort":"left0", "toPort":"right1", text: "Update Records"},
+			    	{"from":4, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "New Transporter"}
+			    	 ]});
 		}
-	}]);
 
-	return Output;
-}(React.Component);
-
-exports.default = Output;
-
-var DummyData = function (_React$Component4) {
-	_inherits(DummyData, _React$Component4);
-
-	function DummyData() {
-		_classCallCheck(this, DummyData);
-
-		return _possibleConstructorReturn(this, (DummyData.__proto__ || Object.getPrototypeOf(DummyData)).apply(this, arguments));
-	}
-
-	_createClass(DummyData, [{
-		key: 'render',
-		value: function render() {
-			return React.createElement(
-				'div',
-				null,
-				this.props.items.filter(check)
-			);
+		// Collect Data fieldLab == true && acquisitionService == true || instrumentController == true 
+		else if ( fieldLab == true && acquisitionService == true || instrumentController == true ){
+			
+			window.init({ "class": "go.GraphLinksModel",
+			    	  "copiesArrays": true,
+			    	  "copiesArrayObjects": true,
+			    	  "linkFromPortIdProperty": "fromPort",
+			    	  "linkToPortIdProperty": "toPort",
+			    	  "nodeDataArray": [
+			    	{"key":1, "name":"Field Laboratory", "loc":"030 050",
+			    	 "leftArray":[  ],
+			    	 "topArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+			    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+			    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"} ] },
+			    	{"key":2, "name":"Acquisition Service", "loc":"050 200",
+			    	 "leftArray":[  ],
+			    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+			    	 "bottomArray":[  ],
+			    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+			    	{"key":3, "name":"Instrument Controller", "loc":"170 120",
+			    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"} ],
+			    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+			    	 "bottomArray":[ {"portColor":"#d08154", "portId":"bottom0"} ],
+			    	 "rightArray":[ {"portColor":"#bd8f27", "portId":"right0"},{"portColor":"#c14617", "portId":"right1"} ] },
+			    	 {"key":4, "name":"Raw Data Collector", "loc":"300 050",
+				    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"}, {"portColor":"#d08154", "portId":"left1"} ],
+				    	 "topArray":[  ],
+				    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+				    	 "rightArray":[  ] },
+			    	 {"key":5, "name":"Data Transfer Service", "loc":"300 200",
+			    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"} ],
+			    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+			    	 "bottomArray":[  ],
+			    	 "rightArray":[  ] }
+			    	 ],
+			    	  "linkDataArray": [
+			    	{"from":1, "to":3, "fromPort":"top0", "toPort":"top0", text: "Calibrate Instrument"},
+			    	{"from":1, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "Update Registry"},
+			    	{"from":1, "to":3, "fromPort":"right0", "toPort":"left0", text: "New Controller"},
+			    	{"from":2, "to":3, "fromPort":"right0", "toPort":"bottom0", text: "Configure Controller"},
+			    	{"from":2, "to":5, "fromPort":"right1", "toPort":"left0", text: "Prep. Data Transfer"},
+			    	{"from":3, "to":4, "fromPort":"right1", "toPort":"left1", text: "Deliver Data"},
+			    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0", text: "Retrieve Data"},
+			    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0", text: "New Transporter"}
+			    	 ]});
 		}
-	}]);
+		
+		else if (fieldLab == true){
+			window.init({ "class": "go.GraphLinksModel",
+		    	  "copiesArrays": true,
+		    	  "copiesArrayObjects": true,
+		    	  "linkFromPortIdProperty": "fromPort",
+		    	  "linkToPortIdProperty": "toPort",
+		    	  "nodeDataArray": [
+		    	{"key":1, "name":"Field Laboratory", "loc":"030 050",
+		    	 "leftArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[  ],
+		    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"} ] }
+		    	 ],
+		    	  "linkDataArray": []});
+			
+		}
+		
+		else if (experimentalLab == true){
+			window.init({ "class": "go.GraphLinksModel",
+		    	  "copiesArrays": true,
+		    	  "copiesArrayObjects": true,
+		    	  "linkFromPortIdProperty": "fromPort",
+		    	  "linkToPortIdProperty": "toPort",
+		    	  "nodeDataArray": [
+		    	{"key":1, "name":"Experimental Laboratory", "loc":"030 050",
+		    	 "leftArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[  ],
+		    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"}, {"portColor":"#425e5c", "portId":"right1"} ] }
+		    	 ],
+		    	  "linkDataArray": []});
+			
+		}
+		
+		else if (AAAI == true){
+			window.init({ "class": "go.GraphLinksModel",
+		    	  "copiesArrays": true,
+		    	  "copiesArrayObjects": true,
+		    	  "linkFromPortIdProperty": "fromPort",
+		    	  "linkToPortIdProperty": "toPort",
+		    	  "nodeDataArray": [
+		    	{"key":1, "name":"AAAI", "loc":"030 050",
+		    	 "leftArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[  ],
+		    	 "rightArray":[ ] }
+		    	 ],
+		    	  "linkDataArray": []});
+			
+		}
+		
+		
+		else{
+			window.alert("No Output Generated, please try with other requirements");
+			
+		}
+		
+		return(null)
+		
+	}
+	
+}
 
-	return DummyData;
-}(React.Component);
+
+
+
+class Data extends React.Component {
+	
+	render() {
+		return (
+		<div>
+			 {this.props.items.filter(check)} 
+		</div>
+		);
+		
+	}
+}
 
 ///////////////////////////////////////////////////////////////////
 ///																///
@@ -422,10 +492,44 @@ var DummyData = function (_React$Component4) {
 ///																///
 ///																///
 ///////////////////////////////////////////////////////////////////
+*/
 
+var Data = function (_React$Component2) {
+	_inherits(Data, _React$Component2);
 
-var TodoList = function (_React$Component5) {
-	_inherits(TodoList, _React$Component5);
+	function Data() {
+		_classCallCheck(this, Data);
+
+		return _possibleConstructorReturn(this, (Data.__proto__ || Object.getPrototypeOf(Data)).apply(this, arguments));
+	}
+
+	_createClass(Data, [{
+		key: 'render',
+		value: function render() {
+
+			for (var i = 0; i < splitText.length; i++) {
+				var extraction = keyword_extractor.extract(splitText[i], {
+					language: "english",
+					remove_digits: true,
+					return_changed_case: true,
+					remove_duplicates: false
+
+				});
+				// Avoids blanks
+				if (extraction != '') extractList.push(extraction);
+			}
+
+			window.runProvides(extractList);
+
+			return null;
+		}
+	}]);
+
+	return Data;
+}(React.Component);
+
+var TodoList = function (_React$Component3) {
+	_inherits(TodoList, _React$Component3);
 
 	function TodoList() {
 		_classCallCheck(this, TodoList);

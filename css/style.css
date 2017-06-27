@@ -1035,6 +1035,12 @@ h7 {
 	border:1px solid black ;
 }
 
+.myOutput2 {
+	width:600px; 
+	height:300px; 
+	border:1px solid black ;
+}
+
 /*========== 4.4 FOOTER SECTION STYLES  ==========*/
 footer:hover .hover-grow-shadow{
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);

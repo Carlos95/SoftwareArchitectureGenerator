@@ -1,10 +1,14 @@
+var keyword_extractor = require("keyword-extractor");
+var tmpSplitText = [];
+var splitText = [];
+var extractList = [];
 
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {items: [], text: '',isLimit: '3'};
+    this.state = {items: [], text: '',isLimit: '1'};
   }
 
   
@@ -14,24 +18,25 @@ class TodoApp extends React.Component {
 	 let output=null;
 	 if (this.state.items.length < this.state.isLimit){
 		 handleSubmit= <form onSubmit={this.handleSubmit}>
-		 			   <input onChange={this.handleChange} value={this.state.text}required />
+		 			   <textarea onChange={this.handleChange} value={this.state.text}required ></textarea>
 		 			   <div class="input-button">	
-		 			   <button>{'Add Requirement number ' + (this.state.items.length + 1)}</button>
+		 			   <button>{'Send Requirements'}</button>
+	
 		 			   </div>
 		 			   	</form>;
 	 }
 	 else {
-		 handleSubmit = <h3>Maximum amount of requirements inputed</h3>
-		 handleExport = <ExportList items={this.state.items} />
-		 output = <Output />;			
+		 handleSubmit = <h3>Thank you</h3>
+		 //handleExport = <ExportList items={this.state.items} />
+		 output = <Data items={this.state.items}/>
+		 		 
 	 }
 	 return (
       <div>
         <h1>Please Input The Requirements One By One</h1>
         <TodoList items={this.state.items} />
         {handleSubmit} 
-        {handleExport}
-        <DummyData items={this.state.items}/>
+        
         {output}
       </div>
     );
@@ -44,7 +49,8 @@ class TodoApp extends React.Component {
     }
    
   handleSubmit(e) {
-    e.preventDefault();
+    
+	  e.preventDefault();
     var newItem = {
       text: this.state.text,
       id: Date.now()
@@ -54,25 +60,33 @@ class TodoApp extends React.Component {
     	text: ''
     }));
     
+    tmpSplitText = (this.state.text).split(" ");
+    for (var i = 0; i<tmpSplitText.length;i++){
+    	splitText.push(tmpSplitText[i]);
+    }
   }
 
 }
-
+/*
 class ExportList extends React.Component {
 	
 	render() {
 		var keyword_extractor = require("keyword-extractor");
 		
-			      
-			        this.props.items.map((item) => keyword_extractor.extract(item.text,{
+		return (
+				 		      <ul>
+	
+			        {this.props.items.map((item) => keyword_extractor.extract(item.text,{
                         language:"english",
                         remove_digits: true,
                         return_changed_case:true,
                         remove_duplicates: false
 
-                   }))
+			        }))}
+	 			      </ul>
 			      
-			      return(null);
+			     );
+	}}return(null);
 			    
 		
 	}
@@ -351,7 +365,7 @@ export default class Output extends React.Component{
 
 
 
-class DummyData extends React.Component {
+class Data extends React.Component {
 	
 	render() {
 		return (
@@ -370,8 +384,39 @@ class DummyData extends React.Component {
 ///																///
 ///																///
 ///////////////////////////////////////////////////////////////////
-  
-  
+*/
+
+
+class Data extends React.Component {
+	
+	render() {
+		
+		for (var i = 0; i < splitText.length; i++){
+			var extraction = (keyword_extractor.extract(splitText[i],{
+	            language:"english",
+	            remove_digits: true,
+	            return_changed_case:true,
+	            remove_duplicates: false
+
+	        }))
+			// Avoids blanks
+			if (extraction != '')
+			
+				extractList.push(extraction);
+			
+		}
+		
+		window.runProvides(extractList);
+		
+		return (null)
+		
+		}
+}
+
+
+
+
+
 
 class TodoList extends React.Component {
 	render() {
