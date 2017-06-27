@@ -41,7 +41,8 @@
      xmlhttp.open('POST', endpoint, true); // GET can have caching probs, so POST
      xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
      xmlhttp.setRequestHeader("Accept", "application/sparql-results+json");
-    
+     xmlhttp.setRequestHeader('origin', 'x-requested-with');
+     
      // Set up callback to get the response asynchronously.
      xmlhttp.onreadystatechange = function() {
        if(xmlhttp.readyState == 4) {
@@ -267,7 +268,7 @@
 	 
 	 <script>
 	 // TAKES KEYWORD OBJECT AND OUTPUTS THE COMPONENTS THAT PROVIDES SOMETHING TO IT
-	 var endpoint = "//oil-e.vlan400.uvalight.net/rm/sparql?";
+	 var endpoint = "https://cors-anywhere.herokuapp.com/oil-e.vlan400.uvalight.net/rm/sparql?";
 	
 	 var keyword;
 	 var keyclass;
