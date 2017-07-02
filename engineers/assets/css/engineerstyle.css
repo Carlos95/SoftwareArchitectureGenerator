@@ -133,7 +133,7 @@
 
 		}
 
-	a {
+	#back-button a {
 		text-decoration:none;
 		outline: 0;
 		transform:scale(2);
@@ -318,7 +318,7 @@
 	}
 
 /* Button */
-/*
+
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
@@ -419,7 +419,7 @@
 			}
 
 		}
-*/
+
 /* Form */
 
 	form {

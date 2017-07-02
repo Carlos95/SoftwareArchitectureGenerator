@@ -438,7 +438,7 @@ class Reset extends React.Component {
 	render(){
 		return (
 			<form onSubmit={this.setState({items: [], text: '',isLimit: ''})}>
-				<button>{'Input New Rquirements'}</button>
+				<button>{'Input New Requirements'}</button>
 			</form>
 		)
 	}
