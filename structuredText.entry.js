@@ -7429,7 +7429,7 @@ var TodoApp = function (_React$Component) {
 				handleSubmit = React.createElement(
 					'form',
 					{ onSubmit: this.handleSubmit },
-					'I want  ',
+					'The software shall  ',
 					React.createElement('input', { onChange: this.handleChange, value: this.state.text, required: true }),
 					React.createElement(
 						'div',
@@ -7869,7 +7869,7 @@ var Reset = function (_React$Component3) {
 				React.createElement(
 					'button',
 					null,
-					'Input New Rquirements'
+					'Input New Requirements'
 				)
 			);
 		}
@@ -7897,7 +7897,7 @@ var TodoList = function (_React$Component4) {
 					return React.createElement(
 						'li',
 						{ key: item.id },
-						'I want ',
+						'The software shall ',
 						item.text
 					);
 				})
