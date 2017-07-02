@@ -29,7 +29,7 @@ class TodoApp extends React.Component {
 	 }
 	 else if (this.state.items.length < this.state.isLimit){
 		 handleSubmit= <form onSubmit={this.handleSubmit}>
-		 			   I want  <input onChange={this.handleChange} value={this.state.text}required />
+		 			   The software shall  <input onChange={this.handleChange} value={this.state.text}required />
 		 			   <div class="input-button">	
 		 			   <button>{'Save Requirement'}</button>
 	
@@ -451,7 +451,7 @@ class TodoList extends React.Component {
     return (
       <ul>
         {this.props.items.map(item => (
-          <li key={item.id}>I want {item.text}</li>
+          <li key={item.id}>The software shall {item.text}</li>
         ))}
       </ul>
       
