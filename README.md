@@ -9,8 +9,6 @@ Run with: https://carlos95.github.io/SoftwareArchitectureGenerator/
 
 Tips.
 
-Only Data Collection and Data Preservation sub-systems available. 
-
 Use requirements in the form:
 
 'I would like {this functionality} in my system' 
