@@ -13,16 +13,16 @@ class App extends React.Component {
       <div id="3">Data Publishing Community</div>
       <div id="4">Data Processing Community</div>
     </div>
-    <DropBox />
+    
     </div>
     
     );
   }
   componentDidMount() {
     var container = ReactDOM.findDOMNode(this);
-    dragula([rightcontainer],{isContainer(el){ return false;}})
-    dragula([leftcontainer,rightcontainer])
-    .on('drop', function (el) {
+    dragula([leftcontainer],{isContainer(el){el.className += ' ex-moved'; return true;}})
+    dragula([leftcontainer])
+    .on('out', function (el) {
         if (el.id == '1'){
         	var cols = [
         	            { key: 'behaviour', label: 'Behaviours' },
@@ -102,15 +102,6 @@ class App extends React.Component {
   }
 };
 
-
-class DropBox extends React.Component {
-	render() {
-		return(
-				<div id='rightcontainer' className='container'>
-				</div>
-		)
-	}
-}
 
 class Table extends React.Component {
 

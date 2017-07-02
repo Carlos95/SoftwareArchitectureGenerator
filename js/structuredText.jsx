@@ -2,40 +2,50 @@ var keyword_extractor = require("keyword-extractor");
 var tmpSplitText = [];
 var splitText = [];
 var extractList = [];
+var limit;
 
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {items: [], text: '',isLimit: '1'};
+    this.handleLimit = this.handleLimit.bind(this);
+    this.state = {items: [], text: '',isLimit: ''};
   }
 
   
  render() {
 	 let handleSubmit=null;
 	 let handleExport=null;
+	 let limitSubmit=null;
 	 let output=null;
 	 let reset=null;
-	 if (this.state.items.length < this.state.isLimit){
+	 
+	 if (this.state.isLimit == ''){
+		 limitSubmit = <form>
+		 				<h3>Please input the number of requirements (or terms) you desire</h3>
+		 				<input type="number" onChange={this.handleLimit} value={this.state.isLimit} />
+		 				</form>		
+	 }
+	 else if (this.state.items.length < this.state.isLimit){
 		 handleSubmit= <form onSubmit={this.handleSubmit}>
-		 			   <textarea onChange={this.handleChange} value={this.state.text}required ></textarea>
+		 			   I want  <input onChange={this.handleChange} value={this.state.text}required />
 		 			   <div class="input-button">	
-		 			   <button>{'Send Requirements'}</button>
+		 			   <button>{'Save Requirement'}</button>
 	
 		 			   </div>
 		 			   	</form>;
 	 }
 	 else {
 		 handleSubmit = <h3>Thank you</h3>
-		 //handleExport = <ExportList items={this.state.items} />
 		 reset = <Reset />
+		 //handleExport = <ExportList items={this.state.items} />
 		 output = <Data items={this.state.items}/>
 		 		 
 	 }
 	 return (
       <div>
-        <h1>Please Input The Requirements One By One</h1>
+        {limitSubmit}
         <TodoList items={this.state.items} />
         {handleSubmit} 
         
@@ -45,6 +55,12 @@ class TodoApp extends React.Component {
     );
   }
 
+ handleLimit(e) {
+	    
+	  this.setState({isLimit: e.target.value});
+   
+   }
+ 
   handleChange(e) {
     
 	  this.setState({text: e.target.value});
@@ -416,17 +432,17 @@ class Data extends React.Component {
 		}
 }
 
+
 class Reset extends React.Component {
 	
 	render(){
 		return (
 			<form onSubmit={this.setState({items: [], text: '',isLimit: ''})}>
-				<button>{'Input New Requirements'}</button>
+				<button>{'Input New Rquirements'}</button>
 			</form>
 		)
 	}
 }
-
 
 
 
@@ -435,7 +451,7 @@ class TodoList extends React.Component {
     return (
       <ul>
         {this.props.items.map(item => (
-          <li key={item.id}>{item.text}</li>
+          <li key={item.id}>I want {item.text}</li>
         ))}
       </ul>
       

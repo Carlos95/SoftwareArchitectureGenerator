@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 69);
+/******/ 	return __webpack_require__(__webpack_require__.s = 72);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -7370,7 +7370,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 
 /***/ }),
 
-/***/ 66:
+/***/ 68:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7388,6 +7388,7 @@ var keyword_extractor = __webpack_require__(27);
 var tmpSplitText = [];
 var splitText = [];
 var extractList = [];
+var limit;
 
 var TodoApp = function (_React$Component) {
 	_inherits(TodoApp, _React$Component);
@@ -7399,7 +7400,8 @@ var TodoApp = function (_React$Component) {
 
 		_this.handleChange = _this.handleChange.bind(_this);
 		_this.handleSubmit = _this.handleSubmit.bind(_this);
-		_this.state = { items: [], text: '', isLimit: '1' };
+		_this.handleLimit = _this.handleLimit.bind(_this);
+		_this.state = { items: [], text: '', isLimit: '' };
 		return _this;
 	}
 
@@ -7408,20 +7410,34 @@ var TodoApp = function (_React$Component) {
 		value: function render() {
 			var handleSubmit = null;
 			var handleExport = null;
+			var limitSubmit = null;
 			var output = null;
 			var reset = null;
-			if (this.state.items.length < this.state.isLimit) {
+
+			if (this.state.isLimit == '') {
+				limitSubmit = React.createElement(
+					'form',
+					null,
+					React.createElement(
+						'h3',
+						null,
+						'Please input the number of requirements (or terms) you desire'
+					),
+					React.createElement('input', { type: 'number', onChange: this.handleLimit, value: this.state.isLimit })
+				);
+			} else if (this.state.items.length < this.state.isLimit) {
 				handleSubmit = React.createElement(
 					'form',
 					{ onSubmit: this.handleSubmit },
-					React.createElement('textarea', { onChange: this.handleChange, value: this.state.text, required: true }),
+					'I want  ',
+					React.createElement('input', { onChange: this.handleChange, value: this.state.text, required: true }),
 					React.createElement(
 						'div',
 						{ 'class': 'input-button' },
 						React.createElement(
 							'button',
 							null,
-							'Send Requirements'
+							'Save Requirement'
 						)
 					)
 				);
@@ -7431,23 +7447,25 @@ var TodoApp = function (_React$Component) {
 					null,
 					'Thank you'
 				);
-				//handleExport = <ExportList items={this.state.items} />
 				reset = React.createElement(Reset, null);
+				//handleExport = <ExportList items={this.state.items} />
 				output = React.createElement(Data, { items: this.state.items });
 			}
 			return React.createElement(
 				'div',
 				null,
-				React.createElement(
-					'h1',
-					null,
-					'Please Input The Requirements One By One'
-				),
+				limitSubmit,
 				React.createElement(TodoList, { items: this.state.items }),
 				handleSubmit,
 				output,
 				reset
 			);
+		}
+	}, {
+		key: 'handleLimit',
+		value: function handleLimit(e) {
+
+			this.setState({ isLimit: e.target.value });
 		}
 	}, {
 		key: 'handleChange',
@@ -7851,7 +7869,7 @@ var Reset = function (_React$Component3) {
 				React.createElement(
 					'button',
 					null,
-					'Input New Requirements'
+					'Input New Rquirements'
 				)
 			);
 		}
@@ -7879,6 +7897,7 @@ var TodoList = function (_React$Component4) {
 					return React.createElement(
 						'li',
 						{ key: item.id },
+						'I want ',
 						item.text
 					);
 				})
@@ -7893,15 +7912,15 @@ ReactDOM.render(React.createElement(TodoApp, null), document.getElementById('sea
 
 /***/ }),
 
-/***/ 69:
+/***/ 72:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _inputText = __webpack_require__(66);
+var _structuredText = __webpack_require__(68);
 
-var _inputText2 = _interopRequireDefault(_inputText);
+var _structuredText2 = _interopRequireDefault(_structuredText);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

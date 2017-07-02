@@ -3,7 +3,7 @@ var dragula = require('react-dragula');
 ///////////////////////////////////////////////
 var cols = [];
 var data = [];
-
+var count = 0;
 class App extends React.Component {
   render() {
 	  return( <div className='parent'>
@@ -13,18 +13,26 @@ class App extends React.Component {
       <div id="3">Data Publishing Community</div>
       <div id="4">Data Processing Community</div>
     </div>
-    <DropBox />
+    
     </div>
     
     );
   }
   componentDidMount() {
-    var container = ReactDOM.findDOMNode(this);
-    dragula([rightcontainer],{isContainer(el){ return false;}})
-    dragula([leftcontainer,rightcontainer])
-    .on('drop', function (el) {
-        if (el.id == '1'){
-        	var cols = [
+    
+	var container = ReactDOM.findDOMNode(this);
+    dragula([leftcontainer],{isContainer(el){el.className += ' ex-moved'; return true;}})
+    dragula([leftcontainer])
+    .on('out', function (el) {
+    	
+    	
+    		
+    		
+    	
+    	
+    	if (el.id == '1'){
+        	var title = "Data Acquisition Community";
+    		var cols = [
         	            { key: 'role', label: 'Roles' },
         	            { key: 'type', label:'Type'},
         	            { key: 'description', label: 'Description' }
@@ -36,12 +44,12 @@ class App extends React.Component {
         	            { id: 3, role: 'Sensor network', type: 'passive',description: 'Group of autonomous sensors.' },
         	            { id: 4, role: 'Measurement Model Designer', type: 'active',description: 'Designs the measurements ad monitoring of models based on the requiremets of environmental scientists.' },
         	            { id: 5, role: 'Technician', type: 'active',description: 'Develops and deploys sensor instruments.' }
-        	        ];
-
-
+        	        ];	
+        	        
         	        ReactDOM.render(<Table cols={cols} data={data}/>, document.getElementById('table-output'));
         }
         else if (el.id == '2'){
+        	var title = "Data Curation Community";
         	var cols = [
         	            { key: 'role', label: 'Roles' },
         	            { key: 'type', label:'Type'},
@@ -60,6 +68,7 @@ class App extends React.Component {
         	        ReactDOM.render(<Table cols={cols} data={data}/>, document.getElementById('table-output'));
         } 
         else if (el.id == '3'){
+        	var title = "Data Publishing Community";
         	var cols = [
         	            { key: 'role', label: 'Roles' },
         	            { key: 'type', label:'Type'},
@@ -78,6 +87,7 @@ class App extends React.Component {
         	        ReactDOM.render(<Table cols={cols} data={data}/>, document.getElementById('table-output'));
         }
         else if (el.id == '4'){
+        	var title = "Data Processing Community";
         	var cols = [
         	            { key: 'role', label: 'Roles' },
         	            { key: 'type', label:'Type'},
@@ -101,14 +111,6 @@ class App extends React.Component {
 };
 
 
-class DropBox extends React.Component {
-	render() {
-		return(
-				<div id='rightcontainer' className='container'>
-				</div>
-		)
-	}
-}
 
 class Table extends React.Component {
 

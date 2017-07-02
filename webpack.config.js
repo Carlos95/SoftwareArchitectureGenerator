@@ -5,7 +5,8 @@ module.exports = {
 		entry: {
 	        importText: "./main.js",
 	        behavioural: "./main2.js",
-	        role: "./main3.js"
+	        role: "./main3.js",
+	        structuredText: "./main4.js" 
 	    },
   output: { path: __dirname, filename: '[name].entry.js' },
   module: {

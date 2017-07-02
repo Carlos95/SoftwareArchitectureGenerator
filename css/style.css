@@ -542,7 +542,8 @@ body .btn-bg.link .btn-group .codepen button:hover .skeleton {
   margin: 0 30px 30px 30px;
   display: block;
 }
-.btn-info {
+
+.btn-mention {
   margin-top: 50px;
   text-align: center;
   font-family: 'Lato';
@@ -550,14 +551,6 @@ body .btn-bg.link .btn-group .codepen button:hover .skeleton {
   letter-spacing: 0.1em;
   font-weight: 600;
   font-size: 3.5em;
-  color: #fff;
-}
-.btn-mention {
-  margin: 90px;
-  text-align: center;
-  font-family: 'Lato';
-  letter-spacing: 0.1em;
-  font-size: 1.1em;
   color: #fff;
 }
 .btn-mention span {
@@ -1030,8 +1023,8 @@ h7 {
 }
 
 .myOutput {
-	width:600px; 
-	height:300px; 
+	width:800px; 
+	height:500px; 
 	border:1px solid black ;
 }
 

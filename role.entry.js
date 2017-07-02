@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 71);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1691,7 +1691,7 @@ var ReactCurrentOwner = __webpack_require__(7);
 var ReactComponentTreeHook = __webpack_require__(12);
 var ReactElement = __webpack_require__(3);
 
-var checkReactTypeSpec = __webpack_require__(41);
+var checkReactTypeSpec = __webpack_require__(56);
 
 var canDefineProperty = __webpack_require__(8);
 var getIteratorFn = __webpack_require__(19);
@@ -2006,7 +2006,7 @@ module.exports = getIteratorFn;
 "use strict";
 
 
-var ticky = __webpack_require__(46);
+var ticky = __webpack_require__(61);
 
 module.exports = function debounce (fn, args, ctx) {
   if (!fn) { return; }
@@ -2919,7 +2919,22 @@ module.exports = dragula;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 27 */
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2988,7 +3003,7 @@ module.exports = checkPropTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 28 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3007,7 +3022,7 @@ module.exports = checkPropTypes;
 // Therefore we re-export development-only version with all the PropTypes checks here.
 // However if one is migrating to the `prop-types` npm library, they will go through the
 // `index.js` entry point, and it will branch depending on the environment.
-var factory = __webpack_require__(29);
+var factory = __webpack_require__(44);
 module.exports = function(isValidElement) {
   // It is still allowed in 15.5.
   var throwOnDirectAccess = false;
@@ -3016,7 +3031,7 @@ module.exports = function(isValidElement) {
 
 
 /***/ }),
-/* 29 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3036,7 +3051,7 @@ var invariant = __webpack_require__(2);
 var warning = __webpack_require__(1);
 
 var ReactPropTypesSecret = __webpack_require__(15);
-var checkPropTypes = __webpack_require__(27);
+var checkPropTypes = __webpack_require__(42);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -3536,7 +3551,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 30 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3562,7 +3577,7 @@ module.exports = reactDragula;
 
 
 /***/ }),
-/* 31 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3626,7 +3641,7 @@ var KeyEscapeUtils = {
 module.exports = KeyEscapeUtils;
 
 /***/ }),
-/* 32 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3744,7 +3759,7 @@ module.exports = PooledClass;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 33 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3762,16 +3777,16 @@ module.exports = PooledClass;
 
 var _assign = __webpack_require__(6);
 
-var ReactChildren = __webpack_require__(34);
+var ReactChildren = __webpack_require__(49);
 var ReactComponent = __webpack_require__(11);
-var ReactPureComponent = __webpack_require__(39);
-var ReactClass = __webpack_require__(35);
-var ReactDOMFactories = __webpack_require__(36);
+var ReactPureComponent = __webpack_require__(54);
+var ReactClass = __webpack_require__(50);
+var ReactDOMFactories = __webpack_require__(51);
 var ReactElement = __webpack_require__(3);
-var ReactPropTypes = __webpack_require__(37);
-var ReactVersion = __webpack_require__(40);
+var ReactPropTypes = __webpack_require__(52);
+var ReactVersion = __webpack_require__(55);
 
-var onlyChild = __webpack_require__(42);
+var onlyChild = __webpack_require__(57);
 var warning = __webpack_require__(1);
 
 var createElement = ReactElement.createElement;
@@ -3854,7 +3869,7 @@ module.exports = React;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 34 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3870,11 +3885,11 @@ module.exports = React;
 
 
 
-var PooledClass = __webpack_require__(32);
+var PooledClass = __webpack_require__(47);
 var ReactElement = __webpack_require__(3);
 
 var emptyFunction = __webpack_require__(9);
-var traverseAllChildren = __webpack_require__(43);
+var traverseAllChildren = __webpack_require__(58);
 
 var twoArgumentPooler = PooledClass.twoArgumentPooler;
 var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -4050,7 +4065,7 @@ var ReactChildren = {
 module.exports = ReactChildren;
 
 /***/ }),
-/* 35 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4779,7 +4794,7 @@ module.exports = ReactClass;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 36 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4955,7 +4970,7 @@ module.exports = ReactDOMFactories;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 37 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4974,12 +4989,12 @@ module.exports = ReactDOMFactories;
 var _require = __webpack_require__(3),
     isValidElement = _require.isValidElement;
 
-var factory = __webpack_require__(28);
+var factory = __webpack_require__(43);
 
 module.exports = factory(isValidElement);
 
 /***/ }),
-/* 38 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5001,7 +5016,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 39 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5048,7 +5063,7 @@ ReactPureComponent.prototype.isPureReactComponent = true;
 module.exports = ReactPureComponent;
 
 /***/ }),
-/* 40 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5067,7 +5082,7 @@ module.exports = ReactPureComponent;
 module.exports = '15.5.4';
 
 /***/ }),
-/* 41 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5086,7 +5101,7 @@ module.exports = '15.5.4';
 var _prodInvariant = __webpack_require__(4);
 
 var ReactPropTypeLocationNames = __webpack_require__(18);
-var ReactPropTypesSecret = __webpack_require__(38);
+var ReactPropTypesSecret = __webpack_require__(53);
 
 var invariant = __webpack_require__(2);
 var warning = __webpack_require__(1);
@@ -5160,7 +5175,7 @@ module.exports = checkReactTypeSpec;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 42 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5204,7 +5219,7 @@ module.exports = onlyChild;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 43 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5227,7 +5242,7 @@ var REACT_ELEMENT_TYPE = __webpack_require__(16);
 
 var getIteratorFn = __webpack_require__(19);
 var invariant = __webpack_require__(2);
-var KeyEscapeUtils = __webpack_require__(31);
+var KeyEscapeUtils = __webpack_require__(46);
 var warning = __webpack_require__(1);
 
 var SEPARATOR = '.';
@@ -5386,17 +5401,17 @@ module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 44 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(33);
+module.exports = __webpack_require__(48);
 
 
 /***/ }),
-/* 45 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -5589,7 +5604,7 @@ module.exports = __webpack_require__(33);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(0)))
 
 /***/ }),
-/* 46 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {var si = typeof setImmediate === 'function', tick;
@@ -5600,10 +5615,10 @@ if (si) {
 }
 
 module.exports = tick;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(62).setImmediate))
 
 /***/ }),
-/* 47 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -5656,15 +5671,17 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(45);
+__webpack_require__(60);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 48 */,
-/* 49 */,
-/* 50 */
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5678,11 +5695,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var React = __webpack_require__(44);
-var dragula = __webpack_require__(30);
+var React = __webpack_require__(59);
+var dragula = __webpack_require__(45);
 ///////////////////////////////////////////////
 var cols = [];
 var data = [];
+var count = 0;
 
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
@@ -5722,39 +5740,44 @@ var App = function (_React$Component) {
                         { id: '4' },
                         'Data Processing Community'
                     )
-                ),
-                React.createElement(DropBox, null)
+                )
             );
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
+
             var container = ReactDOM.findDOMNode(this);
-            dragula([rightcontainer], {
+            dragula([leftcontainer], {
                 isContainer: function isContainer(el) {
-                    return false;
+                    el.className += ' ex-moved';return true;
                 }
             });
-            dragula([leftcontainer, rightcontainer]).on('drop', function (el) {
+            dragula([leftcontainer]).on('out', function (el) {
+
                 if (el.id == '1') {
+                    var title = "Data Acquisition Community";
                     var cols = [{ key: 'role', label: 'Roles' }, { key: 'type', label: 'Type' }, { key: 'description', label: 'Description' }];
 
                     var data = [{ id: 1, role: 'Environmental Scientist', type: 'active', description: 'Conducts research or performs scientific investigations.' }, { id: 2, role: 'Sensor', type: 'passive', description: 'Measures a physical quantity and converts it into a signal which can be read by a observer.' }, { id: 3, role: 'Sensor network', type: 'passive', description: 'Group of autonomous sensors.' }, { id: 4, role: 'Measurement Model Designer', type: 'active', description: 'Designs the measurements ad monitoring of models based on the requiremets of environmental scientists.' }, { id: 5, role: 'Technician', type: 'active', description: 'Develops and deploys sensor instruments.' }];
 
                     ReactDOM.render(React.createElement(Table, { cols: cols, data: data }), document.getElementById('table-output'));
                 } else if (el.id == '2') {
+                    var title = "Data Curation Community";
                     var cols = [{ key: 'role', label: 'Roles' }, { key: 'type', label: 'Type' }, { key: 'description', label: 'Description' }];
 
                     var data = [{ id: 1, role: 'Data Curator', type: 'Active', description: 'Verifies the quality of data.' }, { id: 2, role: 'Semantic Curator', type: 'Active', description: 'Designs and maintains local and global conceptual models.' }, { id: 3, role: 'Storage Administrator', type: 'Active', description: 'Has the responsibilities to design data storage, tune queries and perform backup and recovery operations.' }, { id: 4, role: 'PID Manager', type: 'Passive', description: 'Assigns persistent global unique identifiers to data and metadata products.' }, { id: 5, role: 'PID Generator', type: 'Passive', description: 'Generats and assigns persisten global unique identifiers to sets of digital objects.' }];
 
                     ReactDOM.render(React.createElement(Table, { cols: cols, data: data }), document.getElementById('table-output'));
                 } else if (el.id == '3') {
+                    var title = "Data Publishing Community";
                     var cols = [{ key: 'role', label: 'Roles' }, { key: 'type', label: 'Type' }, { key: 'description', label: 'Description' }];
 
                     var data = [{ id: 1, role: 'Data Originator', type: 'Active or Passive', description: 'Provides the digital material to be made available for public access.' }, { id: 2, role: 'Data Repository', type: 'Passive', description: 'Facility for the deposition of published data.' }, { id: 3, role: 'Semantic Mediator', type: 'Passive', description: 'Facilitates semantic mapping.' }, { id: 4, role: 'Data Publisher', type: 'Active', description: 'In charge of supervising the data publishing processes.' }, { id: 5, role: 'Data Publishing Subsystem', type: 'Passive', description: 'Enables the discovery and retrieval of scientific data.' }];
 
                     ReactDOM.render(React.createElement(Table, { cols: cols, data: data }), document.getElementById('table-output'));
                 } else if (el.id == '4') {
+                    var title = "Data Processing Community";
                     var cols = [{ key: 'role', label: 'Roles' }, { key: 'type', label: 'Type' }, { key: 'description', label: 'Description' }];
 
                     var data = [{ id: 1, role: 'Data Provider', type: 'Active or Passive', description: 'Provides the data to be used.' }, { id: 2, role: 'Service', type: 'Passive', description: 'Functionality for processing data is available for general use.' }, { id: 3, role: 'Service Consumer', type: 'Active or Passive', description: 'Entity using the services provided.' }, { id: 4, role: 'Service Provider', type: 'Active or Passive', description: 'Entity providing the services to be used.' }, { id: 5, role: 'Service Registry', type: 'Passive', description: ' Information system for registering services.' }];
@@ -5770,27 +5793,8 @@ var App = function (_React$Component) {
 
 ;
 
-var DropBox = function (_React$Component2) {
-    _inherits(DropBox, _React$Component2);
-
-    function DropBox() {
-        _classCallCheck(this, DropBox);
-
-        return _possibleConstructorReturn(this, (DropBox.__proto__ || Object.getPrototypeOf(DropBox)).apply(this, arguments));
-    }
-
-    _createClass(DropBox, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement('div', { id: 'rightcontainer', className: 'container' });
-        }
-    }]);
-
-    return DropBox;
-}(React.Component);
-
-var Table = function (_React$Component3) {
-    _inherits(Table, _React$Component3);
+var Table = function (_React$Component2) {
+    _inherits(Table, _React$Component2);
 
     function Table() {
         _classCallCheck(this, Table);
@@ -5876,15 +5880,16 @@ var Table = function (_React$Component3) {
 ReactDOM.render(React.createElement(App, null), document.getElementById('output'));
 
 /***/ }),
-/* 51 */,
-/* 52 */,
-/* 53 */
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _role = __webpack_require__(50);
+var _role = __webpack_require__(67);
 
 var _role2 = _interopRequireDefault(_role);
 

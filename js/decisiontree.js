@@ -142,7 +142,7 @@ var data = {
          },
        
          'no (user interaction)': {
-             name: 'NO ANSWER'
+             name: 'No answer'
             
           },    
          
@@ -167,7 +167,7 @@ var data = {
            	 	 },
           
            	 	 'no (observations)': {
-           	 		 name: 'NO ANSWER',
+           	 		 name: 'No answer',
            
            	 	  },
          
@@ -193,7 +193,7 @@ var data = {
       },
       
       'no (collection of data)': {
-          name: 'NO ANSWER'
+          name: 'No answer'
         },
     
     'Is a catalogue needed?yes': {
@@ -261,7 +261,7 @@ $(function() {
   
   var tree = new DecisionTree(data);
   var $list = $('#choices');
-  var $title = $('h1');
+  var $title = $('h3');
   
   var current_id = null;
   
@@ -277,7 +277,28 @@ $(function() {
     $list.empty();
     for(var i = 0; i < items.length; i++) {
       var item = items[i];
+      if (item.name == "No answer"){
+    	  $list.append('<li><a href="#" data-choice="' + item.id + '">No answer in our system suitable for your choices.<br><br> Please press restart and try again</a></li>');
+      }
+      else if (item.name == "Data Curation: PRESERVATION" ){
+    	  $list.append('<li><a href="#" data-choice="' + item.id + '">Data Curation: Preservation <br><br> You can find the visualisation of the system at the bottom of the page.</a></li>');
+      }
+      
+      else if (item.name == "Data Acquisition:Collect Data"){
+    	  $list.append('<li><a href="#" data-choice="' + item.id + '">Data Acquisition: Collect Data <br><br> You can find the visualisation of the system at the bottom of the page.</a></li>');
+      }
+      
+      else if (item.name == "Data curation: DATA ANNOTATION"){
+    	  $list.append('<li><a href="#" data-choice="' + item.id + '">Data curation: Data Annotation <br><br> You can find the visualisation of the system at the bottom of the page.</a></li>');
+      }
+      else if (title == "Yes" || title=="No"){
+    	  $list.append('<li><a href="#" data-choice="' + item.id + '">Press to go to next question</a></li>');
+      }
+      
+      
+      else{
       $list.append('<li><a href="#" data-choice="' + item.id + '">' + item.name + '</a></li>');
+      }
       //////////////////////
       if (item.name == 'Data Curation: PRESERVATION'){
     	  window.init({ "class": "go.GraphLinksModel",
@@ -313,14 +334,100 @@ $(function() {
 	    	 "rightArray":[  ] }
 	    	 ],
 	    	  "linkDataArray": [
-	    	{"from":1, "to":2, "fromPort":"left0", "toPort":"right0"},
-	    	{"from":1, "to":3, "fromPort":"bottom0", "toPort":"top0"},
-	    	{"from":2, "to":3, "fromPort":"bottom1", "toPort":"left1"},
-	    	{"from":5, "to":2, "fromPort":"top0", "toPort":"bottom0"},
-	    	{"from":3, "to":2, "fromPort":"left0", "toPort":"right1"},
-	    	{"from":4, "to":2, "fromPort":"bottom0", "toPort":"top0"}
+	    	{"from":1, "to":2, "fromPort":"left0", "toPort":"right0",text:"Update Catalogues"},
+	    	{"from":3, "to":1, "fromPort":"top0", "toPort":"bottom0", text:"Query Resource"},
+	    	{"from":2, "to":3, "fromPort":"bottom1", "toPort":"left1", text:"Import Data For Curation"},
+	    	{"from":5, "to":2, "fromPort":"top0", "toPort":"bottom0", text:"Acquire Identifier"},
+	    	{"from":3, "to":2, "fromPort":"left0", "toPort":"right1", text: "Update Records"},
+	    	{"from":4, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "New Transporter"}
 	    	 ]});
     	  
+      }
+      else if (item.name == 'Data Acquisition:Collect Data'){
+    	  window.init({ "class": "go.GraphLinksModel",
+	    	  "copiesArrays": true,
+	    	  "copiesArrayObjects": true,
+	    	  "linkFromPortIdProperty": "fromPort",
+	    	  "linkToPortIdProperty": "toPort",
+	    	  "nodeDataArray": [
+	    	{"key":1, "name":"Field Laboratory", "loc":"030 050",
+	    	 "leftArray":[  ],
+	    	 "topArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+	    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+	    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"} ] },
+	    	{"key":2, "name":"Acquisition Service", "loc":"050 200",
+	    	 "leftArray":[  ],
+	    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+	    	 "bottomArray":[  ],
+	    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+	    	{"key":3, "name":"Instrument Controller", "loc":"170 120",
+	    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"} ],
+	    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+	    	 "bottomArray":[ {"portColor":"#d08154", "portId":"bottom0"} ],
+	    	 "rightArray":[ {"portColor":"#bd8f27", "portId":"right0"},{"portColor":"#c14617", "portId":"right1"} ] },
+	    	 {"key":4, "name":"Raw Data Collector", "loc":"300 050",
+		    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"}, {"portColor":"#d08154", "portId":"left1"} ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+		    	 "rightArray":[  ] },
+	    	 {"key":5, "name":"Data Transfer Service", "loc":"300 200",
+	    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"} ],
+	    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+	    	 "bottomArray":[  ],
+	    	 "rightArray":[  ] }
+	    	 ],
+	    	  "linkDataArray": [
+	    	{"from":1, "to":3, "fromPort":"top0", "toPort":"top0", text: "Calibrate Instrument"},
+	    	{"from":1, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "Update Registry"},
+	    	{"from":1, "to":3, "fromPort":"right0", "toPort":"left0", text: "New Controller"},
+	    	{"from":2, "to":3, "fromPort":"right0", "toPort":"bottom0", text: "Configure Controller"},
+	    	{"from":2, "to":5, "fromPort":"right1", "toPort":"left0", text: "Prep. Data Transfer"},
+	    	{"from":3, "to":4, "fromPort":"right1", "toPort":"left1", text: "Deliver Data"},
+	    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0", text: "Retrieve Data"},
+	    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0", text: "New Transporter"}
+	    	 ]});
+      }
+      else if (item.name == 'Data curation: DATA ANNOTATION'){
+    	  window.init({ "class": "go.GraphLinksModel",
+	    	  "copiesArrays": true,
+	    	  "copiesArrayObjects": true,
+	    	  "linkFromPortIdProperty": "fromPort",
+	    	  "linkToPortIdProperty": "toPort",
+	    	  "nodeDataArray": [
+	    	{"key":1, "name":"Semantic Laboratory", "loc":"030 050",
+	    	 "leftArray":[  ],
+	    	 "topArray":[  ],
+	    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+	    	 "rightArray":[  ] },
+	    	{"key":2, "name":"Semantic Broker", "loc":"050 150",
+	    	 "leftArray":[  ],
+	    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+	    	 "bottomArray":[ {"portColor":"#995aa6", "portId":"bottom0"} ],
+	    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"} ] },
+	    	{"key":3, "name":"Annotation Service", "loc":"150 250",
+	    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"} ],
+	    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+	    	 "bottomArray":[  ],
+	    	 "rightArray":[ {"portColor":"#bd8f27", "portId":"right0"},{"portColor":"#c14617", "portId":"right1"} ] },
+	    	 {"key":4, "name":"Catalogue Service", "loc":"300 120",
+		    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"} ],
+		    	 "topArray":[  ],
+		    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+		    	 "rightArray":[  ] },
+	    	 {"key":5, "name":"Data Store Controller", "loc":"300 260",
+	    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"} ],
+	    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+	    	 "bottomArray":[  ],
+	    	 "rightArray":[  ] }
+	    	 ],
+	    	  "linkDataArray": [
+	    	{"from":2, "to":1, "fromPort":"top0", "toPort":"bottom0", text: "Data Request"},
+	    	{"from":3, "to":2, "fromPort":"left0", "toPort":"bottom0", text: "Update Model"},
+	    	{"from":3, "to":2, "fromPort":"top0", "toPort":"right0", text: "Annotate Data"},
+	    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0", text: "Update Catalogues"},
+	    	{"from":5, "to":3, "fromPort":"left0", "toPort":"right1", text: "Update Records"},
+	    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0", text: "Query Resource"}
+	    	 ]});
       }
     }
   };

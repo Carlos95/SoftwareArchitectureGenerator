@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>FreeText</title>
+		<title>StructuredText</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/engineerstyle.css" />
@@ -64,25 +64,26 @@
 		<div>
 			<a href="../advancedindex.html" class="info fa fa-mail-reply"></a>
 		</div>
+			
 		<!-- Main -->
 			<div id="preview">
 				<div class="inner">
 					<div class="content">
 						<header>
-							<h2>Free Text Requirements</h2>
+							<h2>Structured Text Requirements</h2>
 						</header>
 						<div class="wrap">
 						<div class="search" id="search">
 						</div>
 						
-						<input type="radio" name="and-any" id="and"> All Requirements Reflected on Output
-						<input type="radio" name="and-any" id="any" checked> Any Requirement Reflected on Output
+						<input type="radio" name="and-any" id="and"> Concise Terms Analysis
+						<input type="radio" name="and-any" id="any" checked> Requirements
 						
 	<header>
 	<h2>Output</h2>
 	</header>
 	<!-- OUTPUT CODE -->
- 	<h3>These are the recommended objects from the requirements you input</h3>
+ 	<h3>These are the recommended objects from your input</h3>
  	<div id='map_holder2'></div>
 			    
  	
@@ -425,9 +426,11 @@
 				<div class="inner">
 					
 					<div class="content">
-						<h3>Free Text Requirements</h3>
-						<p>Input any number of requirements into the search box in the format you most desire. <br><br> Choose between fetching components that satisfy ALL requirements at once or fetching components that satisfy ANY of the requirements.
-						<br><br> You can also browse through the different components using the buttons under the output window.</p>
+						<h3>Structured Text Requirements</h3>
+						<p>First of all specify the total number of requirements that you are planning to input.
+						<br><br> <em>Concise Terms Analysis:</em> ie. I want "a research infrastructure" or "a unique identifier". Will look for components that satisfy the term as a whole.
+						<br><br> <em>Requirements:</em> Input requirements following the provided guideline "I want...".
+						</p>
 						</div>
 						
 					<div class="copyright">
@@ -472,6 +475,6 @@
     		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
   		
   			<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.12/go.js"></script>
-			<script type="text/javascript" src="../importText.entry.js"></script>
+			<script type="text/javascript" src="../structuredText.entry.js"></script>
 	</body>
 </html>
