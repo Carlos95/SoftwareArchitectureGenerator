@@ -418,8 +418,8 @@
 	 var tmpFilter;
 	 var any = true;
 	 var and = false;
-	 var needsText = "These components needs capabilities from ";
-	 var providesText = "These components provides capabilities to ";	 
+	 var needsText = "These components make use of capabilities provided by ";
+	 var providesText = "These components provide capabilities used by ";	 
 	 
 	 function runProvides(str){	 
 		 
@@ -601,7 +601,7 @@
 					<div class="content">
 						<h3>Structured Text Requirements</h3>
 						<p>First of all specify the total number of requirements that you are planning to input.
-						<br> Choose <em>object requirements</em> when you want all the requirements to satisfy only one object. <br>ie. "The object shall be part of a research infrastructure."<br> Choose <em>system requirements</em> when you want all the requirements to satisfy a computational system.
+						<br> Choose <em>object requirements</em> when you want to find computational objects that each satisfy all the requirements provided. <br>ie. "The object shall be part of a research infrastructure."<br> Choose <em>system requirements</em> when you want to find computational objects that satisfy any of the requirements provided.
 						</p>
 						</div>
 						
