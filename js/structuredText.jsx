@@ -29,7 +29,7 @@ class TodoApp extends React.Component {
 	 }
 	 else if (this.state.items.length < this.state.isLimit){
 		 handleSubmit= <form onSubmit={this.handleSubmit}>
-		 			   The software shall  <input onChange={this.handleChange} value={this.state.text}required />
+		 			   The object/software shall  <input onChange={this.handleChange} value={this.state.text}required />
 		 			   <div class="input-button">	
 		 			   <button>{'Save Requirement'}</button>
 	

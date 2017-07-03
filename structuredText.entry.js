@@ -7429,7 +7429,7 @@ var TodoApp = function (_React$Component) {
 				handleSubmit = React.createElement(
 					'form',
 					{ onSubmit: this.handleSubmit },
-					'The software shall  ',
+					'The object/software shall  ',
 					React.createElement('input', { onChange: this.handleChange, value: this.state.text, required: true }),
 					React.createElement(
 						'div',
