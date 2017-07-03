@@ -5,6 +5,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/engineerstyle.css" />
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.12/go.js"></script>
 		<!-- Hotjar Tracking Code for https://carlos95.github.io/SoftwareArchitectureGen -->
 		<script>
     		(function(h,o,t,j,a,r){
@@ -83,17 +85,170 @@
 	</header>
 	<!-- OUTPUT CODE -->
  	<h3>These are the recommended objects from the requirements you input</h3>
+ 	<br>
+ 	<h4>Tick all the components that you want in the system and press "Generate Architecture" at the bottom of the page. (In development, generates limited amount of results)</h4>
+ 	
  	<div id='map_holder2'></div>
 			    
  	
  	<div id="myOutput" class="myOutput"></div>
  	<hr>
-	 		<!-- <script type="text/javascript">
-	 		function init(fu) {
+	 	 <script type="text/javascript">
+	 		
+	 	function visualOutput(){
+	 		 if (document.getElementById("data transfer service") && document.getElementById("PID service") 
+	 			   && document.getElementById("data store controller") && document.getElementById("data transporter") && document.getElementById("catalogue service")){
+	 		   if (document.getElementById("data transfer service").checked && document.getElementById("PID service").checked 
+	 			   && document.getElementById("data store controller").checked && document.getElementById("data transporter").checked && document.getElementById("catalogue service").checked ){
+				
+				init({ "class": "go.GraphLinksModel",
+				    	  "copiesArrays": true,
+				    	  "copiesArrayObjects": true,
+				    	  "linkFromPortIdProperty": "fromPort",
+				    	  "linkToPortIdProperty": "toPort",
+				    	  "nodeDataArray": [
+				    	{"key":1, "name":"Catalogue Service", "loc":"300 104",
+				    	 "leftArray":[ {"portColor":"#425e5c", "portId":"left0"} ],
+				    	 "topArray":[  ],
+				    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+				    	 "rightArray":[  ] },
+				    	{"key":2, "name":"Data Transporter", "loc":"080 180",
+				    	 "leftArray":[  ],
+				    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+				    	 "bottomArray":[ {"portColor":"#dd45c7", "portId":"bottom0"},{"portColor":"#995aa6", "portId":"bottom1"} ],
+				    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+				    	{"key":3, "name":"Data Store Controller", "loc":"300 200",
+				    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"},{"portColor":"#c14617", "portId":"left1"} ],
+				    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+				    	 "bottomArray":[  ],
+				    	 "rightArray":[  ] },
+				    	 {"key":4, "name":"Data Transfer Service", "loc":"050 070",
+					    	 "leftArray":[  ],
+					    	 "topArray":[  ],
+					    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+					    	 "rightArray":[  ] },
+				    	 {"key":5, "name":"PID", "loc":"030 280",
+				    	 "leftArray":[  ],
+				    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+				    	 "bottomArray":[  ],
+				    	 "rightArray":[  ] }
+				    	 ],
+				    	  "linkDataArray": [
+				    	{"from":1, "to":2, "fromPort":"left0", "toPort":"right0", text: "Update Catalogues"},
+				    	{"from":1, "to":3, "fromPort":"bottom0", "toPort":"top0", text: "Query Resources"},
+				    	{"from":2, "to":3, "fromPort":"bottom1", "toPort":"left1", text: "Import Data for Curation"},
+				    	{"from":5, "to":2, "fromPort":"top0", "toPort":"bottom0", text: "Acquire Identifier"},
+				    	{"from":3, "to":2, "fromPort":"left0", "toPort":"right1", text: "Update Records"},
+				    	{"from":4, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "New Transporter"}
+				    	 ]});
+			    }
+	 		   else if ( document.getElementById("field laboratory").checked && document.getElementById("instrument controller").checked 
+	 			   	  && document.getElementById("acquisition service").checked && document.getElementById("raw data collector").checked && document.getElementById("data transfer service").checked ){
+				
+				init({ "class": "go.GraphLinksModel",
+				    	  "copiesArrays": true,
+				    	  "copiesArrayObjects": true,
+				    	  "linkFromPortIdProperty": "fromPort",
+				    	  "linkToPortIdProperty": "toPort",
+				    	  "nodeDataArray": [
+				    	{"key":1, "name":"Field Laboratory", "loc":"030 050",
+				    	 "leftArray":[  ],
+				    	 "topArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+				    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+				    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"} ] },
+				    	{"key":2, "name":"Acquisition Service", "loc":"050 200",
+				    	 "leftArray":[  ],
+				    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+				    	 "bottomArray":[  ],
+				    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+				    	{"key":3, "name":"Instrument Controller", "loc":"170 120",
+				    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"} ],
+				    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+				    	 "bottomArray":[ {"portColor":"#d08154", "portId":"bottom0"} ],
+				    	 "rightArray":[ {"portColor":"#bd8f27", "portId":"right0"},{"portColor":"#c14617", "portId":"right1"} ] },
+				    	 {"key":4, "name":"Raw Data Collector", "loc":"300 050",
+					    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"}, {"portColor":"#d08154", "portId":"left1"} ],
+					    	 "topArray":[  ],
+					    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+					    	 "rightArray":[  ] },
+				    	 {"key":5, "name":"Data Transfer Service", "loc":"300 200",
+				    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"} ],
+				    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+				    	 "bottomArray":[  ],
+				    	 "rightArray":[  ] }
+				    	 ],
+				    	  "linkDataArray": [
+				    	{"from":1, "to":3, "fromPort":"top0", "toPort":"top0", text: "Calibrate Instrument"},
+				    	{"from":1, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "Update Registry"},
+				    	{"from":1, "to":3, "fromPort":"right0", "toPort":"left0", text: "New Controller"},
+				    	{"from":2, "to":3, "fromPort":"right0", "toPort":"bottom0", text: "Configure Controller"},
+				    	{"from":2, "to":5, "fromPort":"right1", "toPort":"left0", text: "Prep. Data Transfer"},
+				    	{"from":3, "to":4, "fromPort":"right1", "toPort":"left1", text: "Deliver Data"},
+				    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0", text: "Retrieve Data"},
+				    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0", text: "New Transporter"}
+				    	 ]});
+			}
+	 		   
+	 		 
+	 		 
+	 		 }
+	 		 else if (document.getElementById("field laboratory") && document.getElementById("instrument controller") 
+		 			   && document.getElementById("acquisition service") && document.getElementById("raw data collector") && document.getElementById("data trasnfer service")){
+	 		 	   if ( document.getElementById("field laboratory").checked && document.getElementById("instrument controller").checked 
+		 			   	  && document.getElementById("acquisition service").checked && document.getElementById("raw data collector").checked && document.getElementById("data trasnfer service").checked ){
+	 				
+	 				init({ "class": "go.GraphLinksModel",
+	 				    	  "copiesArrays": true,
+	 				    	  "copiesArrayObjects": true,
+	 				    	  "linkFromPortIdProperty": "fromPort",
+	 				    	  "linkToPortIdProperty": "toPort",
+	 				    	  "nodeDataArray": [
+	 				    	{"key":1, "name":"Field Laboratory", "loc":"030 050",
+	 				    	 "leftArray":[  ],
+	 				    	 "topArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+	 				    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+	 				    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"} ] },
+	 				    	{"key":2, "name":"Acquisition Service", "loc":"050 200",
+	 				    	 "leftArray":[  ],
+	 				    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+	 				    	 "bottomArray":[  ],
+	 				    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+	 				    	{"key":3, "name":"Instrument Controller", "loc":"170 120",
+	 				    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"} ],
+	 				    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+	 				    	 "bottomArray":[ {"portColor":"#d08154", "portId":"bottom0"} ],
+	 				    	 "rightArray":[ {"portColor":"#bd8f27", "portId":"right0"},{"portColor":"#c14617", "portId":"right1"} ] },
+	 				    	 {"key":4, "name":"Raw Data Collector", "loc":"300 050",
+	 					    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"}, {"portColor":"#d08154", "portId":"left1"} ],
+	 					    	 "topArray":[  ],
+	 					    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+	 					    	 "rightArray":[  ] },
+	 				    	 {"key":5, "name":"Data Transfer Service", "loc":"300 200",
+	 				    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"} ],
+	 				    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+	 				    	 "bottomArray":[  ],
+	 				    	 "rightArray":[  ] }
+	 				    	 ],
+	 				    	  "linkDataArray": [
+	 				    	{"from":1, "to":3, "fromPort":"top0", "toPort":"top0", text: "Calibrate Instrument"},
+	 				    	{"from":1, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "Update Registry"},
+	 				    	{"from":1, "to":3, "fromPort":"right0", "toPort":"left0", text: "New Controller"},
+	 				    	{"from":2, "to":3, "fromPort":"right0", "toPort":"bottom0", text: "Configure Controller"},
+	 				    	{"from":2, "to":5, "fromPort":"right1", "toPort":"left0", text: "Prep. Data Transfer"},
+	 				    	{"from":3, "to":4, "fromPort":"right1", "toPort":"left1", text: "Deliver Data"},
+	 				    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0", text: "Retrieve Data"},
+	 				    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0", text: "New Transporter"}
+	 				    	 ]});
+	 			}
+	 	 	 }
+	 		 
+	 	 }
+	 	 
+	 	 function init(fu) {
 	 		    var $ = go.GraphObject.make;  //for conciseness in defining node templates
 
 	 		    myDiagram =
-	 		      $(go.Diagram, "myOutput",  //Diagram refers to its DIV HTML element by id
+	 		      $(go.Diagram, "visualOutput",  //Diagram refers to its DIV HTML element by id
 	 		        { initialContentAlignment: go.Spot.Center, "undoManager.isEnabled": true });
 
 
@@ -246,16 +401,16 @@
 	 		  function load(fu) {
 	 		    myDiagram.model = go.Model.fromJson(fu);
 	 		  }</script>
-	 		  -->
+	 		  
 	 
 	 
 	 
 	 
 	 
 	 <script>
-	 // TAKES KEYWORD OBJECT AND OUTPUTS THE COMPONENTS THAT PROVIDES SOMETHING TO IT
+	// TAKES KEYWORD OBJECT AND OUTPUTS THE COMPONENTS THAT PROVIDES SOMETHING TO IT
 	 var endpoint = "https://cors-anywhere.herokuapp.com/oil-e.vlan400.uvalight.net/rm/sparql?";
-	
+	 var count = 0;
 	 var keyword;
 	 var keyclass;
 	 var filters =[];
@@ -315,10 +470,10 @@
 		     displayPic(i);
 		 });
         
-        
+		 
         
         function displayPic(i) {        
-		     
+        	
         	 $('#map_holder2').empty();
 		     document.getElementById("titleoutput2").innerHTML = needsText.bold() + jsonObj.results.bindings[i].label.value;
 		     document.getElementById("titleoutput3").innerHTML = providesText.bold() + jsonObj.results.bindings[i].label.value;
@@ -334,23 +489,37 @@
 		         $('#next2').show();
         
         
-		 
+		  count++;
         
-        
+        if (count<2){
         // Provides to X objects
         var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+keyclass+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}" ;
-	  
-        var result = " <table border='2' cellpadding='9'>" ;
+        
+        
+        result = " <table border='2' cellpadding='9'>" ;
         for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
-          result += " </td><td><input type='checkbox' id='"+i+"'>" + jsonObj.results.bindings[i].label.value;
+          result += " </td><td><input type='checkbox' id='"+jsonObj.results.bindings[i].label.value+"'>" + jsonObj.results.bindings[i].label.value;
           result += " </td><td>" + jsonObj.results.bindings[i].description.value;
           result += " </td></tr>"; 
         } 
         result += "</table>" ;
-        document.getElementById("myOutput").innerHTML = result;
-        
         sparqlQueryJson(query, endpoint, Needs, false);
+        document.getElementById("myOutput").innerHTML = result;
         }
+        else {
+        	var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+keyclass+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}" ;
+        	result = " <table border='2' cellpadding='9'>" ;
+            for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+              result += " </td><td><input type='checkbox' id='"+jsonObj.results.bindings[i].label.value+"'>" + jsonObj.results.bindings[i].label.value;
+              result += " </td><td>" + jsonObj.results.bindings[i].description.value;
+              result += " </td></tr>"; 
+            } 
+            result += "</table>" ;
+            sparqlQueryJson(query, endpoint, Needs, false);
+        }
+     }
+     
+        
      }
       
    // Define a callback function to receive the SPARQL JSON result.
@@ -368,7 +537,7 @@
         
         var result = " <table border='2' cellpadding='9'>" ;
         for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
-          result += " </td><td><input type='checkbox' id='"+i+"'>" + jsonObj.results.bindings[i].olabel.value;
+          result += " </td><td><input type='checkbox' id='"+jsonObj.results.bindings[i].olabel.value+"'>" + jsonObj.results.bindings[i].olabel.value;
           result += " </td><td>" + jsonObj.results.bindings[i].clabel.value;
           result += " </td></tr>"; 
         } 
@@ -385,7 +554,7 @@
           
           var result = " <table border='2' cellpadding='9'>" ;
           for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
-            result += " </td><td><input type='checkbox' id='"+i+"'>" + jsonObj.results.bindings[i].olabel.value;
+            result += " </td><td><input type='checkbox' id='"+jsonObj.results.bindings[i].olabel.value+"'>" + jsonObj.results.bindings[i].olabel.value;
             result += " </td><td>" + jsonObj.results.bindings[i].clabel.value;
             result += " </td></tr>"; 
           } 
@@ -411,7 +580,11 @@
 		
       
       
-	 		
+	 		<br><br>
+	 		<hr>
+	 		<input id="Generate Visual Output" type="button" value="Generate Architecture" onclick="visualOutput();" />
+	 		<br><br>
+			<div id="visualOutput" class="visualOutput"></div>
 			
 	 		 
 			

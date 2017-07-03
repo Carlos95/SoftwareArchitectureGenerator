@@ -5,6 +5,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/engineerstyle.css" />
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.12/go.js"></script>
 		<!-- Hotjar Tracking Code for https://carlos95.github.io/SoftwareArchitectureGen -->
 		<script>
     		(function(h,o,t,j,a,r){
@@ -71,6 +73,7 @@
 					<div class="content">
 						<header>
 							<h2>Structured Text Requirements</h2>
+														
 						</header>
 						<div class="wrap">
 						<div class="search" id="search">
@@ -84,170 +87,322 @@
 	</header>
 	<!-- OUTPUT CODE -->
  	<h3>These are the recommended objects from your input</h3>
+ 	<br>
+ 	<h4>Tick all the components that you want in the system and press "Generate Architecture" at the bottom of the page. (In development, generates limited amount of results)</h4>
  	<div id='map_holder2'></div>
 			    
  	
  	<div id="myOutput" class="myOutput"></div>
  	<hr>
-	 		<!-- <script type="text/javascript">
-	 		function init(fu) {
-	 		    var $ = go.GraphObject.make;  //for conciseness in defining node templates
-
-	 		    myDiagram =
-	 		      $(go.Diagram, "myOutput",  //Diagram refers to its DIV HTML element by id
-	 		        { initialContentAlignment: go.Spot.Center, "undoManager.isEnabled": true });
-
-
-	 		    // To simplify this code we define a function for creating a context menu button:
-	 		    function makeButton(text, action, visiblePredicate) {
-	 		      return $("ContextMenuButton",
-	 		               $(go.TextBlock, text),
-	 		               { click: action },
-	 		               // don't bother with binding GraphObject.visible if there's no predicate
-	 		               visiblePredicate ? new go.Binding("visible", "", function(o, e) { return o.diagram ? visiblePredicate(o, e) : false; }).ofObject() : {});
-	 		    }
-
+	 	 <script type="text/javascript">
+	 	 function visualOutput(){
+	 		 if (document.getElementById("data transfer service") && document.getElementById("PID service") 
+	 			   && document.getElementById("data store controller") && document.getElementById("data transporter") && document.getElementById("catalogue service")){
+	 		   if (document.getElementById("data transfer service").checked && document.getElementById("PID service").checked 
+	 			   && document.getElementById("data store controller").checked && document.getElementById("data transporter").checked && document.getElementById("catalogue service").checked ){
+				
+				init({ "class": "go.GraphLinksModel",
+				    	  "copiesArrays": true,
+				    	  "copiesArrayObjects": true,
+				    	  "linkFromPortIdProperty": "fromPort",
+				    	  "linkToPortIdProperty": "toPort",
+				    	  "nodeDataArray": [
+				    	{"key":1, "name":"Catalogue Service", "loc":"300 104",
+				    	 "leftArray":[ {"portColor":"#425e5c", "portId":"left0"} ],
+				    	 "topArray":[  ],
+				    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+				    	 "rightArray":[  ] },
+				    	{"key":2, "name":"Data Transporter", "loc":"080 180",
+				    	 "leftArray":[  ],
+				    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+				    	 "bottomArray":[ {"portColor":"#dd45c7", "portId":"bottom0"},{"portColor":"#995aa6", "portId":"bottom1"} ],
+				    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+				    	{"key":3, "name":"Data Store Controller", "loc":"300 200",
+				    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"},{"portColor":"#c14617", "portId":"left1"} ],
+				    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+				    	 "bottomArray":[  ],
+				    	 "rightArray":[  ] },
+				    	 {"key":4, "name":"Data Transfer Service", "loc":"050 070",
+					    	 "leftArray":[  ],
+					    	 "topArray":[  ],
+					    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+					    	 "rightArray":[  ] },
+				    	 {"key":5, "name":"PID", "loc":"030 280",
+				    	 "leftArray":[  ],
+				    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+				    	 "bottomArray":[  ],
+				    	 "rightArray":[  ] }
+				    	 ],
+				    	  "linkDataArray": [
+				    	{"from":1, "to":2, "fromPort":"left0", "toPort":"right0", text: "Update Catalogues"},
+				    	{"from":1, "to":3, "fromPort":"bottom0", "toPort":"top0", text: "Query Resources"},
+				    	{"from":2, "to":3, "fromPort":"bottom1", "toPort":"left1", text: "Import Data for Curation"},
+				    	{"from":5, "to":2, "fromPort":"top0", "toPort":"bottom0", text: "Acquire Identifier"},
+				    	{"from":3, "to":2, "fromPort":"left0", "toPort":"right1", text: "Update Records"},
+				    	{"from":4, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "New Transporter"}
+				    	 ]});
+			    }
+	 		   else if ( document.getElementById("field laboratory").checked && document.getElementById("instrument controller").checked 
+	 			   	  && document.getElementById("acquisition service").checked && document.getElementById("raw data collector").checked && document.getElementById("data transfer service").checked ){
+ 				
+ 				init({ "class": "go.GraphLinksModel",
+ 				    	  "copiesArrays": true,
+ 				    	  "copiesArrayObjects": true,
+ 				    	  "linkFromPortIdProperty": "fromPort",
+ 				    	  "linkToPortIdProperty": "toPort",
+ 				    	  "nodeDataArray": [
+ 				    	{"key":1, "name":"Field Laboratory", "loc":"030 050",
+ 				    	 "leftArray":[  ],
+ 				    	 "topArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+ 				    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+ 				    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"} ] },
+ 				    	{"key":2, "name":"Acquisition Service", "loc":"050 200",
+ 				    	 "leftArray":[  ],
+ 				    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+ 				    	 "bottomArray":[  ],
+ 				    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+ 				    	{"key":3, "name":"Instrument Controller", "loc":"170 120",
+ 				    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"} ],
+ 				    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+ 				    	 "bottomArray":[ {"portColor":"#d08154", "portId":"bottom0"} ],
+ 				    	 "rightArray":[ {"portColor":"#bd8f27", "portId":"right0"},{"portColor":"#c14617", "portId":"right1"} ] },
+ 				    	 {"key":4, "name":"Raw Data Collector", "loc":"300 050",
+ 					    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"}, {"portColor":"#d08154", "portId":"left1"} ],
+ 					    	 "topArray":[  ],
+ 					    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+ 					    	 "rightArray":[  ] },
+ 				    	 {"key":5, "name":"Data Transfer Service", "loc":"300 200",
+ 				    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"} ],
+ 				    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+ 				    	 "bottomArray":[  ],
+ 				    	 "rightArray":[  ] }
+ 				    	 ],
+ 				    	  "linkDataArray": [
+ 				    	{"from":1, "to":3, "fromPort":"top0", "toPort":"top0", text: "Calibrate Instrument"},
+ 				    	{"from":1, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "Update Registry"},
+ 				    	{"from":1, "to":3, "fromPort":"right0", "toPort":"left0", text: "New Controller"},
+ 				    	{"from":2, "to":3, "fromPort":"right0", "toPort":"bottom0", text: "Configure Controller"},
+ 				    	{"from":2, "to":5, "fromPort":"right1", "toPort":"left0", text: "Prep. Data Transfer"},
+ 				    	{"from":3, "to":4, "fromPort":"right1", "toPort":"left1", text: "Deliver Data"},
+ 				    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0", text: "Retrieve Data"},
+ 				    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0", text: "New Transporter"}
+ 				    	 ]});
+ 			}
+	 		   
 	 		 
+	 		 
+	 		 }
+	 		 else if (document.getElementById("field laboratory") && document.getElementById("instrument controller") 
+		 			   && document.getElementById("acquisition service") && document.getElementById("raw data collector") && document.getElementById("data trasnfer service")){
+	 		 	   if ( document.getElementById("field laboratory").checked && document.getElementById("instrument controller").checked 
+		 			   	  && document.getElementById("acquisition service").checked && document.getElementById("raw data collector").checked && document.getElementById("data trasnfer service").checked ){
+	 				
+	 				init({ "class": "go.GraphLinksModel",
+	 				    	  "copiesArrays": true,
+	 				    	  "copiesArrayObjects": true,
+	 				    	  "linkFromPortIdProperty": "fromPort",
+	 				    	  "linkToPortIdProperty": "toPort",
+	 				    	  "nodeDataArray": [
+	 				    	{"key":1, "name":"Field Laboratory", "loc":"030 050",
+	 				    	 "leftArray":[  ],
+	 				    	 "topArray":[ {"portColor":"#425e5c", "portId":"top0"} ],
+	 				    	 "bottomArray":[ {"portColor":"#316571", "portId":"bottom0"} ],
+	 				    	 "rightArray":[ {"portColor":"#425e5c", "portId":"right0"} ] },
+	 				    	{"key":2, "name":"Acquisition Service", "loc":"050 200",
+	 				    	 "leftArray":[  ],
+	 				    	 "topArray":[ {"portColor":"#dd45c7", "portId":"top0"} ],
+	 				    	 "bottomArray":[  ],
+	 				    	 "rightArray":[ {"portColor":"#dd45c7", "portId":"right0"},{"portColor":"#995aa6", "portId":"right1"} ] },
+	 				    	{"key":3, "name":"Instrument Controller", "loc":"170 120",
+	 				    	 "leftArray":[ {"portColor":"#bd8f27", "portId":"left0"} ],
+	 				    	 "topArray":[ {"portColor":"#d08154", "portId":"top0"} ],
+	 				    	 "bottomArray":[ {"portColor":"#d08154", "portId":"bottom0"} ],
+	 				    	 "rightArray":[ {"portColor":"#bd8f27", "portId":"right0"},{"portColor":"#c14617", "portId":"right1"} ] },
+	 				    	 {"key":4, "name":"Raw Data Collector", "loc":"300 050",
+	 					    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"}, {"portColor":"#d08154", "portId":"left1"} ],
+	 					    	 "topArray":[  ],
+	 					    	 "bottomArray":[ {"portColor":"#6cafdb", "portId":"bottom0"} ],
+	 					    	 "rightArray":[  ] },
+	 				    	 {"key":5, "name":"Data Transfer Service", "loc":"300 200",
+	 				    	 "leftArray":[ {"portColor":"#d08154", "portId":"left0"} ],
+	 				    	 "topArray":[ {"portColor":"#77ac1e", "portId":"top0"} ],
+	 				    	 "bottomArray":[  ],
+	 				    	 "rightArray":[  ] }
+	 				    	 ],
+	 				    	  "linkDataArray": [
+	 				    	{"from":1, "to":3, "fromPort":"top0", "toPort":"top0", text: "Calibrate Instrument"},
+	 				    	{"from":1, "to":2, "fromPort":"bottom0", "toPort":"top0", text: "Update Registry"},
+	 				    	{"from":1, "to":3, "fromPort":"right0", "toPort":"left0", text: "New Controller"},
+	 				    	{"from":2, "to":3, "fromPort":"right0", "toPort":"bottom0", text: "Configure Controller"},
+	 				    	{"from":2, "to":5, "fromPort":"right1", "toPort":"left0", text: "Prep. Data Transfer"},
+	 				    	{"from":3, "to":4, "fromPort":"right1", "toPort":"left1", text: "Deliver Data"},
+	 				    	{"from":4, "to":3, "fromPort":"left0", "toPort":"right0", text: "Retrieve Data"},
+	 				    	{"from":5, "to":4, "fromPort":"top0", "toPort":"bottom0", text: "New Transporter"}
+	 				    	 ]});
+	 			}
+	 	 	 }
+	 		 
+	 	 }
+	 	 
+	 	 
+	 	function init(fu) {
+		    var $ = go.GraphObject.make;  //for conciseness in defining node templates
 
-	 		    var portSize = new go.Size(8, 8);
-
-	 		    
-
-	 		    // the node template
-	 		    // includes a panel on each side with an itemArray of panels containing ports
-	 		    myDiagram.nodeTemplate =
-	 		      $(go.Node, "Table",
-	 		        { locationObjectName: "BODY",
-	 		          locationSpot: go.Spot.Center,
-	 		          selectionObjectName: "BODY"
-	 		        },
-	 		        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-
-	 		        // the body
-	 		        $(go.Panel, "Auto",
-	 		          { row: 1, column: 1, name: "BODY",
-	 		            stretch: go.GraphObject.Fill },
-	 		          $(go.Shape, "Rectangle",
-	 		            { fill: "#AC193D", stroke: null, strokeWidth: 0,
-	 		              minSize: new go.Size(100, 80) }),
-	 		          $(go.TextBlock,
-	 		            { margin: 10, textAlign: "center", font: "14px  Segoe UI,sans-serif", stroke: "white", editable: true },
-	 		            new go.Binding("text", "name").makeTwoWay())
-	 		        ),  // end Auto Panel body
-
-	 		        // the Panel holding the left port elements, which are themselves Panels,
-	 		        // created for each item in the itemArray, bound to data.leftArray
-	 		        $(go.Panel, "Vertical",
-	 		          new go.Binding("itemArray", "leftArray"),
-	 		          { row: 1, column: 0,
-	 		            itemTemplate:
-	 		              $(go.Panel,
-	 		                { _side: "left",  // internal property to make it easier to tell which side it's on
-	 		                  fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
-	 		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
-	 		                new go.Binding("portId", "portId"),
-	 		                $(go.Shape, "Rectangle",
-	 		                  { stroke: null, strokeWidth: 0,
-	 		                    desiredSize: portSize,
-	 		                    margin: new go.Margin(1,0) },
-	 		                  new go.Binding("fill", "portColor"))
-	 		              )  // end itemTemplate
-	 		          }
-	 		        ),  // end Vertical Panel
-
-	 		        // the Panel holding the top port elements, which are themselves Panels,
-	 		        // created for each item in the itemArray, bound to data.topArray
-	 		        $(go.Panel, "Horizontal",
-	 		          new go.Binding("itemArray", "topArray"),
-	 		          { row: 0, column: 1,
-	 		            itemTemplate:
-	 		              $(go.Panel,
-	 		                { _side: "top",
-	 		                  fromSpot: go.Spot.Top, toSpot: go.Spot.Top,
-	 		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
-	 		                new go.Binding("portId", "portId"),
-	 		                $(go.Shape, "Rectangle",
-	 		                  { stroke: null, strokeWidth: 0,
-	 		                    desiredSize: portSize,
-	 		                    margin: new go.Margin(0, 1) },
-	 		                  new go.Binding("fill", "portColor"))
-	 		              )  // end itemTemplate
-	 		          }
-	 		        ),  // end Horizontal Panel
-
-	 		        // the Panel holding the right port elements, which are themselves Panels,
-	 		        // created for each item in the itemArray, bound to data.rightArray
-	 		        $(go.Panel, "Vertical",
-	 		          new go.Binding("itemArray", "rightArray"),
-	 		          { row: 1, column: 2,
-	 		            itemTemplate:
-	 		              $(go.Panel,
-	 		                { _side: "right",
-	 		                  fromSpot: go.Spot.Right, toSpot: go.Spot.Right,
-	 		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
-	 		                new go.Binding("portId", "portId"),
-	 		                $(go.Shape, "Rectangle",
-	 		                  { stroke: null, strokeWidth: 0,
-	 		                    desiredSize: portSize,
-	 		                    margin: new go.Margin(1, 0) },
-	 		                  new go.Binding("fill", "portColor"))
-	 		              )  // end itemTemplate
-	 		          }
-	 		        ),  // end Vertical Panel
-
-	 		        // the Panel holding the bottom port elements, which are themselves Panels,
-	 		        // created for each item in the itemArray, bound to data.bottomArray
-	 		        $(go.Panel, "Horizontal",
-	 		          new go.Binding("itemArray", "bottomArray"),
-	 		          { row: 2, column: 1,
-	 		            itemTemplate:
-	 		              $(go.Panel,
-	 		                { _side: "bottom",
-	 		                  fromSpot: go.Spot.Bottom, toSpot: go.Spot.Bottom,
-	 		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
-	 		                new go.Binding("portId", "portId"),
-	 		                $(go.Shape, "Rectangle",
-	 		                  { stroke: null, strokeWidth: 0,
-	 		                    desiredSize: portSize,
-	 		                    margin: new go.Margin(0, 1) },
-	 		                  new go.Binding("fill", "portColor"))
-	 		              )  // end itemTemplate
-	 		          }
-	 		        )  // end Horizontal Panel
-	 		      );  // end Node
-
-	 		    
-	 		    myDiagram.linkTemplate =
-	 		      $(go.Link,  // the whole link panel
-	 		        $(go.Shape,  // the link shape
-	 		          { stroke: "black" }),
-	 		        $(go.Shape,  // the arrowhead
-	 		          { toArrow: "standard", stroke: null }),
-	 		        $(go.Panel, "Auto",
-	 		          $(go.Shape,  // the label background, which becomes transparent around the edges
-	 		            { fill: $(go.Brush, "Radial", { 0: "rgb(240, 240, 240)", 0.3: "rgb(240, 240, 240)", 1: "rgba(240, 240, 240, 0)" }),
-	 		              stroke: null }),
-	 		          $(go.TextBlock,  // the label text
-	 		            { textAlign: "center",
-	 		              font: "10pt helvetica, arial, sans-serif",
-	 		              stroke: "#555555",
-	 		              margin: 4 },
-	 		            new go.Binding("text", "text"))
-	 		        )
-	 		      )
-
-	 		    // load the diagram from JSON data
-	 		    load(fu);
-	 		  }
+		    myDiagram =
+		      $(go.Diagram, "visualOutput",  //Diagram refers to its DIV HTML element by id
+		        { initialContentAlignment: go.Spot.Center, "undoManager.isEnabled": true });
 
 
+		    // To simplify this code we define a function for creating a context menu button:
+		    function makeButton(text, action, visiblePredicate) {
+		      return $("ContextMenuButton",
+		               $(go.TextBlock, text),
+		               { click: action },
+		               // don't bother with binding GraphObject.visible if there's no predicate
+		               visiblePredicate ? new go.Binding("visible", "", function(o, e) { return o.diagram ? visiblePredicate(o, e) : false; }).ofObject() : {});
+		    }
+
+		 
+
+		    var portSize = new go.Size(8, 8);
+
+		    
+
+		    // the node template
+		    // includes a panel on each side with an itemArray of panels containing ports
+		    myDiagram.nodeTemplate =
+		      $(go.Node, "Table",
+		        { locationObjectName: "BODY",
+		          locationSpot: go.Spot.Center,
+		          selectionObjectName: "BODY"
+		        },
+		        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+
+		        // the body
+		        $(go.Panel, "Auto",
+		          { row: 1, column: 1, name: "BODY",
+		            stretch: go.GraphObject.Fill },
+		          $(go.Shape, "Rectangle",
+		            { fill: "#AC193D", stroke: null, strokeWidth: 0,
+		              minSize: new go.Size(100, 80) }),
+		          $(go.TextBlock,
+		            { margin: 10, textAlign: "center", font: "14px  Segoe UI,sans-serif", stroke: "white", editable: true },
+		            new go.Binding("text", "name").makeTwoWay())
+		        ),  // end Auto Panel body
+
+		        // the Panel holding the left port elements, which are themselves Panels,
+		        // created for each item in the itemArray, bound to data.leftArray
+		        $(go.Panel, "Vertical",
+		          new go.Binding("itemArray", "leftArray"),
+		          { row: 1, column: 0,
+		            itemTemplate:
+		              $(go.Panel,
+		                { _side: "left",  // internal property to make it easier to tell which side it's on
+		                  fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
+		                new go.Binding("portId", "portId"),
+		                $(go.Shape, "Rectangle",
+		                  { stroke: null, strokeWidth: 0,
+		                    desiredSize: portSize,
+		                    margin: new go.Margin(1,0) },
+		                  new go.Binding("fill", "portColor"))
+		              )  // end itemTemplate
+		          }
+		        ),  // end Vertical Panel
+
+		        // the Panel holding the top port elements, which are themselves Panels,
+		        // created for each item in the itemArray, bound to data.topArray
+		        $(go.Panel, "Horizontal",
+		          new go.Binding("itemArray", "topArray"),
+		          { row: 0, column: 1,
+		            itemTemplate:
+		              $(go.Panel,
+		                { _side: "top",
+		                  fromSpot: go.Spot.Top, toSpot: go.Spot.Top,
+		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
+		                new go.Binding("portId", "portId"),
+		                $(go.Shape, "Rectangle",
+		                  { stroke: null, strokeWidth: 0,
+		                    desiredSize: portSize,
+		                    margin: new go.Margin(0, 1) },
+		                  new go.Binding("fill", "portColor"))
+		              )  // end itemTemplate
+		          }
+		        ),  // end Horizontal Panel
+
+		        // the Panel holding the right port elements, which are themselves Panels,
+		        // created for each item in the itemArray, bound to data.rightArray
+		        $(go.Panel, "Vertical",
+		          new go.Binding("itemArray", "rightArray"),
+		          { row: 1, column: 2,
+		            itemTemplate:
+		              $(go.Panel,
+		                { _side: "right",
+		                  fromSpot: go.Spot.Right, toSpot: go.Spot.Right,
+		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
+		                new go.Binding("portId", "portId"),
+		                $(go.Shape, "Rectangle",
+		                  { stroke: null, strokeWidth: 0,
+		                    desiredSize: portSize,
+		                    margin: new go.Margin(1, 0) },
+		                  new go.Binding("fill", "portColor"))
+		              )  // end itemTemplate
+		          }
+		        ),  // end Vertical Panel
+
+		        // the Panel holding the bottom port elements, which are themselves Panels,
+		        // created for each item in the itemArray, bound to data.bottomArray
+		        $(go.Panel, "Horizontal",
+		          new go.Binding("itemArray", "bottomArray"),
+		          { row: 2, column: 1,
+		            itemTemplate:
+		              $(go.Panel,
+		                { _side: "bottom",
+		                  fromSpot: go.Spot.Bottom, toSpot: go.Spot.Bottom,
+		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
+		                new go.Binding("portId", "portId"),
+		                $(go.Shape, "Rectangle",
+		                  { stroke: null, strokeWidth: 0,
+		                    desiredSize: portSize,
+		                    margin: new go.Margin(0, 1) },
+		                  new go.Binding("fill", "portColor"))
+		              )  // end itemTemplate
+		          }
+		        )  // end Horizontal Panel
+		      );  // end Node
+
+		    
+		    myDiagram.linkTemplate =
+		      $(go.Link,  // the whole link panel
+		        $(go.Shape,  // the link shape
+		          { stroke: "black" }),
+		        $(go.Shape,  // the arrowhead
+		          { toArrow: "standard", stroke: null }),
+		        $(go.Panel, "Auto",
+		          $(go.Shape,  // the label background, which becomes transparent around the edges
+		            { fill: $(go.Brush, "Radial", { 0: "rgb(240, 240, 240)", 0.3: "rgb(240, 240, 240)", 1: "rgba(240, 240, 240, 0)" }),
+		              stroke: null }),
+		          $(go.TextBlock,  // the label text
+		            { textAlign: "center",
+		              font: "10pt helvetica, arial, sans-serif",
+		              stroke: "#555555",
+		              margin: 4 },
+		            new go.Binding("text", "text"))
+		        )
+		      )
+
+		    // load the diagram from JSON data
+		    load(fu);
+		  }
+
+
+		  
+		  
+
+		  function load(fu) {
+		    myDiagram.model = go.Model.fromJson(fu);
+		  }</script>
 	 		  
-	 		  
-
-	 		  function load(fu) {
-	 		    myDiagram.model = go.Model.fromJson(fu);
-	 		  }</script>
-	 		  -->
 	 
 	 
 	 
@@ -256,7 +411,7 @@
 	 <script>
 	 // TAKES KEYWORD OBJECT AND OUTPUTS THE COMPONENTS THAT PROVIDES SOMETHING TO IT
 	 var endpoint = "https://cors-anywhere.herokuapp.com/oil-e.vlan400.uvalight.net/rm/sparql?";
-	
+	 var count = 0;
 	 var keyword;
 	 var keyclass;
 	 var filters =[];
@@ -316,10 +471,10 @@
 		     displayPic(i);
 		 });
         
-        
+		 
         
         function displayPic(i) {        
-		     
+        	
         	 $('#map_holder2').empty();
 		     document.getElementById("titleoutput2").innerHTML = needsText.bold() + jsonObj.results.bindings[i].label.value;
 		     document.getElementById("titleoutput3").innerHTML = providesText.bold() + jsonObj.results.bindings[i].label.value;
@@ -335,23 +490,37 @@
 		         $('#next2').show();
         
         
-		 
+		  count++;
         
-        
+        if (count<2){
         // Provides to X objects
         var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+keyclass+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}" ;
-	  
-        var result = " <table border='2' cellpadding='9'>" ;
+        
+        
+        result = " <table border='2' cellpadding='9'>" ;
         for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
-          result += " </td><td><input type='checkbox' id='"+i+"'>" + jsonObj.results.bindings[i].label.value;
+          result += " </td><td><input type='checkbox' id='"+jsonObj.results.bindings[i].label.value+"'>" + jsonObj.results.bindings[i].label.value;
           result += " </td><td>" + jsonObj.results.bindings[i].description.value;
           result += " </td></tr>"; 
         } 
         result += "</table>" ;
-        document.getElementById("myOutput").innerHTML = result;
-        
         sparqlQueryJson(query, endpoint, Needs, false);
+        document.getElementById("myOutput").innerHTML = result;
         }
+        else {
+        	var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+keyclass+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}" ;
+        	result = " <table border='2' cellpadding='9'>" ;
+            for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+              result += " </td><td><input type='checkbox' id='"+jsonObj.results.bindings[i].label.value+"'>" + jsonObj.results.bindings[i].label.value;
+              result += " </td><td>" + jsonObj.results.bindings[i].description.value;
+              result += " </td></tr>"; 
+            } 
+            result += "</table>" ;
+            sparqlQueryJson(query, endpoint, Needs, false);
+        }
+     }
+     
+        
      }
       
    // Define a callback function to receive the SPARQL JSON result.
@@ -369,7 +538,7 @@
         
         var result = " <table border='2' cellpadding='9'>" ;
         for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
-          result += " </td><td><input type='checkbox' id='"+i+"'>" + jsonObj.results.bindings[i].olabel.value;
+          result += " </td><td><input type='checkbox' id='"+jsonObj.results.bindings[i].olabel.value+"'>" + jsonObj.results.bindings[i].olabel.value;
           result += " </td><td>" + jsonObj.results.bindings[i].clabel.value;
           result += " </td></tr>"; 
         } 
@@ -386,7 +555,7 @@
           
           var result = " <table border='2' cellpadding='9'>" ;
           for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
-            result += " </td><td><input type='checkbox' id='"+i+"'>" + jsonObj.results.bindings[i].olabel.value;
+            result += " </td><td><input type='checkbox' id='"+jsonObj.results.bindings[i].olabel.value+"'>" + jsonObj.results.bindings[i].olabel.value;
             result += " </td><td>" + jsonObj.results.bindings[i].clabel.value;
             result += " </td></tr>"; 
           } 
@@ -412,8 +581,12 @@
 		
       
       
-	 		
-			
+	 		<br><br>
+	 		<hr>
+	 		<input id="Generate Visual Output" type="button" value="Generate Architecture" onclick="visualOutput();" />
+	 		<br><br>
+			<div id="visualOutput" class="visualOutput"></div>
+	 		 
 	 		 
 			
 	  </div>
@@ -428,7 +601,7 @@
 					<div class="content">
 						<h3>Structured Text Requirements</h3>
 						<p>First of all specify the total number of requirements that you are planning to input.
-						<br><br> Choose <em>object requirements</em> when you want all the requirements to satisfy only one object. <br>ie. "The object shall be part of a research infrastructure."<br> Choose <em>system requirements</em> when you want all the requirements to satisfy a computational system.
+						<br> Choose <em>object requirements</em> when you want all the requirements to satisfy only one object. <br>ie. "The object shall be part of a research infrastructure."<br> Choose <em>system requirements</em> when you want all the requirements to satisfy a computational system.
 						</p>
 						</div>
 						

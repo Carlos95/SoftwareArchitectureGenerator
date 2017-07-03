@@ -1353,3 +1353,8 @@
 			height: 20em;
 		}
 
+.visualOutput {
+	width:800px; 
+	height:500px; 
+	border:1px solid black ;
+}
