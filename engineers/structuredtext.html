@@ -66,7 +66,7 @@
     <!-- SYNCHORNOUS -->
     <script>
     function sparqlQueryJsonSync(queryStr, endpoint, callback, isDebug) {
-      var querypart = "query=" + encodeURI(queryStr);
+    	var querypart = "query=" + encodeURI(queryStr);
     
       // Get our HTTP request object.
       var xmlhttp = null;
@@ -168,6 +168,8 @@
 	 		sugCount=0;
 	 		
 	 		alert("Loading. It might take some seconds...");
+	 		
+	 		
 	 		
 	 		for(var i = 0; i<  checkedArray.length; i++){
 	 			if (document.getElementById(checkedArray[i].label.value).checked){
@@ -616,7 +618,7 @@
     		  
 	 		<div id="visualTitle"></div>
 	 		<div id="outputMenu"></div>
-	 		
+	 		<div id="loader"></div>
 			<br><br>
 			<div id="visualOutputNav" class="visualOutputNav"></div>
 			<br><br>
