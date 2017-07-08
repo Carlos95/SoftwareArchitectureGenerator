@@ -141,6 +141,7 @@
 	 	  var component=0;
 	 	  var sugCount = 0;
 	 	  var capabilityComponent=0;
+	 	  var capabilityComponentSug = 0;
 	 	  var capabilities;
 	 	  var capabilities2 = [];
 	 	  var idExport;
@@ -162,6 +163,7 @@
 	 	    idExport=0;
 	 		component =0;
 	 		capabilityComponent=0;
+	 		capabilityComponentSug = 0;
 	 		componentSuggestions=0;
 	 		sugCount=0;
 	 		
@@ -249,7 +251,6 @@
 	 		}
 	 		capabilities += ']';
 	 		
-	 		//alert('"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+newCheckedArray[component]+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+',"rightArray":[] }], "linkDataArray": []');
 	 		var string =  '{"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+newCheckedArray[component]+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+','+capabilities2[component]+' }], "linkDataArray": []}';
 	 		init(string,idExport);
 					idExport++;
@@ -283,6 +284,23 @@
 	 		
 	 		
 	 	}
+	 	
+	 	function capabilityListSuggestionsInvokes(str){
+	 		
+	 		var jsonObj = eval('(' + str + ')');
+	 		// for each capability
+	 		capabilities2[capabilityComponentSug] = '"rightArray": [';
+	 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
+	 			if (i>=jsonObj.results.bindings.length-1){
+	 				capabilities2[capabilityComponentSug] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
+	 			}
+	 			else{
+	 				capabilities2[capabilityComponentSug] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
+	 			}
+	 		}
+	 		capabilities2[capabilityComponentSug] += ']';
+	 		capabilityComponentSug++;
+	 		}
 	 	
 	 	function suggestions(str){
 
@@ -326,7 +344,7 @@
 	 		for(var i = 0; i<  checkedArraySuggestions.length; i++){
 	 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArraySuggestions[i].object.value+"> rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
 					notSuggestions = false;
-	 				sparqlQueryJsonSync(query, endpoint, capabilityListInvokes, false);
+	 				sparqlQueryJsonSync(query, endpoint, capabilityListSuggestionsInvokes, false);
 	 			
 	 		}
 	 		// Provides
@@ -592,10 +610,6 @@
      
    }
       
-   
-      
-     // Make the query.
-     //sparqlQueryJson(query, endpoint, needsAndProvides, true);
       
     </script>
     		   
