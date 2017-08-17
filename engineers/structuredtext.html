@@ -118,524 +118,522 @@
 					<div class="content">
 						<header>
 							<h2>Structured Text Requirements</h2>
-														
 						</header>
 						<div class="wrap">
-						<div class="search" id="search">
-						</div>
+						<div class="search" id="search"></div>
 						
 						<input type="radio" name="and-any" id="and"> Object Requirements
 						<input type="radio" name="and-any" id="any" checked> System Requirements
 						
-	<div id='outputTitle'></div>
-    <div id='map_holder2'></div>
+						<div id='outputTitle'></div>
+    					<div id='map_holder2'></div>
 			    
  	
- 	<div id="myOutput" class="myOutput"></div>
+ 						<div id="myOutput" class="myOutput"></div>
  	
 	 	
 	 	
-	 	 <script type="text/javascript">
-	 	  var componentChecked;
-	 	  var notSuggestions;
-	 	  var component=0;
-	 	  var sugCount = 0;
-	 	  var capabilityComponent=0;
-	 	  var capabilityComponentSug = 0;
-	 	  var capabilities;
-	 	  var capabilities2 = [];
-	 	  var idExport;
-	 	  var newCheckedArray = [];
-	 	  var checkedArraySuggestions = [];
-	 	  var controlArray = [];
-	 	  var newCheckedArraySuggestions = [];
-	 	  // Displays individual objects
-	 	 
-	 	  function visualOutput(){
-	 		// Prints several output boxes
-	 		checkedArraySuggestions = [];
-	 		newCheckedArraySuggestions = [];
-	 		newCheckedArray = [];
-	 		controlArray = [];
-	 		var outputFields = "<table border='2' cellpadding='9'><tr>";
-	 		var navigation = "<ul>";
-	 		var id=0;
-	 	    idExport=0;
-	 		component =0;
-	 		capabilityComponent=0;
-	 		capabilityComponentSug = 0;
-	 		componentSuggestions=0;
-	 		sugCount=0;
-	 		
-	 		alert("Loading. It might take some seconds...");
-	 		
-	 		
-	 		
-	 		for(var i = 0; i<  checkedArray.length; i++){
-	 			if (document.getElementById(checkedArray[i].label.value).checked){
-	 			    if (id % 3 == 0 && id != 0){
-	 			    	outputFields += "</tr><tr>";
-	 			    }
-	 				newCheckedArray.push(checkedArray[i].label.value);
-	 			    outputFields += "<td><div id='subVisualOutput"+ id +"' class='subVisualOutput"+ id +"' style='width:300px;height:200px;border:1px solid black;'></div></td>";
-	 				navigation += "<li><a href='#subVisualOutput"+id+"'>"+checkedArray[i].label.value+"</a></li>";
-	 			    id++;
-	 			    sugCount++;
-	 			}
-	 		}
-	 		
-	 		navigation += "</ul>";
-	 		outputFields+= "</tr></table>";
-	 		document.getElementById("visualOutputNav").innerHTML = navigation;
-	 		document.getElementById("visualOutput").innerHTML = outputFields;
-	 		document.getElementById("suggestionsTitle").innerHTML = "<h4>You might also be interested in: </h4>";
-	 		document.getElementById("visualTitle").innerHTML = "<hr><header><h2>Visualiser</h2></header><hr>";
-	 		// For each item checked query them to know the suggested objects
-	 		for(var i = 0; i< checkedArray.length; i++){
-	 			if (document.getElementById(checkedArray[i].label.value).checked){
-	 			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+checkedArray[i].class.value+"> rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}" ;
-	 		    sparqlQueryJsonSync(query, endpoint, suggestions, false);    
-	 		
-	 			}
-	 		}
-	 		
-	 		
-	 		
-	 		// Invokes
-	 		for(var i = 0; i<  checkedArray.length; i++){
-	 			if (document.getElementById(checkedArray[i].label.value).checked){
-	 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArray[i].class.value+"> rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
-					notSuggestions = true;
-	 				sparqlQueryJsonSync(query, endpoint, capabilityListInvokes, false);
-	 			}
-	 		}
-	 		// Provides
-	 		for(var i = 0; i<  checkedArray.length; i++){
-	 			if (document.getElementById(checkedArray[i].label.value).checked){
-	 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArray[i].class.value+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
-					notSuggestions = true;
-	 				sparqlQueryJsonSync(query, endpoint, capabilityList, false);
-	 			}
-	 		}
-	 		computeSuggestions();
-	 			
-	 	 }
-	 	 function capabilityListInvokes(str){
-		 		
-		 		var jsonObj = eval('(' + str + ')');
-		 		// for each capability
-		 		capabilities2[capabilityComponent] = '"rightArray": [';
-		 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
-		 			if (i>=jsonObj.results.bindings.length-1){
-		 				capabilities2[capabilityComponent] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
-		 			}
-		 			else{
-		 				capabilities2[capabilityComponent] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
-		 			}
-		 		}
-		 		capabilities2[capabilityComponent] += ']';
-		 		capabilityComponent++;
-		 		//alert('"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+newCheckedArray[component]+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+',"rightArray":[] }], "linkDataArray": []');		 		
-		 	}
-	 	  
-	 	function capabilityList(str){
-	 		var object;
-	 		var jsonObj = eval('(' + str + ')');
-	 		// for each capability
-	 		capabilities = '"bottomArray": [';
-	 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
-	 			if (i>=jsonObj.results.bindings.length-1){
-	 				capabilities += '{"portColor":"#316571", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
-	 			}
-	 			else{
-	 				capabilities += '{"portColor":"#316571", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
-	 			}
-	 		}
-	 		capabilities += ']';
-	 		
-	 		var string =  '{"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+newCheckedArray[component]+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+','+capabilities2[component]+' }], "linkDataArray": []}';
-	 		init(string,idExport);
-					idExport++;
-	 		
-	 		component++;
-	 		
-	 		
-	 	}
-	 	
-	 	function capabilityListSuggestions(str){
-	 		var object;
-	 		var jsonObj = eval('(' + str + ')');
-	 		// for each capability
-	 		capabilities = '"bottomArray": [';
-	 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
-	 			if (i>=jsonObj.results.bindings.length-1){
-	 				capabilities += '{"portColor":"#316571", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
-	 			}
-	 			else{
-	 				capabilities += '{"portColor":"#316571", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
-	 			}
-	 		}
-	 		capabilities += ']';
-	 		
-	 		//alert('"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+newCheckedArray[component]+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+',"rightArray":[] }], "linkDataArray": []');
-	 		var string =  '{"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+checkedArraySuggestions[componentSuggestions].olabel.value+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+','+capabilities2[componentSuggestions]+' }], "linkDataArray": []}';
-	 		init(string,idExport);
-					idExport++;
-	 		
-	 		componentSuggestions++;
-	 		
-	 		
-	 	}
-	 	
-	 	function capabilityListSuggestionsInvokes(str){
-	 		
-	 		var jsonObj = eval('(' + str + ')');
-	 		// for each capability
-	 		capabilities2[capabilityComponentSug] = '"rightArray": [';
-	 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
-	 			if (i>=jsonObj.results.bindings.length-1){
-	 				capabilities2[capabilityComponentSug] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
-	 			}
-	 			else{
-	 				capabilities2[capabilityComponentSug] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
-	 			}
-	 		}
-	 		capabilities2[capabilityComponentSug] += ']';
-	 		capabilityComponentSug++;
-	 		}
-	 	
-	 	function suggestions(str){
-
-	 		var jsonObj = eval('(' + str + ')');
-	 		// for each item
-	 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
-	 			if(controlArray.indexOf(jsonObj.results.bindings[i].olabel.value) == -1){
-	 				checkedArraySuggestions.push(jsonObj.results.bindings[i]);
-	 				controlArray.push(jsonObj.results.bindings[i].olabel.value);
-	 			}
-	 		}
-	 		
-	 	}
-	 	
-	 	function computeSuggestions(){
-	 		
-	 	    // Prints several output boxes
-	 		var outputFields = "<table border='2' cellpadding='9'><tr>";
-	 		var navigation = "<ul>";
-	 		
-	 		
-	 		
-	 		for(var i = 0; i<  checkedArraySuggestions.length; i++){
-	 		
-	 			    if (sugCount % 3 == 0 && sugCount != 0){
-	 			    	outputFields += "</tr><tr>";
-	 			    }
-	 			    outputFields += "<td><div id='subVisualOutput"+ sugCount +"' class='subVisualOutput"+ sugCount +"' style='width:300px;height:200px;border:1px solid black;'></div></td>";
-	 				navigation += "<li><a href='#subVisualOutput"+sugCount+"'>"+checkedArraySuggestions[i].olabel.value+"</a></li>";
-	 			    sugCount++;
-	 			
-	 		}
-	 		
-	 		navigation += "</ul>";
-	 		outputFields+= "</tr></table>";
-	 		document.getElementById("visualOutputNavSug").innerHTML = navigation;
-	 		document.getElementById("visualOutputSug").innerHTML = outputFields;
-	 		
-	 		
-	 		// Invokes
-	 		for(var i = 0; i<  checkedArraySuggestions.length; i++){
-	 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArraySuggestions[i].object.value+"> rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
-					notSuggestions = false;
-	 				sparqlQueryJsonSync(query, endpoint, capabilityListSuggestionsInvokes, false);
-	 			
-	 		}
-	 		// Provides
-	 		for(var i = 0; i<  checkedArraySuggestions.length; i++){
-	 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArraySuggestions[i].object.value+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
-					notSuggestions = false;
-	 				sparqlQueryJsonSync(query, endpoint, capabilityListSuggestions, false);
-	 			
-	 		}
-	 		
-	 	}
-	 	
-	 	
-	 	function visualOutputArchitecture() {
-	 		alert("Under Development");
-	 	}
-	 	
-	 	 
-	 	function init(fu,outputNumber) {
-		    var $ = go.GraphObject.make;  //for conciseness in defining node templates
-
-		    myDiagram =
-		      $(go.Diagram, "subVisualOutput" + outputNumber,  //Diagram refers to its DIV HTML element by id
-		        { initialContentAlignment: go.Spot.Center, "undoManager.isEnabled": true });
-
-
-		    // To simplify this code we define a function for creating a context menu button:
-		    function makeButton(text, action, visiblePredicate) {
-		      return $("ContextMenuButton",
-		               $(go.TextBlock, text),
-		               { click: action },
-		               // don't bother with binding GraphObject.visible if there's no predicate
-		               visiblePredicate ? new go.Binding("visible", "", function(o, e) { return o.diagram ? visiblePredicate(o, e) : false; }).ofObject() : {});
-		    }
-
-		 
-
-		    var portSize = new go.Size(8, 8);
-
-		    
-
-		    // the node template
-		    // includes a panel on each side with an itemArray of panels containing ports
-		    myDiagram.nodeTemplate =
-		      $(go.Node, "Table",
-		        { locationObjectName: "BODY",
-		          locationSpot: go.Spot.Center,
-		          selectionObjectName: "BODY"
-		        },
-		        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-
-		        // the body
-		        $(go.Panel, "Auto",
-		          { row: 1, column: 1, name: "BODY",
-		            stretch: go.GraphObject.Fill },
-		          $(go.Shape, "Rectangle",
-		            { fill: "#AC193D", stroke: null, strokeWidth: 0,
-		              minSize: new go.Size(100, 80) }),
-		          $(go.TextBlock,
-		            { margin: 10, textAlign: "center", font: "14px  Segoe UI,sans-serif", stroke: "white", editable: false },
-		            new go.Binding("text", "name").makeTwoWay())
-		        ),  // end Auto Panel body
-
-		        // the Panel holding the left port elements, which are themselves Panels,
-		        // created for each item in the itemArray, bound to data.leftArray
-		        $(go.Panel, "Vertical",
-		          new go.Binding("itemArray", "leftArray"),
-		          { row: 1, column: 0,
-		            itemTemplate:
-		              $(go.Panel,
-		                { _side: "left",  // internal property to make it easier to tell which side it's on
-		                  fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
-		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
-		                new go.Binding("portId", "portId"),
-		                $(go.Shape, "Rectangle",
-		                  { stroke: null, strokeWidth: 0,
-		                    desiredSize: portSize,
-		                    margin: new go.Margin(1,0) },
-		                  new go.Binding("fill", "portColor")),
-		                $(go.TextBlock,{ margin: 10, textAlign: "center", font: "10px  Segoe UI,sans-serif", stroke: "black", editable: false },
-		    		            new go.Binding("text", "port_name").makeTwoWay())
-		              )  // end itemTemplate
-		          }
-		        ),  // end Vertical Panel
-
-		        // the Panel holding the top port elements, which are themselves Panels,
-		        // created for each item in the itemArray, bound to data.topArray
-		        $(go.Panel, "Horizontal",
-		          new go.Binding("itemArray", "topArray"),
-		          { row: 0, column: 1,
-		            itemTemplate:
-		              $(go.Panel,
-		                { _side: "top",
-		                  fromSpot: go.Spot.Top, toSpot: go.Spot.Top,
-		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
-		                new go.Binding("portId", "portId"),
-		                $(go.Shape, "Rectangle",
-		                  { stroke: null, strokeWidth: 0,
-		                    desiredSize: portSize,
-		                    margin: new go.Margin(0, 30)},
-		                  new go.Binding("fill", "portColor")),
-		                $(go.TextBlock,{textAlign: "right", font: "10px  Segoe UI,sans-serif", stroke: "black", editable: false } ,new go.Binding("text", "port_name").makeTwoWay())
-		              )  // end itemTemplate
-		          }
-		        ),  // end Horizontal Panel
-
-		        // the Panel holding the right port elements, which are themselves Panels,
-		        // created for each item in the itemArray, bound to data.rightArray
-		        $(go.Panel, "Vertical",
-		          new go.Binding("itemArray", "rightArray"),
-		          { row: 1, column: 2,
-		            itemTemplate:
-		              $(go.Panel,
-		                { _side: "right",
-		                  fromSpot: go.Spot.Right, toSpot: go.Spot.Right,
-		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
-		                new go.Binding("portId", "portId"),
-		                $(go.Shape, "Rectangle",
-		                  { stroke: null, strokeWidth: 0,
-		                    desiredSize: portSize,
-		                     },
-		                  new go.Binding("fill", "portColor")),
-		                  $(go.TextBlock,
-		                		  { margin: 10, textAlign: "center", font: "10px  Segoe UI,sans-serif", stroke: "black", editable: false },
-			    		            new go.Binding("text", "port_name").makeTwoWay())
-		              )  // end itemTemplate
-		          }
-		        ),  // end Vertical Panel
-
-		        // the Panel holding the bottom port elements, which are themselves Panels,
-		        // created for each item in the itemArray, bound to data.bottomArray
-		        $(go.Panel, "Horizontal",
-		          new go.Binding("itemArray", "bottomArray"),
-		          { row: 2, column: 1,
-		            itemTemplate:
-		              $(go.Panel,
-		                { _side: "bottom",
-		                  fromSpot: go.Spot.Bottom, toSpot: go.Spot.Bottom,
-		                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
-		                new go.Binding("portId", "portId"),
-		                $(go.Shape, "Rectangle",
-		                  { stroke: null, strokeWidth: 0,
-		                    desiredSize: portSize,
-		                    margin: new go.Margin(0, 1) },
-		                  new go.Binding("fill", "portColor")),
-		                  $(go.TextBlock,
-		                		  { margin: 10, textAlign: "center", font: "10px  Segoe UI,sans-serif", stroke: "black", editable: false },
-			    		            new go.Binding("text", "port_name").makeTwoWay())
-		              )  // end itemTemplate
-		          }
-		        )  // end Horizontal Panel
-		      );  // end Node
-
-		    
-		    myDiagram.linkTemplate =
-		      $(go.Link,  // the whole link panel
-		        $(go.Shape,  // the link shape
-		          { stroke: "black" }),
-		        $(go.Shape,  // the arrowhead
-		          { toArrow: "standard", stroke: null }),
-		        $(go.Panel, "Auto",
-		          $(go.Shape,  // the label background, which becomes transparent around the edges
-		            { fill: $(go.Brush, "Radial", { 0: "rgb(240, 240, 240)", 0.3: "rgb(240, 240, 240)", 1: "rgba(240, 240, 240, 0)" }),
-		              stroke: null }),
-		          $(go.TextBlock,  // the label text
-		            { textAlign: "center",
-		              font: "10pt helvetica, arial, sans-serif",
-		              stroke: "#555555",
-		              margin: 4 },
-		            new go.Binding("text", "text"))
-		        )
-		      )
-
-		    // load the diagram from JSON data
-		    load(fu);
-		  }
-
-
-		  
-		  
-
-		  function load(fu) {
-		    myDiagram.model = go.Model.fromJson(fu);
-		  }</script>
+					 	  <script type="text/javascript">
+					 	  var componentChecked;
+					 	  var notSuggestions;
+					 	  var component=0;
+					 	  var sugCount = 0;
+					 	  var capabilityComponent=0;
+					 	  var capabilityComponentSug = 0;
+					 	  var capabilities;
+					 	  var capabilities2 = [];
+					 	  var idExport;
+					 	  var newCheckedArray = [];
+					 	  var checkedArraySuggestions = [];
+					 	  var controlArray = [];
+					 	  var newCheckedArraySuggestions = [];
+					 	  // Displays individual objects
+					 	 
+					 	  function visualOutput(){
+					 		// Prints several output boxes
+					 		checkedArraySuggestions = [];
+					 		newCheckedArraySuggestions = [];
+					 		newCheckedArray = [];
+					 		controlArray = [];
+					 		var outputFields = "<table border='2' cellpadding='9'><tr>";
+					 		var navigation = "<ul>";
+					 		var id=0;
+					 	    idExport=0;
+					 		component =0;
+					 		capabilityComponent=0;
+					 		capabilityComponentSug = 0;
+					 		componentSuggestions=0;
+					 		sugCount=0;
+					 		
+					 		alert("Loading. It might take some seconds...");
+					 		
+					 		
+					 		
+					 		for(var i = 0; i<  checkedArray.length; i++){
+					 			if (document.getElementById(checkedArray[i].label.value).checked){
+					 			    if (id % 3 == 0 && id != 0){
+					 			    	outputFields += "</tr><tr>";
+					 			    }
+					 				newCheckedArray.push(checkedArray[i].label.value);
+					 			    outputFields += "<td><div id='subVisualOutput"+ id +"' class='subVisualOutput"+ id +"' style='width:300px;height:200px;border:1px solid black;'></div></td>";
+					 				navigation += "<li><a href='#subVisualOutput"+id+"'>"+checkedArray[i].label.value+"</a></li>";
+					 			    id++;
+					 			    sugCount++;
+					 			}
+					 		}
+					 		
+					 		navigation += "</ul>";
+					 		outputFields+= "</tr></table>";
+					 		document.getElementById("visualOutputNav").innerHTML = navigation;
+					 		document.getElementById("visualOutput").innerHTML = outputFields;
+					 		document.getElementById("suggestionsTitle").innerHTML = "<h4>You might also be interested in: </h4>";
+					 		document.getElementById("visualTitle").innerHTML = "<hr><header><h2>Visualiser</h2></header><hr>";
+					 		// For each item checked query them to know the suggested objects
+					 		for(var i = 0; i< checkedArray.length; i++){
+					 			if (document.getElementById(checkedArray[i].label.value).checked){
+					 			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+checkedArray[i].class.value+"> rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}" ;
+					 		    sparqlQueryJsonSync(query, endpoint, suggestions, false);    
+					 		
+					 			}
+					 		}
+					 		
+					 		
+					 		
+					 		// Invokes
+					 		for(var i = 0; i<  checkedArray.length; i++){
+					 			if (document.getElementById(checkedArray[i].label.value).checked){
+					 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArray[i].class.value+"> rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
+									notSuggestions = true;
+					 				sparqlQueryJsonSync(query, endpoint, capabilityListInvokes, false);
+					 			}
+					 		}
+					 		// Provides
+					 		for(var i = 0; i<  checkedArray.length; i++){
+					 			if (document.getElementById(checkedArray[i].label.value).checked){
+					 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArray[i].class.value+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
+									notSuggestions = true;
+					 				sparqlQueryJsonSync(query, endpoint, capabilityList, false);
+					 			}
+					 		}
+					 		computeSuggestions();
+					 			
+					 	 }
+					 	 function capabilityListInvokes(str){
+						 		
+						 		var jsonObj = eval('(' + str + ')');
+						 		// for each capability
+						 		capabilities2[capabilityComponent] = '"rightArray": [';
+						 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
+						 			if (i>=jsonObj.results.bindings.length-1){
+						 				capabilities2[capabilityComponent] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
+						 			}
+						 			else{
+						 				capabilities2[capabilityComponent] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
+						 			}
+						 		}
+						 		capabilities2[capabilityComponent] += ']';
+						 		capabilityComponent++;
+						 		//alert('"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+newCheckedArray[component]+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+',"rightArray":[] }], "linkDataArray": []');		 		
+						 	}
+					 	  
+					 	function capabilityList(str){
+					 		var object;
+					 		var jsonObj = eval('(' + str + ')');
+					 		// for each capability
+					 		capabilities = '"bottomArray": [';
+					 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
+					 			if (i>=jsonObj.results.bindings.length-1){
+					 				capabilities += '{"portColor":"#316571", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
+					 			}
+					 			else{
+					 				capabilities += '{"portColor":"#316571", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
+					 			}
+					 		}
+					 		capabilities += ']';
+					 		
+					 		var string =  '{"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+newCheckedArray[component]+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+','+capabilities2[component]+' }], "linkDataArray": []}';
+					 		init(string,idExport);
+									idExport++;
+					 		
+					 		component++;
+					 		
+					 		
+					 	}
+					 	
+					 	function capabilityListSuggestions(str){
+					 		var object;
+					 		var jsonObj = eval('(' + str + ')');
+					 		// for each capability
+					 		capabilities = '"bottomArray": [';
+					 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
+					 			if (i>=jsonObj.results.bindings.length-1){
+					 				capabilities += '{"portColor":"#316571", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
+					 			}
+					 			else{
+					 				capabilities += '{"portColor":"#316571", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
+					 			}
+					 		}
+					 		capabilities += ']';
+					 		
+					 		//alert('"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+newCheckedArray[component]+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+',"rightArray":[] }], "linkDataArray": []');
+					 		var string =  '{"class": "go.GraphLinksModel","copiesArrays": true, "copiesArrayObjects": true,"linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort","nodeDataArray": [{"key":1, "name": "'+checkedArraySuggestions[componentSuggestions].olabel.value+'", "loc":"030 050","leftArray":[  ],"topArray":[ ],'+capabilities+','+capabilities2[componentSuggestions]+' }], "linkDataArray": []}';
+					 		init(string,idExport);
+									idExport++;
+					 		
+					 		componentSuggestions++;
+					 		
+					 		
+					 	}
+					 	
+					 	function capabilityListSuggestionsInvokes(str){
+					 		
+					 		var jsonObj = eval('(' + str + ')');
+					 		// for each capability
+					 		capabilities2[capabilityComponentSug] = '"rightArray": [';
+					 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
+					 			if (i>=jsonObj.results.bindings.length-1){
+					 				capabilities2[capabilityComponentSug] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"}';
+					 			}
+					 			else{
+					 				capabilities2[capabilityComponentSug] += '{"portColor":"#c90e0e", "portId":"bottom'+i+'", "port_name": "'+jsonObj.results.bindings[i].clabel.value+'"},';
+					 			}
+					 		}
+					 		capabilities2[capabilityComponentSug] += ']';
+					 		capabilityComponentSug++;
+					 		}
+					 	
+					 	function suggestions(str){
+				
+					 		var jsonObj = eval('(' + str + ')');
+					 		// for each item
+					 		for(var i = 0; i<  jsonObj.results.bindings.length; i++){
+					 			if(controlArray.indexOf(jsonObj.results.bindings[i].olabel.value) == -1){
+					 				checkedArraySuggestions.push(jsonObj.results.bindings[i]);
+					 				controlArray.push(jsonObj.results.bindings[i].olabel.value);
+					 			}
+					 		}
+					 		
+					 	}
+					 	
+					 	function computeSuggestions(){
+					 		
+					 	    // Prints several output boxes
+					 		var outputFields = "<table border='2' cellpadding='9'><tr>";
+					 		var navigation = "<ul>";
+					 		
+					 		
+					 		
+					 		for(var i = 0; i<  checkedArraySuggestions.length; i++){
+					 		
+					 			    if (sugCount % 3 == 0 && sugCount != 0){
+					 			    	outputFields += "</tr><tr>";
+					 			    }
+					 			    outputFields += "<td><div id='subVisualOutput"+ sugCount +"' class='subVisualOutput"+ sugCount +"' style='width:300px;height:200px;border:1px solid black;'></div></td>";
+					 				navigation += "<li><a href='#subVisualOutput"+sugCount+"'>"+checkedArraySuggestions[i].olabel.value+"</a></li>";
+					 			    sugCount++;
+					 			
+					 		}
+					 		
+					 		navigation += "</ul>";
+					 		outputFields+= "</tr></table>";
+					 		document.getElementById("visualOutputNavSug").innerHTML = navigation;
+					 		document.getElementById("visualOutputSug").innerHTML = outputFields;
+					 		
+					 		
+					 		// Invokes
+					 		for(var i = 0; i<  checkedArraySuggestions.length; i++){
+					 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArraySuggestions[i].object.value+"> rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
+									notSuggestions = false;
+					 				sparqlQueryJsonSync(query, endpoint, capabilityListSuggestionsInvokes, false);
+					 			
+					 		}
+					 		// Provides
+					 		for(var i = 0; i<  checkedArraySuggestions.length; i++){
+					 				var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?label WHERE {<"+checkedArraySuggestions[i].object.value+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel. }" ;
+									notSuggestions = false;
+					 				sparqlQueryJsonSync(query, endpoint, capabilityListSuggestions, false);
+					 			
+					 		}
+					 		
+					 	}
+					 	
+					 	
+					 	function visualOutputArchitecture() {
+					 		alert("Under Development");
+					 	}
+					 	
+					 	 
+					 	function init(fu,outputNumber) {
+						    var $ = go.GraphObject.make;  //for conciseness in defining node templates
+				
+						    myDiagram =
+						      $(go.Diagram, "subVisualOutput" + outputNumber,  //Diagram refers to its DIV HTML element by id
+						        { initialContentAlignment: go.Spot.Center, "undoManager.isEnabled": true });
+				
+				
+						    // To simplify this code we define a function for creating a context menu button:
+						    function makeButton(text, action, visiblePredicate) {
+						      return $("ContextMenuButton",
+						               $(go.TextBlock, text),
+						               { click: action },
+						               // don't bother with binding GraphObject.visible if there's no predicate
+						               visiblePredicate ? new go.Binding("visible", "", function(o, e) { return o.diagram ? visiblePredicate(o, e) : false; }).ofObject() : {});
+						    }
+				
+						 
+				
+						    var portSize = new go.Size(8, 8);
+				
+						    
+				
+						    // the node template
+						    // includes a panel on each side with an itemArray of panels containing ports
+						    myDiagram.nodeTemplate =
+						      $(go.Node, "Table",
+						        { locationObjectName: "BODY",
+						          locationSpot: go.Spot.Center,
+						          selectionObjectName: "BODY"
+						        },
+						        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+				
+						        // the body
+						        $(go.Panel, "Auto",
+						          { row: 1, column: 1, name: "BODY",
+						            stretch: go.GraphObject.Fill },
+						          $(go.Shape, "Rectangle",
+						            { fill: "#AC193D", stroke: null, strokeWidth: 0,
+						              minSize: new go.Size(100, 80) }),
+						          $(go.TextBlock,
+						            { margin: 10, textAlign: "center", font: "14px  Segoe UI,sans-serif", stroke: "white", editable: false },
+						            new go.Binding("text", "name").makeTwoWay())
+						        ),  // end Auto Panel body
+				
+						        // the Panel holding the left port elements, which are themselves Panels,
+						        // created for each item in the itemArray, bound to data.leftArray
+						        $(go.Panel, "Vertical",
+						          new go.Binding("itemArray", "leftArray"),
+						          { row: 1, column: 0,
+						            itemTemplate:
+						              $(go.Panel,
+						                { _side: "left",  // internal property to make it easier to tell which side it's on
+						                  fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+						                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
+						                new go.Binding("portId", "portId"),
+						                $(go.Shape, "Rectangle",
+						                  { stroke: null, strokeWidth: 0,
+						                    desiredSize: portSize,
+						                    margin: new go.Margin(1,0) },
+						                  new go.Binding("fill", "portColor")),
+						                $(go.TextBlock,{ margin: 10, textAlign: "center", font: "10px  Segoe UI,sans-serif", stroke: "black", editable: false },
+						    		            new go.Binding("text", "port_name").makeTwoWay())
+						              )  // end itemTemplate
+						          }
+						        ),  // end Vertical Panel
+				
+						        // the Panel holding the top port elements, which are themselves Panels,
+						        // created for each item in the itemArray, bound to data.topArray
+						        $(go.Panel, "Horizontal",
+						          new go.Binding("itemArray", "topArray"),
+						          { row: 0, column: 1,
+						            itemTemplate:
+						              $(go.Panel,
+						                { _side: "top",
+						                  fromSpot: go.Spot.Top, toSpot: go.Spot.Top,
+						                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
+						                new go.Binding("portId", "portId"),
+						                $(go.Shape, "Rectangle",
+						                  { stroke: null, strokeWidth: 0,
+						                    desiredSize: portSize,
+						                    margin: new go.Margin(0, 30)},
+						                  new go.Binding("fill", "portColor")),
+						                $(go.TextBlock,{textAlign: "right", font: "10px  Segoe UI,sans-serif", stroke: "black", editable: false } ,new go.Binding("text", "port_name").makeTwoWay())
+						              )  // end itemTemplate
+						          }
+						        ),  // end Horizontal Panel
+				
+						        // the Panel holding the right port elements, which are themselves Panels,
+						        // created for each item in the itemArray, bound to data.rightArray
+						        $(go.Panel, "Vertical",
+						          new go.Binding("itemArray", "rightArray"),
+						          { row: 1, column: 2,
+						            itemTemplate:
+						              $(go.Panel,
+						                { _side: "right",
+						                  fromSpot: go.Spot.Right, toSpot: go.Spot.Right,
+						                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
+						                new go.Binding("portId", "portId"),
+						                $(go.Shape, "Rectangle",
+						                  { stroke: null, strokeWidth: 0,
+						                    desiredSize: portSize,
+						                     },
+						                  new go.Binding("fill", "portColor")),
+						                  $(go.TextBlock,
+						                		  { margin: 10, textAlign: "center", font: "10px  Segoe UI,sans-serif", stroke: "black", editable: false },
+							    		            new go.Binding("text", "port_name").makeTwoWay())
+						              )  // end itemTemplate
+						          }
+						        ),  // end Vertical Panel
+				
+						        // the Panel holding the bottom port elements, which are themselves Panels,
+						        // created for each item in the itemArray, bound to data.bottomArray
+						        $(go.Panel, "Horizontal",
+						          new go.Binding("itemArray", "bottomArray"),
+						          { row: 2, column: 1,
+						            itemTemplate:
+						              $(go.Panel,
+						                { _side: "bottom",
+						                  fromSpot: go.Spot.Bottom, toSpot: go.Spot.Bottom,
+						                  fromLinkable: true, toLinkable: true, cursor: "pointer" },
+						                new go.Binding("portId", "portId"),
+						                $(go.Shape, "Rectangle",
+						                  { stroke: null, strokeWidth: 0,
+						                    desiredSize: portSize,
+						                    margin: new go.Margin(0, 1) },
+						                  new go.Binding("fill", "portColor")),
+						                  $(go.TextBlock,
+						                		  { margin: 10, textAlign: "center", font: "10px  Segoe UI,sans-serif", stroke: "black", editable: false },
+							    		            new go.Binding("text", "port_name").makeTwoWay())
+						              )  // end itemTemplate
+						          }
+						        )  // end Horizontal Panel
+						      );  // end Node
+				
+						    
+						    myDiagram.linkTemplate =
+						      $(go.Link,  // the whole link panel
+						        $(go.Shape,  // the link shape
+						          { stroke: "black" }),
+						        $(go.Shape,  // the arrowhead
+						          { toArrow: "standard", stroke: null }),
+						        $(go.Panel, "Auto",
+						          $(go.Shape,  // the label background, which becomes transparent around the edges
+						            { fill: $(go.Brush, "Radial", { 0: "rgb(240, 240, 240)", 0.3: "rgb(240, 240, 240)", 1: "rgba(240, 240, 240, 0)" }),
+						              stroke: null }),
+						          $(go.TextBlock,  // the label text
+						            { textAlign: "center",
+						              font: "10pt helvetica, arial, sans-serif",
+						              stroke: "#555555",
+						              margin: 4 },
+						            new go.Binding("text", "text"))
+						        )
+						      )
+				
+						    // load the diagram from JSON data
+						    load(fu);
+						  }
+				
+				
+						  
+						  
+				
+						  function load(fu) {
+						    myDiagram.model = go.Model.fromJson(fu);
+						  }</script>
 	 		  
 	 
 	 
 	 
 	 
 	 
-	 <script>
-	 // TAKES KEYWORD OBJECT AND OUTPUTS THE COMPONENTS THAT PROVIDES SOMETHING TO IT
-	 var endpoint = "https://cors-anywhere.herokuapp.com/oil-e.vlan400.uvalight.net/rm/sparql?";
-	 var count = 0; 
-	 var keyword;
-	 var keyclass;
-	 var filters =[];
-	 var tmpFilter;
-	 var any = true;
-	 var and = false;
-	 var needsText = "These components make use of capabilities provided by ";
-	 var providesText = "These components provide capabilities used by ";	 
-	 var checkedArray = [];
-	 var checkedArraySuggestions = [];
-	 
-	 function runProvides(str){	 
-		 
-		 document.getElementById("outputTitle").innerHTML = "<hr><header><h2>Output</h2></header><h3>These are the recommended objects from your input</h3><br>";
-		 document.getElementById("outputMenu").innerHTML = '<br><h4>Check all the components you want to visualise. Architecture Generation currently under development. RED ports are invoked and BLACK ports are provided by the component. </h4><input id="Visualise Individual Objects" type="button" value="Visualise Individual Objects" onclick="visualOutput();" /> <input id="Generate Visual Output" type="button" value="Generate Architecture" onclick="visualOutputArchitecture();" />';
-		 
-	  	if (document.getElementById("and").checked == true){
-	  		for(var i=0;i<str.length;i++){
-	  			tmpFilter = " FILTER(contains( ?desc, '"+ str[i] +"' )). ";
-	  			filters.push(tmpFilter);
-	  			
-	  		}
-			filters=filters.join("");
-			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc. "+filters+"?class rdfs:label ?label. ?class dc:description ?description}" ;
-			  
-	  	}
-	 	if (document.getElementById("any").checked == true){
-			for(var i=1;i<str.length;i++){
-				tmpFilter = " || contains( ?desc, '"+ str[i] +"' ) ";
-	  			filters.push(tmpFilter);
-	  			
-	  		}
-			filters=filters.join("");	
-			var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc.  FILTER(contains( ?desc, '"+str[0]+"' ) "+filters+"). ?class rdfs:label ?label.  ?class dc:description ?description}" ;
-			  
-	 	}
-	 	
-      
-      
-     
-      sparqlQueryJson(query, endpoint, Provides, false);
-		 
-      }
-      
-      // Define a callback function to receive the SPARQL JSON result.
-      function Provides(str) {
-        // Convert result to JSON
-        var jsonObj = eval('(' + str + ')');
-       
-       
-        
-        // Provides to X objects
-        var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+keyclass+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}" ;
-        for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
-        	checkedArray[i] = jsonObj.results.bindings[i];
-        }
-        
-        result = " <table border='2' cellpadding='9'>" ;
-        for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
-          result += " <tr><td><input type='checkbox' id='"+jsonObj.results.bindings[i].label.value+"'>" + jsonObj.results.bindings[i].label.value;
-          result += " </td><td>" + jsonObj.results.bindings[i].description.value;
-          result += " </td></tr>"; 
-        } 
-        result += "</table>" ;
-        document.getElementById("myOutput").innerHTML = result;
-        
-        
-        
-     
-   }
-      
-      
-    </script>
+						 <script>
+						 // TAKES KEYWORD OBJECT AND OUTPUTS THE COMPONENTS THAT PROVIDES SOMETHING TO IT
+						 var endpoint = "https://cors-anywhere.herokuapp.com/oil-e.vlan400.uvalight.net/rm/sparql?";
+						 var count = 0; 
+						 var keyword;
+						 var keyclass;
+						 var filters =[];
+						 var tmpFilter;
+						 var any = true;
+						 var and = false;
+						 var needsText = "These components make use of capabilities provided by ";
+						 var providesText = "These components provide capabilities used by ";	 
+						 var checkedArray = [];
+						 var checkedArraySuggestions = [];
+						 
+						 function runProvides(str){	 
+							 
+							 document.getElementById("outputTitle").innerHTML = "<hr><header><h2>Output</h2></header><h3>These are the recommended objects from your input</h3><br>";
+							 document.getElementById("outputMenu").innerHTML = '<br><h4>Check all the components you want to visualise. Architecture Generation currently under development. RED ports are invoked and BLACK ports are provided by the component. </h4><input id="Visualise Individual Objects" type="button" value="Visualise Individual Objects" onclick="visualOutput();" /> <input id="Generate Visual Output" type="button" value="Generate Architecture" onclick="visualOutputArchitecture();" />';
+							 
+						  	if (document.getElementById("and").checked == true){
+						  		for(var i=0;i<str.length;i++){
+						  			tmpFilter = " FILTER(contains( ?desc, '"+ str[i] +"' )). ";
+						  			filters.push(tmpFilter);
+						  			
+						  		}
+								filters=filters.join("");
+								var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc. "+filters+"?class rdfs:label ?label. ?class dc:description ?description}" ;
+								  
+						  	}
+						 	if (document.getElementById("any").checked == true){
+								for(var i=1;i<str.length;i++){
+									tmpFilter = " || contains( ?desc, '"+ str[i] +"' ) ";
+						  			filters.push(tmpFilter);
+						  			
+						  		}
+								filters=filters.join("");	
+								var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?class ?label ?description WHERE {?class rdfs:subClassOf core:CV_Object.?class (rdfs:label|dc:description) ?desc.  FILTER(contains( ?desc, '"+str[0]+"' ) "+filters+"). ?class rdfs:label ?label.  ?class dc:description ?description}" ;
+								  
+						 	}
+						 	
+					      
+					      
+					     
+					      sparqlQueryJson(query, endpoint, Provides, false);
+							 
+					      }
+					      
+					      // Define a callback function to receive the SPARQL JSON result.
+					      function Provides(str) {
+					        // Convert result to JSON
+					        var jsonObj = eval('(' + str + ')');
+					       
+					       
+					        
+					        // Provides to X objects
+					        var query = "PREFIX dc: <http://purl.org/dc/elements/1.1/>PREFIX owl: <http://www.w3.org/2002/07/owl#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX core: <http://www.oil-e.net/ontology/rm-core.owl#>PREFIX rm: <http://www.oil-e.net/ontology/rm-archetypes.owl#>SELECT DISTINCT ?capability ?clabel ?object ?olabel WHERE {<"+keyclass+"> rdfs:subClassOf [owl:onProperty rm:providesCapability; owl:hasValue ?capability].?object rdfs:subClassOf [owl:onProperty rm:invokesCapability; owl:hasValue ?capability].?capability rdfs:label ?clabel.?object rdfs:label ?olabel.}" ;
+					        for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+					        	checkedArray[i] = jsonObj.results.bindings[i];
+					        }
+					        
+					        result = " <table border='2' cellpadding='9'>" ;
+					        for(var i = 0; i<  jsonObj.results.bindings.length; i++) {
+					          result += " <tr><td><input type='checkbox' id='"+jsonObj.results.bindings[i].label.value+"'>" + jsonObj.results.bindings[i].label.value;
+					          result += " </td><td>" + jsonObj.results.bindings[i].description.value;
+					          result += " </td></tr>"; 
+					        } 
+					        result += "</table>" ;
+					        document.getElementById("myOutput").innerHTML = result;
+					        
+					        
+					        
+					     
+					   }
+					      
+					      
+					    </script>
     		   
     		  
-	 		<div id="visualTitle"></div>
-	 		<div id="outputMenu"></div>
-	 		<div id="loader"></div>
-			<br><br>
-			<div id="visualOutputNav" class="visualOutputNav"></div>
-			<br><br>
-			<div id="visualOutput" class="visualOutput"></div>
-	 		<br><br>
-	 		<hr>
-	 		<div id="suggestionsTitle"></div> 
-	 		<br><br>
-			<div id="visualOutputNavSug" class="visualOutputNav"></div>
-			<br><br>
-			<div id="visualOutputSug" class="visualOutput"></div>
+				 		<div id="visualTitle"></div>
+				 		<div id="outputMenu"></div>
+				 		<div id="loader"></div>
+						<br><br>
+						<div id="visualOutputNav" class="visualOutputNav"></div>
+						<br><br>
+						<div id="visualOutput" class="visualOutput"></div>
+				 		<br><br>
+				 		<hr>
+				 		<div id="suggestionsTitle"></div> 
+				 		<br><br>
+						<div id="visualOutputNavSug" class="visualOutputNav"></div>
+						<br><br>
+						<div id="visualOutputSug" class="visualOutput"></div>
 			
-	  </div>
-	  </div>
-	</div>
-</div>
-		<!-- Footer -->
+	  					</div>
+	  				</div>
+				</div>
+			</div>
+			<!-- Footer -->
 			<footer id="footer">
 				<a href="#" class="info fa fa-info-circle"><span>About</span></a>
 				<div class="inner">
@@ -647,16 +645,12 @@
 						</p>
 						</div>
 						
-					<div class="copyright">
-
-						&copy; SAG 2017. 
-					</div>
+					<div class="copyright">&copy; SAG 2017. </div>
 				
-				
-			</div>
+				</div>
 			</footer>
 			
-		<!-- Scripts -->
+			<!-- Scripts -->
 			<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		
       		<script type = "text/javascript" 
